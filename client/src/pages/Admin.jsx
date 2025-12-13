@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
+import API_BASE_URL from '../api'
 
 const TINYMCE_API_KEY = 'rsvjyn2yz8v2n9ve7v2pnwzba5aci9buts3e0wwivk2kajgf'
 
@@ -8,14 +9,14 @@ export default function Admin({navigate}){
   const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
-    fetch('http://localhost:5000/api/hero').then(r=>r.json()).then(data=>{
+    fetch(`${API_BASE_URL}/api/hero`).then(r=>r.json()).then(data=>{
       setHero(prev=>({ ...prev, ...data }))
     }).catch(()=>{}).finally(()=>setLoading(false))
   },[])
 
   const save = async ()=>{
     try {
-      const response = await fetch('http://localhost:5000/api/hero', { 
+      const response = await fetch(`${API_BASE_URL}/api/hero`, { 
         method:'PUT', 
         headers:{'Content-Type':'application/json'}, 
         body: JSON.stringify(hero)

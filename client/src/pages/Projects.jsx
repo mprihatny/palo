@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import API_BASE_URL from '../api'
 
 export default function Projects({navigate, category}){
   const [pages, setPages] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
-    fetch('http://localhost:5000/api/pages')
+    fetch(`${API_BASE_URL}/api/pages`)
       .then(r=>r.json())
       .then(data=>{
         setPages(data)

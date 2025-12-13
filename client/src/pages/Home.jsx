@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import API_BASE_URL from '../api'
 
 const HERO_IMAGE = 'https://i.postimg.cc/C59V7gs1/hlavne-foto1.jpg'
 
@@ -7,7 +8,7 @@ export default function Home({navigate}){
 
   useEffect(()=>{
     const loadHero = ()=>{
-      fetch('http://localhost:5000/api/hero').then(r=>r.json()).then(data=>{
+      fetch(`${API_BASE_URL}/api/hero`).then(r=>r.json()).then(data=>{
         if (data && Object.keys(data).length) setHero(prev=>({ ...prev, ...data }))
       }).catch(err=> console.log('Failed to fetch hero:', err.message))
     }
