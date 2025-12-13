@@ -1,0 +1,13 @@
+{
+  "name": "palostranka",
+  "version": "1.0.0",
+  "description": "Palostranka full-stack app",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "cd server && node index.js",
+    "dev": "cd server && nodemon index.js"
+  },
+  "engines": {
+    "node": "18"
+  }
+}
