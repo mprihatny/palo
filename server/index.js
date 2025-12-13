@@ -42,6 +42,11 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   console.warn('MongoDB connection error:', err.message);
 });
 
+// Health check
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Server is running' });
+});
+
 // Hero endpoints
 app.get('/api/hero', async (req, res) => {
   const hero = await Hero.findOne();
