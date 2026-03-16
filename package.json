@@ -1,22 +1,18 @@
 {
-  "name": "palostranka-server",
+  "name": "palostranka",
   "version": "0.1.0",
-  "main": "server/index.js",
+  "private": true,
+  "description": "Palostranka - Frontend & Backend App",
   "scripts": {
-    "start": "cd server && node index.js",
-    "dev": "cd server && nodemon index.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.0",
-    "express": "^4.18.2",
-    "mongoose": "^7.0.0",
-    "multer": "^1.4.4"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.0"
+    "build": "cd client && npm install && npm run build",
+    "dev": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "start": "cd server && npm start"
   },
   "engines": {
     "node": "18"
-  }
+  },
+  "keywords": ["palostranka", "frontend", "react", "vite"],
+  "author": "",
+  "license": "MIT"
 }
