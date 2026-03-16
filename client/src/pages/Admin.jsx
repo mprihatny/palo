@@ -122,7 +122,7 @@ function AddPageForm(){
     }
     setSubmitting(true)
     try {
-      const res = await fetch('http://localhost:5000/api/pages', { 
+      const res = await fetch(`${API_BASE_URL}/api/pages`, { 
         method:'POST', 
         headers:{'Content-Type':'application/json'}, 
         body: JSON.stringify({ title, content, category }) 
@@ -147,7 +147,7 @@ function AddPageForm(){
   const imageUploadHandler = (blobInfo, success, failure) => {
     const form = new FormData()
     form.append('file', blobInfo.blob(), blobInfo.filename())
-    fetch('http://localhost:5000/api/upload', { method: 'POST', body: form })
+    fetch(`${API_BASE_URL}/api/upload`, { method: 'POST', body: form })
       .then(r=>r.json())
       .then(data => {
         success(data.url)
