@@ -11,3 +11,5 @@ server/uploads/
 .git/
 package.server.json
 package-vercel.json
+.vercel
+.env*.local

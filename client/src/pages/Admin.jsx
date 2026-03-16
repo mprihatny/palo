@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import API_BASE_URL from '../api'
 
-const TINYMCE_API_KEY = 'rsvjyn2yz8v2n9ve7v2pnwzba5aci9buts3e0wwivk2kajgf'
+const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
   const [hero, setHero] = useState({ title:'', subtitle:'', style:{ color:'#ffffff', fontWeight:'600', fontSize:'48px' } })
@@ -44,7 +44,7 @@ export default function Admin({navigate}){
             <div>
               <label>Hero Quote / Main Text (Rich Editor)</label>
               <Editor
-                // apiKey={TINYMCE_API_KEY}  // Commented out - using free version
+                apiKey={TINYMCE_API_KEY}
                 value={hero.title||''}
                 init={{
                   height: 250,
