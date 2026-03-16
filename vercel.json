@@ -2,7 +2,7 @@
   "buildCommand": "cd client && npm install && npm run build",
   "outputDirectory": "client/dist",
   "devCommand": "cd client && npm run dev",
+  "installCommand": "cd client && npm install",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "installCommand": "npm install"
+  "trailingSlash": false
 }
