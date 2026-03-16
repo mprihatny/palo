@@ -44,7 +44,7 @@ export default function Admin({navigate}){
             <div>
               <label>Hero Quote / Main Text (Rich Editor)</label>
               <Editor
-                apiKey={TINYMCE_API_KEY}
+                // apiKey={TINYMCE_API_KEY}
                 value={hero.title||''}
                 init={{
                   height: 250,
