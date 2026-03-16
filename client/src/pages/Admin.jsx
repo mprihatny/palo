@@ -172,7 +172,7 @@ function AddPageForm(){
       <div>
         <label>Content (Rich Editor - upload images by drag/click in editor)</label>
         <Editor
-          apiKey={TINYMCE_API_KEY}
+          // apiKey={TINYMCE_API_KEY}
           value={content}
           init={{
             height: 400,
