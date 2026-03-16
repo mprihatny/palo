@@ -7,9 +7,6 @@
     "dev:server": "npm --prefix server run dev",
     "start:server": "npm --prefix server start"
   },
-  "engines": {
-    "node": "18"
-  },
   "keywords": ["palostranka", "frontend", "react", "vite"],
   "author": "",
   "license": "MIT"
