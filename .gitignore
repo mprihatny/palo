@@ -9,3 +9,5 @@ build/
 client/dist/
 server/uploads/
 .git/
+package.server.json
+package-vercel.json
