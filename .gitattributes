@@ -1,0 +1,6 @@
+* text=auto
+*.json eol=lf
+*.js eol=lf
+*.jsx eol=lf
+*.md eol=lf
+package.json eol=lf
