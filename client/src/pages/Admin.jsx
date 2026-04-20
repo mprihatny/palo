@@ -280,6 +280,7 @@ function AddPageForm(){
       <div>
         <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Obsah (Rich Editor - nahraj obrázky ťahaním)</label>
         <Editor
+          apiKey={TINYMCE_API_KEY}
           value={content}
           init={{
             height: 400,
