@@ -1,0 +1,12 @@
+{
+  "railway": {
+    "buildCommand": "npm run build",
+    "startCommand": "npm start",
+    "environments": {
+      "production": {
+        "buildCommand": "npm run build",
+        "startCommand": "npm start"
+      }
+    }
+  }
+}

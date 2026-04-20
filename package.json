@@ -5,7 +5,11 @@
   "description": "Palostranka - Frontend & Backend App",
   "scripts": {
     "dev:server": "npm --prefix server run dev",
-    "start:server": "npm --prefix server start"
+    "start:server": "npm --prefix server start",
+    "build:client": "npm --prefix client run build",
+    "build": "npm run build:client && node scripts/copyBuild.js",
+    "start": "npm --prefix server start",
+    "postinstall": "npm install --prefix client && npm install --prefix server"
   },
   "keywords": ["palostranka", "frontend", "react", "vite"],
   "author": "",

@@ -13,6 +13,18 @@ app.use(express.json());
 // serve uploaded files
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
+// serve frontend build in production
+const path = require('path');
+if (process.env.NODE_ENV === 'production') {
+  const publicPath = path.join(__dirname, 'public');
+  app.use(express.static(publicPath));
+  app.get('*', (req, res) => {
+    if (!req.path.startsWith('/api')) {
+      res.sendFile(path.join(publicPath, 'index.html'));
+    }
+  });
+}
+
 // file upload support
 const multer = require('multer');
 const path = require('path');
