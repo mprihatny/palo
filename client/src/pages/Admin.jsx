@@ -78,6 +78,7 @@ export default function Admin({navigate}){
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Text v Heru (Rich Editor)</label>
               <Editor
+                apiKey={TINYMCE_API_KEY}
                 value={hero.title||''}
                 init={{
                   height: 250,
