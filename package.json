@@ -8,8 +8,7 @@
     "start:server": "npm --prefix server start",
     "build:client": "npm --prefix client run build",
     "build": "npm run build:client && node scripts/copyBuild.js",
-    "start": "npm --prefix server start",
-    "postinstall": "npm install --prefix client && npm install --prefix server"
+    "start": "npm --prefix server start"
   },
   "keywords": ["palostranka", "frontend", "react", "vite"],
   "author": "",
