@@ -212,7 +212,8 @@ export default function Admin({navigate}){
 function AddPageForm(){
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [category, setCategory] = useState('Autobúsiia liście')
+  const [category, setCategory] = useState('Autorské texty')
+  const [type, setType] = useState('Knihy')
   const [submitting, setSubmitting] = useState(false)
 
   const submit = async ()=>{
@@ -225,11 +226,11 @@ function AddPageForm(){
       const res = await fetch(`${API_BASE_URL}/api/pages`, { 
         method:'POST', 
         headers:{'Content-Type':'application/json'}, 
-        body: JSON.stringify({ title, content, category }) 
+        body: JSON.stringify({ title, content, category, type }) 
       })
       if (res.ok) {
         alert('✓ Príspěvok pridaný!')
-        setTitle(''); setContent(''); setCategory('Autobúsiia liście')
+        setTitle(''); setContent(''); setCategory('Autorské texty'); setType('Knihy')
       } else {
         alert('Chyba pri pridávaní príspěvku')
       }
@@ -272,9 +273,20 @@ function AddPageForm(){
           onChange={e=>setCategory(e.target.value)}
           style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
         >
-          <option>Autobúsiia liście</option>
-          <option>Podobne</option>
-          <option>Financovanie</option>
+          <option>Autorské texty</option>
+          <option>Preklady</option>
+          <option>Pripravované</option>
+        </select>
+      </div>
+      <div>
+        <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Typ</label>
+        <select 
+          value={type} 
+          onChange={e=>setType(e.target.value)}
+          style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+        >
+          <option>Knihy</option>
+          <option>Štúdie</option>
         </select>
       </div>
       <div>
