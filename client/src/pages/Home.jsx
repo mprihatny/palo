@@ -97,8 +97,7 @@ export default function Home({navigate}){
             )}
           </div>
         </div>
-
-      <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
+      </div>
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* About section - "O mne" */}
