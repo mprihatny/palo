@@ -97,7 +97,8 @@ export default function Home({navigate}){
             )}
           </div>
         </div>
-      </div>
+
+      <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* About section - "O mne" */}
@@ -156,41 +157,47 @@ export default function Home({navigate}){
         </section>
 
         {/* YouTube section */}
-        <section style={{padding:'60px 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
-          <div style={{textAlign:'center', maxWidth:'800px', margin:'0 auto'}}>
-            <h2 style={{marginBottom:'32px'}}>Komerčné príspěvky na YouTube</h2>
-            <p style={{fontSize:'17px', color:'var(--text-light)', lineHeight:1.85, marginBottom:'40px', fontFamily:"'Radio Canada', sans-serif"}}>
-              Komentáre (priestor na obrázok a odkaz na youtube)
-            </p>
-            <a href="#" style={{
-              display:'inline-block',
-              padding:'12px 32px',
-              background:'var(--color-red)',
-              color:'white',
-              textDecoration:'none',
-              borderRadius:'4px',
-              fontWeight:600,
-              fontSize:'16px',
-              transition:'all 300ms ease',
-              fontFamily:"'Radio Canada', sans-serif"
-            }}
-            onMouseEnter={(e)=>{e.target.style.background = 'var(--color-dark)', e.target.style.transform = 'scale(1.05)'}}
-            onMouseLeave={(e)=>{e.target.style.background = 'var(--color-red)', e.target.style.transform = 'scale(1)'}}
-            >
-              Videa
-            </a>
-          </div>
-        </section>
+        {hero.youtubeImage && hero.youtubeUrl && (
+          <section style={{padding:'60px 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
+            <div style={{textAlign:'center', maxWidth:'900px', margin:'0 auto'}}>
+              <h2 style={{marginBottom:'32px'}}>Komerčné príspěvky na YouTube</h2>
+              <img 
+                src={hero.youtubeImage} 
+                alt="YouTube"
+                style={{width:'100%', maxWidth:'600px', height:'auto', objectFit:'cover', borderRadius:'8px', marginBottom:'24px'}}
+              />
+              <a href={hero.youtubeUrl} target="_blank" rel="noopener noreferrer" style={{
+                display:'inline-block',
+                padding:'12px 32px',
+                background:'var(--color-red)',
+                color:'white',
+                textDecoration:'none',
+                borderRadius:'4px',
+                fontWeight:600,
+                fontSize:'16px',
+                transition:'all 300ms ease',
+                fontFamily:"'Radio Canada', sans-serif"
+              }}
+              onMouseEnter={(e)=>{e.currentTarget.style.background = 'var(--color-dark)', e.currentTarget.style.transform = 'scale(1.05)'}}
+              onMouseLeave={(e)=>{e.currentTarget.style.background = 'var(--color-red)', e.currentTarget.style.transform = 'scale(1)'}}
+              >
+                Pozri videa
+              </a>
+            </div>
+          </section>
+        )}
 
-        {/* Preview text section */}
-        <section style={{padding:'60px 0'}}>
-          <div style={{textAlign:'center', maxWidth:'800px', margin:'0 auto', padding:'40px', background:'rgba(212, 148, 95, 0.08)', borderRadius:'8px', borderLeft:'4px solid var(--color-honey)'}}>
-            <h3 style={{fontSize:'20px', marginBottom:'16px', color:'var(--color-red)'}}>Texty/Citáty</h3>
-            <p style={{fontSize:'16px', color:'var(--text-light)', lineHeight:1.85, margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
-              Priestor na krátky text/citáciu
-            </p>
-          </div>
-        </section>
+        {/* Quote section */}
+        {hero.quote && (
+          <section style={{padding:'60px 0'}}>
+            <div style={{textAlign:'center', maxWidth:'800px', margin:'0 auto', padding:'40px', background:'rgba(212, 148, 95, 0.08)', borderRadius:'8px', borderLeft:'4px solid var(--color-honey)'}}>
+              <h3 style={{fontSize:'20px', marginBottom:'16px', color:'var(--color-red)'}}>Texty/Citáty</h3>
+              <p style={{fontSize:'16px', color:'var(--text-light)', lineHeight:1.85, margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
+                {hero.quote}
+              </p>
+            </div>
+          </section>
+        )}
       </div>
     </div>
   )

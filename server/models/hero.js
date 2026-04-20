@@ -7,7 +7,10 @@ const HeroSchema = new mongoose.Schema({
     color: { type: String, default: '#000' },
     fontWeight: { type: String, default: '400' },
     fontSize: { type: String, default: '48px' }
-  }
+  },
+  quote: { type: String, default: 'Priestor na krátky text/citáciu' },
+  youtubeImage: { type: String, default: '' },
+  youtubeUrl: { type: String, default: '' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Hero', HeroSchema);

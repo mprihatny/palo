@@ -5,7 +5,7 @@ import API_BASE_URL from '../api'
 const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
-  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', youtubeImage:'', youtubeUrl:'' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -143,6 +143,33 @@ export default function Admin({navigate}){
                 />
                 <span style={{fontSize:12, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>pixelov</span>
               </div>
+            </div>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Text/Citácia</label>
+              <textarea 
+                value={hero.quote||''} 
+                onChange={e=>setHero({...hero, quote:e.target.value})} 
+                placeholder="Priestor na krátky text/citáciu..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, minHeight:80, resize:'vertical'}}
+              />
+            </div>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube - URL na obrázok</label>
+              <input 
+                value={hero.youtubeImage||''} 
+                onChange={e=>setHero({...hero, youtubeImage:e.target.value})} 
+                placeholder="https://..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
+            </div>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube - Odkaz na video</label>
+              <input 
+                value={hero.youtubeUrl||''} 
+                onChange={e=>setHero({...hero, youtubeUrl:e.target.value})} 
+                placeholder="https://youtube.com/watch?v=..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
             </div>
             <div style={{display:'flex', gap:12, paddingTop:12}}>
               <button 
