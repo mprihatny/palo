@@ -15,7 +15,7 @@ export default function Footer({navigate}){
           <div>
             <h3 style={{fontSize:'18px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Kapucíni na Slovensku</h3>
             <p style={{fontSize:'14px', color:'var(--text-light)', lineHeight:1.75, margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
-              Stránka venovaná duchovnému obsahu, pekldom francúzskych kapucínskych autorov a premýšľaniam pre osobnú vieru.
+              Pavel P.
             </p>
           </div>
 
@@ -63,7 +63,7 @@ export default function Footer({navigate}){
           gap:'16px'
         }}>
           <p style={{fontSize:'13px', color:'var(--text-light)', margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
-            © 2025 Kapucíni na Slovensku. Všetky práva vyhradené.
+            © 2026 Všetky práva vyhradené.
           </p>
           <a 
             onClick={()=>window.location.href = 'mailto:info@kapucini.sk'}
@@ -71,7 +71,7 @@ export default function Footer({navigate}){
             onMouseEnter={(e)=>e.target.style.color='var(--color-red)'}
             onMouseLeave={(e)=>e.target.style.color='var(--color-honey)'}
           >
-            kontakt@kapucini.sk
+            pavelp@gmail.com (priestor pre email)
           </a>
         </div>
       </div>

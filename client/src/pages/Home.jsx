@@ -57,9 +57,9 @@ export default function Home({navigate}){
   }
 
   const categories = [
-    { name: 'Autobúsiia liście', icon: '✍️', color: '#D4945F', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' },
-    { name: 'Podobne', icon: '📖', color: '#931413', image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg' },
-    { name: 'Financovanie', icon: '🙏', color: '#6D5450', image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg' }
+    { name: 'Autorské texty', icon: '✍️', color: '#D4945F', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' },
+    { name: 'Preklady', icon: '📖', color: '#931413', image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg' },
+    { name: 'Pripravované', icon: '🙏', color: '#6D5450', image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg' }
   ]
 
   return (
@@ -160,7 +160,7 @@ export default function Home({navigate}){
           <div style={{textAlign:'center', maxWidth:'800px', margin:'0 auto'}}>
             <h2 style={{marginBottom:'32px'}}>Komerčné príspěvky na YouTube</h2>
             <p style={{fontSize:'17px', color:'var(--text-light)', lineHeight:1.85, marginBottom:'40px', fontFamily:"'Radio Canada', sans-serif"}}>
-              Sleduj môj kanál na YouTube, kde zdielam duchovné premýšľania, výklady textov a modlitby. Novy obsah pribiham pravidelne.
+              Komentáre (priestor na obrázok a odkaz na youtube)
             </p>
             <a href="#" style={{
               display:'inline-block',
@@ -177,7 +177,7 @@ export default function Home({navigate}){
             onMouseEnter={(e)=>{e.target.style.background = 'var(--color-dark)', e.target.style.transform = 'scale(1.05)'}}
             onMouseLeave={(e)=>{e.target.style.background = 'var(--color-red)', e.target.style.transform = 'scale(1)'}}
             >
-              Otvor kanál →
+              Videa
             </a>
           </div>
         </section>
@@ -185,9 +185,9 @@ export default function Home({navigate}){
         {/* Preview text section */}
         <section style={{padding:'60px 0'}}>
           <div style={{textAlign:'center', maxWidth:'800px', margin:'0 auto', padding:'40px', background:'rgba(212, 148, 95, 0.08)', borderRadius:'8px', borderLeft:'4px solid var(--color-honey)'}}>
-            <h3 style={{fontSize:'20px', marginBottom:'16px', color:'var(--color-red)'}}>Preview na kritické texty</h3>
+            <h3 style={{fontSize:'20px', marginBottom:'16px', color:'var(--color-red)'}}>Texty/Citáty</h3>
             <p style={{fontSize:'16px', color:'var(--text-light)', lineHeight:1.85, margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
-              Čoskoro prídu nové texty. Chceš byť medzi prvými, ktorí sa dozvedia o novinkách? Pozri si môj newsletter.
+              Priestor na krátky text/citáciu
             </p>
           </div>
         </section>
