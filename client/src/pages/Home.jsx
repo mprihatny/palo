@@ -5,17 +5,46 @@ const HERO_IMAGE = 'https://i.postimg.cc/C59V7gs1/hlavne-foto1.jpg'
 
 export default function Home({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(()=>{
-    const loadHero = ()=>{
-      fetch(`${API_BASE_URL}/api/hero`).then(r=>r.json()).then(data=>{
-        if (data && Object.keys(data).length) setHero(prev=>({ ...prev, ...data }))
-      }).catch(err=> console.log('Failed to fetch hero:', err.message))
+    let isMounted = true
+    let retries = 0
+    const maxRetries = 3
+
+    const loadHero = async () => {
+      try {
+        setError(null)
+        const response = await fetch(`${API_BASE_URL}/api/hero`, { signal: AbortSignal.timeout(5000) })
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        const data = await response.json()
+        if (isMounted) {
+          if (data && Object.keys(data).length) {
+            setHero(prev => ({ ...prev, ...data }))
+            retries = 0
+          }
+          setLoading(false)
+        }
+      } catch (err) {
+        if (isMounted) {
+          console.log('Failed to fetch hero:', err.message)
+          setError(err.message)
+          if (retries < maxRetries) {
+            retries++
+            setTimeout(loadHero, 2000)
+          } else {
+            setLoading(false)
+          }
+        }
+      }
     }
     
     loadHero()
-    const interval = setInterval(loadHero, 2000)
-    return ()=> clearInterval(interval)
+    
+    return () => {
+      isMounted = false
+    }
   },[])
 
   const dynamicStyle = {
@@ -54,8 +83,18 @@ export default function Home({navigate}){
             padding:'48px 24px',
             zIndex:2
           }}>
-            <div style={{...dynamicStyle}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
-            {hero.subtitle && <p style={{color:'#E1DED2', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif"}}>{hero.subtitle}</p>}
+            {loading ? (
+              <div style={{color:'#E1DED2', fontSize:'24px', fontFamily:"'Radio Canada', sans-serif"}}>Načítavam...</div>
+            ) : error ? (
+              <div style={{color:'#E1DED2', fontSize:'18px', fontFamily:"'Radio Canada', sans-serif"}}>
+                <p>Problém s načítaním. Prosím obnovte stránku.</p>
+              </div>
+            ) : (
+              <>
+                <div style={{...dynamicStyle}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
+                {hero.subtitle && <p style={{color:'#E1DED2', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif"}}>{hero.subtitle}</p>}
+              </>
+            )}
           </div>
         </div>
       </div>

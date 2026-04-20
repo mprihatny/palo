@@ -7,11 +7,34 @@ const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 export default function Admin({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(()=>{
-    fetch(`${API_BASE_URL}/api/hero`).then(r=>r.json()).then(data=>{
-      setHero(prev=>({ ...prev, ...data }))
-    }).catch(()=>{}).finally(()=>setLoading(false))
+    let retries = 0
+    const maxRetries = 3
+
+    const loadHero = async () => {
+      try {
+        setError(null)
+        const response = await fetch(`${API_BASE_URL}/api/hero`, { signal: AbortSignal.timeout(5000) })
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        const data = await response.json()
+        setHero(prev=>({ ...prev, ...data }))
+        setLoading(false)
+        retries = 0
+      } catch (err) {
+        console.error('Load error:', err)
+        setError(err.message)
+        if (retries < maxRetries) {
+          retries++
+          setTimeout(loadHero, 2000)
+        } else {
+          setLoading(false)
+        }
+      }
+    }
+    
+    loadHero()
   },[])
 
   const save = async ()=>{
@@ -31,7 +54,18 @@ export default function Admin({navigate}){
     }
   }
 
-  if(loading) return <div style={{padding:'40px 24px', textAlign:'center', fontFamily:"'Radio Canada', sans-serif"}}>Načítavam...</div>
+  if(loading) return (
+    <div style={{padding:'40px 24px', textAlign:'center', fontFamily:"'Radio Canada', sans-serif"}}>
+      {error ? (
+        <>
+          <p>Chyba: {error}</p>
+          <p>Skúšam opraviť pripojenie...</p>
+        </>
+      ) : (
+        <p>Načítavam...</p>
+      )}
+    </div>
+  )
 
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)'}}>
