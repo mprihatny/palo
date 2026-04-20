@@ -13,7 +13,7 @@ export default function Footer({navigate}){
         <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:'48px', marginBottom:'48px'}}>
           {/* About */}
           <div>
-            <h3 style={{fontSize:'18px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Kapucíni na Slovensku</h3>
+            <h3 style={{fontSize:'18px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Užitočné odkazy</h3>
             <p style={{fontSize:'14px', color:'var(--text-light)', lineHeight:1.75, margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
               Pavel P.
             </p>

@@ -131,20 +131,3 @@ export default function Projects({navigate, category}){
     </div>
   )
 }
-            padding:'12px 28px',
-            borderRadius:'4px',
-            transition:'all 300ms ease',
-            fontFamily:"'Radio Canada', sans-serif"
-          }}
-          onMouseEnter={(e)=>{e.target.style.background='var(--color-red)', e.target.style.transform='scale(1.05)'}}
-          onMouseLeave={(e)=>{e.target.style.background='var(--color-honey)', e.target.style.transform='scale(1)'}}
-        >
-          <svg style={{width:16, height:16}} fill="currentColor" viewBox="0 0 16 16">
-            <path d="m3.5 8 4.5-4.5M3.5 8l4.5 4.5"/>
-          </svg>
-          Späť
-        </button>
-      </div>
-    </div>
-  )
-}

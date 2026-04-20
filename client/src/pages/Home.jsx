@@ -147,7 +147,6 @@ export default function Home({navigate}){
                     {cat.name}
                   </h3>
                   <p style={{fontSize:'16px', color:'var(--text-light)', marginBottom:'16px', fontFamily:"'Radio Canada', sans-serif"}}>
-                    Zájmi tu nájdeš zoznam s mojimi prácami v tejto kategórii.
                   </p>
                 </div>
               </div>
