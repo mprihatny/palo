@@ -1,75 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;600;700&family=Radio+Canada:wght@400;600;700&display=swap');
+
 :root{
-	/* Kapucínske farby podľa dizajn manuálu */
-	--kapucin-brown: #6B4423; /* Hlavná kapucínska hnedá */
-	--kapucin-gold: #D4A055; /* Kapucínska zlatá */
-	--kapucin-light: #F5EFE7; /* Svetlé pozadie */
-	--kapucin-cream: #FAF7F2; /* Krémová */
-	--kapucin-dark: #3D2817; /* Tmavá hnedá */
-	--kapucin-medium: #8B6239; /* Stredná hnedá */
+	/* Farby podľa dizajn manuálu Kapucíni na Slovensku */
+	--color-light: #E1DED2;      /* Veľmi svetlá */
+	--color-honey: #D4945F;      /* Medová/hnedá */
+	--color-red: #931413;        /* Tmavočervená */
+	--color-gray: #6D5450;       /* Tmavošedá */
+	--color-dark: #40332D;       /* Veľmi tmavá */
 	
 	/* Aplikované farby */
-	--bg: var(--kapucin-cream);
-	--accent: var(--kapucin-gold);
-	--accent-dark: var(--kapucin-brown);
-	--muted: var(--kapucin-medium);
-	--deep: var(--kapucin-dark);
-	--text: #2C1810;
-	--text-light: #6B5847;
-	--border: rgba(107, 68, 35, 0.12);
-	--shadow-sm: 0 2px 8px rgba(61, 40, 23, 0.06);
-	--shadow-md: 0 4px 16px rgba(61, 40, 23, 0.1);
-	--shadow-lg: 0 12px 32px rgba(61, 40, 23, 0.15);
+	--bg: var(--color-light);
+	--accent: var(--color-honey);
+	--accent-dark: var(--color-red);
+	--muted: var(--color-gray);
+	--deep: var(--color-dark);
+	--text: #40332D;
+	--text-light: #6D5450;
+	--border: rgba(64, 51, 45, 0.12);
+	--shadow-sm: 0 2px 8px rgba(64, 51, 45, 0.06);
+	--shadow-md: 0 4px 16px rgba(64, 51, 45, 0.1);
+	--shadow-lg: 0 12px 32px rgba(64, 51, 45, 0.15);
 }
 
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
 body { 
-	font-family: 'EB Garamond', 'Garamond', 'Times New Roman', serif;
+	font-family: 'Radio Canada', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	background: var(--bg); 
 	color: var(--text); 
 	-webkit-font-smoothing: antialiased; 
 	-moz-osx-font-smoothing: grayscale;
 	line-height: 1.75;
-	font-size: 18px;
+	font-size: 16px;
+	font-weight: 400;
 }
 
-/* Typography - elegantnějšia, duchovná */
+/* Typography */
 h1, h2, h3, h4, h5, h6 { 
 	margin: 0; 
 	font-weight: 600;
-	font-family: 'EB Garamond', 'Garamond', 'Times New Roman', serif;
+	font-family: 'Hahmlet', 'Times New Roman', serif;
 	letter-spacing: 0.3px;
 }
 h1 { 
-	font-size: 42px; 
-	color: var(--kapucin-brown); 
+	font-size: 48px; 
+	color: var(--color-dark); 
 	margin-bottom: 20px;
 	font-weight: 700;
+	line-height: 1.2;
 }
 h2 { 
-	font-size: 32px; 
-	color: var(--kapucin-brown); 
+	font-size: 36px; 
+	color: var(--color-dark); 
+	margin-bottom: 24px;
+	font-weight: 600;
+	line-height: 1.3;
+}
+h3 { 
+	font-size: 26px; 
+	color: var(--color-red); 
 	margin-bottom: 16px;
 	font-weight: 600;
 }
-h3 { 
-	font-size: 24px; 
-	color: var(--kapucin-dark); 
-	margin-bottom: 12px;
-	font-weight: 600;
+p {
+	font-family: 'Radio Canada', sans-serif;
+	font-size: 16px;
+	line-height: 1.75;
+	color: var(--text-light);
 }
 
-/* Hero / image - elegantný s jemným rámom */
+/* Hero / image - podľa dizajn manuálu */
 .hero-container { 
 	position: relative; 
-	height: 520px; 
+	height: 460px; 
 	overflow: hidden; 
 	background: transparent; 
-	padding: 24px; 
+	padding: 20px; 
 	border-radius: 0;
 	box-shadow: none;
 	margin-bottom: 0;
-	max-width: 1400px;
+	max-width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -77,25 +87,25 @@ h3 {
 	width: 100%; 
 	height: 100%; 
 	object-fit: cover; 
-	border-radius: 16px;
+	border-radius: 8px;
 	display: block;
-	filter: brightness(0.88) contrast(1.05);
-	box-shadow: 0 8px 32px rgba(61, 40, 23, 0.15);
+	filter: brightness(0.92) contrast(1.05) saturate(0.95);
+	box-shadow: 0 8px 32px rgba(64, 51, 45, 0.12);
 }
 
 /* Jemný gradient pre čitateľnosť textu */
 .hero-container::after {
 	content: '';
 	position: absolute;
-	left: 24px; 
-	right: 24px; 
-	top: 24px; 
-	bottom: 24px;
+	left: 20px; 
+	right: 20px; 
+	top: 20px; 
+	bottom: 20px;
 	pointer-events: none;
 	background: linear-gradient(to bottom, 
-		rgba(61, 40, 23, 0.5) 0%, 
-		rgba(61, 40, 23, 0.3) 30%, 
-		rgba(61, 40, 23, 0.2) 50%,
+		rgba(64, 51, 45, 0.4) 0%, 
+		rgba(64, 51, 45, 0.25) 30%, 
+		rgba(64, 51, 45, 0.1) 50%,
 		transparent 80%);
 	z-index: 1;
 	display: block;

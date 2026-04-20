@@ -5,7 +5,7 @@ import API_BASE_URL from '../api'
 const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
-  const [hero, setHero] = useState({ title:'', subtitle:'', style:{ color:'#ffffff', fontWeight:'600', fontSize:'48px' } })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
   const [loading, setLoading] = useState(true)
 
   useEffect(()=>{
@@ -31,20 +31,19 @@ export default function Admin({navigate}){
     }
   }
 
-  if(loading) return <div className="container" style={{padding:'40px 24px', textAlign:'center'}}>Loading...</div>
+  if(loading) return <div style={{padding:'40px 24px', textAlign:'center', fontFamily:"'Radio Canada', sans-serif"}}>Načítavam...</div>
 
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)'}}>
-      <div className="container">
-        <h1 style={{marginTop:24}}>Admin Panel</h1>
+      <div style={{maxWidth:'1200px', margin:'0 auto', padding:'40px 24px'}}>
+        <h1 style={{marginTop:0, marginBottom:40, fontFamily:"'Hahmlet', serif"}}>Admin Panel</h1>
         
-        <section style={{background:'#fff', padding:28, borderRadius:12, boxShadow:'var(--shadow-sm)', marginBottom:32}}>
-          <h2 style={{fontSize:22}}>Hero Settings</h2>
-          <div style={{display:'grid', gap:16, maxWidth:900}}>
+        <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', marginBottom:40, border:'1px solid var(--border)'}}>
+          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Nastavenia Heru</h2>
+          <div style={{display:'grid', gap:24, maxWidth:900}}>
             <div>
-              <label>Hero Quote / Main Text (Rich Editor)</label>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Text v Heru (Rich Editor)</label>
               <Editor
-                // apiKey={TINYMCE_API_KEY}
                 value={hero.title||''}
                 init={{
                   height: 250,
@@ -59,49 +58,115 @@ export default function Admin({navigate}){
               />
             </div>
             <div>
-              <label>Subtitle</label>
-              <input value={hero.subtitle||''} onChange={e=>setHero({...hero, subtitle:e.target.value})} placeholder="Optional subtitle..." />
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Podtitul (voliteľný)</label>
+              <input 
+                value={hero.subtitle||''} 
+                onChange={e=>setHero({...hero, subtitle:e.target.value})} 
+                placeholder="Voliteľný podtitul..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
             </div>
             <div>
-              <label>Text Color</label>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Farba textu</label>
               <div style={{display:'flex', gap:12, alignItems:'center'}}>
-                <input type="color" value={hero.style?.color||'#ffffff'} onChange={e=>setHero({...hero, style:{...hero.style, color:e.target.value}})} style={{width:60, height:40, cursor:'pointer'}} />
-                <input type="text" value={hero.style?.color||''} onChange={e=>setHero({...hero, style:{...hero.style, color:e.target.value}})} placeholder="#ffffff" style={{flex:1}} />
+                <input 
+                  type="color" 
+                  value={hero.style?.color||'#E1DED2'} 
+                  onChange={e=>setHero({...hero, style:{...hero.style, color:e.target.value}})} 
+                  style={{width:60, height:40, cursor:'pointer', border:'1px solid var(--border)', borderRadius:'4px'}} 
+                />
+                <input 
+                  type="text" 
+                  value={hero.style?.color||''} 
+                  onChange={e=>setHero({...hero, style:{...hero.style, color:e.target.value}})} 
+                  placeholder="#E1DED2" 
+                  style={{flex:1, padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+                />
               </div>
             </div>
             <div>
-              <label>Font Weight</label>
-              <select value={hero.style?.fontWeight||'600'} onChange={e=>setHero({...hero, style:{...hero.style, fontWeight:e.target.value}})}>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Váha fontu</label>
+              <select 
+                value={hero.style?.fontWeight||'700'} 
+                onChange={e=>setHero({...hero, style:{...hero.style, fontWeight:e.target.value}})}
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              >
                 <option value="400">400 - Regular</option>
                 <option value="600">600 - Semi Bold</option>
                 <option value="700">700 - Bold</option>
               </select>
             </div>
             <div>
-              <label>Font Size</label>
-              <input type="number" value={parseInt(hero.style?.fontSize)||48} onChange={e=>setHero({...hero, style:{...hero.style, fontSize:e.target.value + 'px'}})} placeholder="48" style={{maxWidth:120}} />
-              <span style={{fontSize:12, color:'var(--text-light)'}}>in pixels</span>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Veľkosť fontu</label>
+              <div style={{display:'flex', alignItems:'center', gap:8}}>
+                <input 
+                  type="number" 
+                  value={parseInt(hero.style?.fontSize)||52} 
+                  onChange={e=>setHero({...hero, style:{...hero.style, fontSize:e.target.value + 'px'}})} 
+                  placeholder="52" 
+                  style={{width:120, padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+                />
+                <span style={{fontSize:12, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>pixelov</span>
+              </div>
             </div>
-            <div style={{display:'flex', gap:12}}>
-              <button className="btn" onClick={save} style={{display:'flex', alignItems:'center'}}>
-                <svg style={{width:16, height:16, marginRight:6}} fill="currentColor" viewBox="0 0 16 16">
+            <div style={{display:'flex', gap:12, paddingTop:12}}>
+              <button 
+                onClick={save} 
+                style={{
+                  padding:'12px 28px',
+                  background:'var(--color-honey)',
+                  color:'white',
+                  border:'none',
+                  borderRadius:'4px',
+                  fontSize:14,
+                  fontWeight:600,
+                  cursor:'pointer',
+                  fontFamily:"'Radio Canada', sans-serif",
+                  transition:'all 300ms ease',
+                  display:'flex',
+                  alignItems:'center',
+                  gap:6
+                }}
+                onMouseEnter={(e)=>{e.target.style.background='var(--color-red)', e.target.style.transform='scale(1.05)'}}
+                onMouseLeave={(e)=>{e.target.style.background='var(--color-honey)', e.target.style.transform='scale(1)'}}
+              >
+                <svg style={{width:16, height:16}} fill="white" viewBox="0 0 16 16">
                   <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
                   <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
                 </svg>
-                Save Hero
+                Uložiť
               </button>
-              <button className="btn secondary" onClick={()=>navigate('/')} style={{display:'flex', alignItems:'center'}}>
-                <svg style={{width:16, height:16, marginRight:6}} fill="currentColor" viewBox="0 0 16 16">
+              <button 
+                onClick={()=>navigate('/')} 
+                style={{
+                  padding:'12px 28px',
+                  background:'var(--border)',
+                  color:'var(--color-dark)',
+                  border:'1px solid var(--border)',
+                  borderRadius:'4px',
+                  fontSize:14,
+                  fontWeight:600,
+                  cursor:'pointer',
+                  fontFamily:"'Radio Canada', sans-serif",
+                  transition:'all 300ms ease',
+                  display:'flex',
+                  alignItems:'center',
+                  gap:6
+                }}
+                onMouseEnter={(e)=>{e.target.style.background='var(--color-light)'}}
+                onMouseLeave={(e)=>{e.target.style.background='var(--border)'}}
+              >
+                <svg style={{width:16, height:16}} fill="currentColor" viewBox="0 0 16 16">
                   <path fillRule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
                 </svg>
-                Back
+                Späť
               </button>
             </div>
           </div>
         </section>
 
-        <section style={{background:'#fff', padding:28, borderRadius:12, boxShadow:'var(--shadow-sm)'}}>
-          <h2 style={{fontSize:22}}>Add Project / Page</h2>
+        <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)'}}>
+          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Pridať príspěvok</h2>
           <AddPageForm />
         </section>
       </div>
@@ -112,7 +177,7 @@ export default function Admin({navigate}){
 function AddPageForm(){
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [category, setCategory] = useState('Vlastna tvorba')
+  const [category, setCategory] = useState('Autobúsiia liście')
   const [submitting, setSubmitting] = useState(false)
 
   const submit = async ()=>{
@@ -128,10 +193,10 @@ function AddPageForm(){
         body: JSON.stringify({ title, content, category }) 
       })
       if (res.ok) {
-        alert('✓ Projekt pridaný!')
-        setTitle(''); setContent(''); setCategory('Vlastna tvorba')
+        alert('✓ Príspěvok pridaný!')
+        setTitle(''); setContent(''); setCategory('Autobúsiia liście')
       } else {
-        alert('Chyba pri pridávaní projektu')
+        alert('Chyba pri pridávaní príspěvku')
       }
     } catch (err) {
       alert('Chyba: ' + err.message)
@@ -155,24 +220,31 @@ function AddPageForm(){
   }
 
   return (
-    <div style={{display:'grid', gap:16, maxWidth:900}}>
+    <div style={{display:'grid', gap:24, maxWidth:900}}>
       <div>
-        <label>Project Title</label>
-        <input placeholder="Nadpis projektu..." value={title} onChange={e=>setTitle(e.target.value)} />
+        <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Nadpis príspěvku</label>
+        <input 
+          placeholder="Nadپis..." 
+          value={title} 
+          onChange={e=>setTitle(e.target.value)} 
+          style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+        />
       </div>
       <div>
-        <label>Category</label>
-        <select value={category} onChange={e=>setCategory(e.target.value)}>
-          <option>Vlastna tvorba</option>
-          <option>Preklad</option>
-          <option>Pripravovane</option>
-          <option>Komentare</option>
+        <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Kategória</label>
+        <select 
+          value={category} 
+          onChange={e=>setCategory(e.target.value)}
+          style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+        >
+          <option>Autobúsiia liście</option>
+          <option>Podobne</option>
+          <option>Financovanie</option>
         </select>
       </div>
       <div>
-        <label>Content (Rich Editor - upload images by drag/click in editor)</label>
+        <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Obsah (Rich Editor - nahraj obrázky ťahaním)</label>
         <Editor
-          // apiKey={TINYMCE_API_KEY}
           value={content}
           init={{
             height: 400,
@@ -187,15 +259,38 @@ function AddPageForm(){
           onEditorChange={handleEditorChange}
         />
       </div>
-      <div style={{display:'flex', gap:12}}>
-        <button className="btn" onClick={submit} disabled={submitting} style={{display:'flex', alignItems:'center'}}>
-          <svg style={{width:16, height:16, marginRight:6}} fill="currentColor" viewBox="0 0 16 16">
+      <div style={{display:'flex', gap:12, paddingTop:12}}>
+        <button 
+          onClick={submit} 
+          disabled={submitting}
+          style={{
+            padding:'12px 28px',
+            background: submitting ? 'var(--text-light)' : 'var(--color-red)',
+            color:'white',
+            border:'none',
+            borderRadius:'4px',
+            fontSize:14,
+            fontWeight:600,
+            cursor: submitting ? 'not-allowed' : 'pointer',
+            fontFamily:"'Radio Canada', sans-serif",
+            transition:'all 300ms ease',
+            display:'flex',
+            alignItems:'center',
+            gap:6,
+            opacity: submitting ? 0.7 : 1
+          }}
+          onMouseEnter={(e)=>{if (!submitting) { e.target.style.background='var(--color-dark)', e.target.style.transform='scale(1.05)' }}}
+          onMouseLeave={(e)=>{if (!submitting) { e.target.style.background='var(--color-red)', e.target.style.transform='scale(1)' }}}
+        >
+          <svg style={{width:16, height:16}} fill="white" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
             <path d="m10.97 4.97-.02.02-3.6 3.85-1.74-1.885a.75.75 0 0 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.077-.07l4.4-4.729a.75.75 0 1 0-1.063-1.072z"/>
           </svg>
-          {submitting ? 'Adding...' : 'Add Project'}
+          {submitting ? 'Pridávam...' : 'Pridať'}
         </button>
       </div>
     </div>
   )
 }
+
+

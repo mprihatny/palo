@@ -2,33 +2,79 @@ import React from 'react'
 
 export default function Footer({navigate}){
   return (
-    <div className="footer">
-      <div style={{display:'flex', gap:24, alignItems:'center', flexWrap:'wrap'}}>
-        <a onClick={()=>navigate('/')} style={{cursor:'pointer', fontWeight:600, fontSize:15, letterSpacing:'0.3px', display:'flex', alignItems:'center', gap:6}}>
-          <svg style={{width:18, height:18}} fill="currentColor" viewBox="0 0 16 16">
-            <path d="m6.12 3.06 4.5 4.5L6.12 12.06"/>
-          </svg>
-          Domov
-        </a>
-        <a onClick={()=>navigate('/admin')} style={{cursor:'pointer', fontSize:14, opacity:0.85, display:'flex', alignItems:'center', gap:6}}>
-          <svg style={{width:16, height:16}} fill="currentColor" viewBox="0 0 16 16">
-            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-          </svg>
-          Admin
-        </a>
+    <footer style={{
+      borderTop: '1px solid var(--border)',
+      background: 'var(--bg)',
+      padding: '48px 24px 32px',
+      marginTop: '60px'
+    }}>
+      <div style={{maxWidth:'1200px', margin:'0 auto'}}>
+        {/* Main footer content */}
+        <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:'48px', marginBottom:'48px'}}>
+          {/* About */}
+          <div>
+            <h3 style={{fontSize:'18px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Kapucíni na Slovensku</h3>
+            <p style={{fontSize:'14px', color:'var(--text-light)', lineHeight:1.75, margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
+              Stránka venovaná duchovnému obsahu, pekldom francúzskych kapucínskych autorov a premýšľaniam pre osobnú vieru.
+            </p>
+          </div>
+
+          {/* Navigation */}
+          <div>
+            <h3 style={{fontSize:'18px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Navigácia</h3>
+            <div style={{display:'flex', flexDirection:'column', gap:'8px'}}>
+              <a onClick={()=>navigate('/')} style={{cursor:'pointer', fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
+                → Domov
+              </a>
+              <a onClick={()=>navigate('/projects')} style={{cursor:'pointer', fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
+                → Obsah
+              </a>
+              <a onClick={()=>navigate('/admin')} style={{cursor:'pointer', fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
+                →Admin
+              </a>
+            </div>
+          </div>
+
+          {/* Useful links */}
+          <div>
+            <h3 style={{fontSize:'18px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Užitočné odkazy</h3>
+            <div style={{display:'flex', flexDirection:'column', gap:'8px'}}>
+              <a href="https://kapucini.sk" target="_blank" rel="noopener noreferrer" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
+                → Kapucíni.sk
+              </a>
+              <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
+                → Newsletter
+              </a>
+              <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
+                → Kontakt
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div style={{
+          borderTop: '1px solid var(--border)',
+          paddingTop: '24px',
+          display:'flex',
+          justifyContent:'space-between',
+          alignItems:'center',
+          flexWrap:'wrap',
+          gap:'16px'
+        }}>
+          <p style={{fontSize:'13px', color:'var(--text-light)', margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
+            © 2025 Kapucíni na Slovensku. Všetky práva vyhradené.
+          </p>
+          <a 
+            onClick={()=>window.location.href = 'mailto:info@kapucini.sk'}
+            style={{fontSize:'13px', color:'var(--color-honey)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", cursor:'pointer', transition:'color 200ms'}} 
+            onMouseEnter={(e)=>e.target.style.color='var(--color-red)'}
+            onMouseLeave={(e)=>e.target.style.color='var(--color-honey)'}
+          >
+            kontakt@kapucini.sk
+          </a>
+        </div>
       </div>
-      <div>
-        <span 
-          className="admin-link" 
-          onClick={()=>window.location.href = 'mailto:admin@example.com'}
-          style={{fontSize:14, opacity:0.85, letterSpacing:'0.3px', display:'flex', alignItems:'center', gap:6, cursor:'pointer'}}
-        >
-          <svg style={{width:16, height:16}} fill="currentColor" viewBox="0 0 16 16">
-            <path d="M16 4.555v5.555q0 .89-.622 1.513T14 12.685h-2v1.445q0 .89-.622 1.513T9.867 16H6.13q-.89 0-1.513-.623T4 13.865v-1.45H2q-.889 0-1.512-.622T0 10.11V4.554q0-.889.623-1.512T2 2.42h12q.889 0 1.512.622T16 4.554zm-2 0H2v5.555h12V4.554zm-5.867 9.89h3.734v1.445H8.13v-1.445z"/>
-          </svg>
-          admin@example.com
-        </span>
-      </div>
-    </div>
+    </footer>
   )
 }

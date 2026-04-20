@@ -4,7 +4,7 @@ import API_BASE_URL from '../api'
 const HERO_IMAGE = 'https://i.postimg.cc/C59V7gs1/hlavne-foto1.jpg'
 
 export default function Home({navigate}){
-  const [hero, setHero] = useState({ title:'', subtitle:'', style:{ color:'#ffffff', fontWeight:'600', fontSize:'48px' } })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
 
   useEffect(()=>{
     const loadHero = ()=>{
@@ -19,23 +19,23 @@ export default function Home({navigate}){
   },[])
 
   const dynamicStyle = {
-    color: hero?.style?.color || '#ffffff',
-    fontWeight: hero?.style?.fontWeight || '600',
-    fontSize: hero?.style?.fontSize || '48px',
-    lineHeight: 1.3,
-    transition: 'opacity 300ms ease'
+    color: hero?.style?.color || '#E1DED2',
+    fontWeight: hero?.style?.fontWeight || '700',
+    fontSize: hero?.style?.fontSize || '52px',
+    lineHeight: 1.2,
+    transition: 'opacity 300ms ease',
+    fontFamily: "'Hahmlet', 'Times New Roman', serif"
   }
 
   const categories = [
-    { name: 'Vlastna tvorba', icon: '✨', color: '#D4945F', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' },
-    { name: 'Preklad', icon: '📖', color: '#931413', image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg' },
-    { name: 'Pripravovane', icon: '🚀', color: '#6D5450', image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg' },
-    { name: 'Publikovane', icon: '📚', color: '#40332D', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' }
+    { name: 'Autobúsiia liście', icon: '✍️', color: '#D4945F', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' },
+    { name: 'Podobne', icon: '📖', color: '#931413', image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg' },
+    { name: 'Financovanie', icon: '🙏', color: '#6D5450', image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg' }
   ]
 
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)'}}>
-      {/* Hero Image - elegantný kapucínsky štýl */}
+      {/* Hero Image */}
       <div style={{paddingTop:0, paddingBottom:0}}>
         <div className="hero-container">
           <img 
@@ -51,32 +51,31 @@ export default function Home({navigate}){
             justifyContent:'center',
             flexDirection:'column',
             textAlign:'center',
-            padding:'48px',
+            padding:'48px 24px',
             zIndex:2
           }}>
-            <div style={{...dynamicStyle}} dangerouslySetInnerHTML={{__html: hero.title || ''}} />
-            {hero.subtitle && <p className="hero-subtitle">{hero.subtitle}</p>}
+            <div style={{...dynamicStyle}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
+            {hero.subtitle && <p style={{color:'#E1DED2', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif"}}>{hero.subtitle}</p>}
           </div>
         </div>
       </div>
 
-      <div className="container">
-        {/* About section */}
-        <section className="about">
-          <h2>O mne</h2>
-          <p style={{fontSize:'19px', color:'var(--text-light)', maxWidth:'720px', margin:'0 auto', lineHeight:1.8}}>
-            Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.
+      <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
+        {/* About section - "O mne" */}
+        <section style={{padding:'60px 0 48px', borderBottom:'1px solid var(--border)'}}>
+          <h2 style={{textAlign:'center', marginBottom:'40px'}}>O mne</h2>
+          <p style={{fontSize:'17px', color:'var(--text-light)', maxWidth:'720px', margin:'0 auto', lineHeight:1.85, textAlign:'center', fontFamily:"'Radio Canada', sans-serif"}}>
+            Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast. Môj obsah slúži ako most medzi duchovným dedičstvom a moderným svetom.
           </p>
         </section>
 
-        {/* Icon cards section - kapucínsky dizajn */}
-        <section style={{padding:'48px 24px 80px', marginBottom:'0'}}>
+        {/* Categories grid - tri kolóny */}
+        <section style={{padding:'60px 0'}}>
           <div style={{
             display:'grid',
-            gridTemplateColumns:'repeat(auto-fit, minmax(240px, 1fr))',
-            gap:'32px',
-            maxWidth:'1100px',
-            margin:'0 auto'
+            gridTemplateColumns:'repeat(auto-fit, minmax(300px, 1fr))',
+            gap:'40px',
+            marginBottom:'60px'
           }}>
             {categories.map((cat, idx) => (
               <div
@@ -84,52 +83,73 @@ export default function Home({navigate}){
                 onClick={()=>navigate(`/projects?cat=${encodeURIComponent(cat.name)}`)}
                 style={{
                   cursor:'pointer',
-                  padding: cat.image ? '0' : '40px 28px',
-                  background:'var(--bg)',
-                  borderRadius:'2px',
-                  boxShadow:'none',
-                  textAlign:'center',
-                  transition:'all 280ms ease',
-                  border:'none',
-                  borderTop: '3px solid var(--kapucin-gold)',
                   overflow:'hidden',
-                  display:'flex',
-                  flexDirection:'column'
+                  transition:'all 300ms ease',
+                  borderBottom: '3px solid var(--color-honey)',
                 }}
                 onMouseEnter={(e)=>{
-                  e.currentTarget.style.boxShadow = 'none'
-                  e.currentTarget.style.borderTopColor = 'var(--kapucin-brown)'
-                  e.currentTarget.style.transform = 'translateY(-4px)'
+                  e.currentTarget.style.borderBottomColor = 'var(--color-red)'
+                  e.currentTarget.style.transform = 'translateY(-8px)'
                 }}
                 onMouseLeave={(e)=>{
-                  e.currentTarget.style.boxShadow = 'none'
-                  e.currentTarget.style.borderTopColor = 'var(--kapucin-gold)'
+                  e.currentTarget.style.borderBottomColor = 'var(--color-honey)'
                   e.currentTarget.style.transform = 'translateY(0)'
                 }}
               >
-                {cat.image ? (
-                  <>
-                    <img 
-                      src={cat.image} 
-                      alt={cat.name}
-                      style={{width:'100%', height:'200px', objectFit:'cover', filter:'brightness(0.9) contrast(1.05)'}}
-                    />
-                    <div style={{padding:'24px 20px'}}>
-                      <h3 style={{fontSize:'22px', marginBottom:'0', color:'var(--kapucin-brown)', fontWeight:600}}>
-                        {cat.name}
-                      </h3>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div style={{fontSize:'56px', marginBottom:'20px', filter:'grayscale(0.3)'}}>📁</div>
-                    <h3 style={{fontSize:'22px', marginBottom:'0', color:'var(--kapucin-brown)', fontWeight:600}}>
-                      {cat.name}
-                    </h3>
-                  </>
+                {cat.image && (
+                  <img 
+                    src={cat.image} 
+                    alt={cat.name}
+                    style={{width:'100%', height:'240px', objectFit:'cover', filter:'brightness(0.88) contrast(1.08) saturate(0.95)', display:'block', marginBottom:'24px'}}
+                  />
                 )}
+                <div>
+                  <h3 style={{fontSize:'24px', marginBottom:'12px', color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif"}}>
+                    {cat.name}
+                  </h3>
+                  <p style={{fontSize:'16px', color:'var(--text-light)', marginBottom:'16px', fontFamily:"'Radio Canada', sans-serif"}}>
+                    Zájmi tu nájdeš zoznam s mojimi prácami v tejto kategórii.
+                  </p>
+                </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* YouTube section */}
+        <section style={{padding:'60px 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
+          <div style={{textAlign:'center', maxWidth:'800px', margin:'0 auto'}}>
+            <h2 style={{marginBottom:'32px'}}>Komerčné príspěvky na YouTube</h2>
+            <p style={{fontSize:'17px', color:'var(--text-light)', lineHeight:1.85, marginBottom:'40px', fontFamily:"'Radio Canada', sans-serif"}}>
+              Sleduj môj kanál na YouTube, kde zdielam duchovné premýšľania, výklady textov a modlitby. Novy obsah pribiham pravidelne.
+            </p>
+            <a href="#" style={{
+              display:'inline-block',
+              padding:'12px 32px',
+              background:'var(--color-red)',
+              color:'white',
+              textDecoration:'none',
+              borderRadius:'4px',
+              fontWeight:600,
+              fontSize:'16px',
+              transition:'all 300ms ease',
+              fontFamily:"'Radio Canada', sans-serif"
+            }}
+            onMouseEnter={(e)=>{e.target.style.background = 'var(--color-dark)', e.target.style.transform = 'scale(1.05)'}}
+            onMouseLeave={(e)=>{e.target.style.background = 'var(--color-red)', e.target.style.transform = 'scale(1)'}}
+            >
+              Otvor kanál →
+            </a>
+          </div>
+        </section>
+
+        {/* Preview text section */}
+        <section style={{padding:'60px 0'}}>
+          <div style={{textAlign:'center', maxWidth:'800px', margin:'0 auto', padding:'40px', background:'rgba(212, 148, 95, 0.08)', borderRadius:'8px', borderLeft:'4px solid var(--color-honey)'}}>
+            <h3 style={{fontSize:'20px', marginBottom:'16px', color:'var(--color-red)'}}>Preview na kritické texty</h3>
+            <p style={{fontSize:'16px', color:'var(--text-light)', lineHeight:1.85, margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
+              Čoskoro prídu nové texty. Chceš byť medzi prvými, ktorí sa dozvedia o novinkách? Pozri si môj newsletter.
+            </p>
           </div>
         </section>
       </div>
