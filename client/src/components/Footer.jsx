@@ -4,63 +4,70 @@ export default function Footer({navigate}){
   return (
     <footer style={{
       borderTop: '2px solid var(--color-honey)',
-      background: '#40332D',
-      padding: '48px 24px 32px',
-      marginTop: '60px'
+      background: 'var(--bg)',
+      padding: '60px 24px 40px',
+      marginTop: '80px'
     }}>
       <div style={{maxWidth:'1200px', margin:'0 auto'}}>
-        {/* Main footer content */}
-        <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(280px, 1fr))', gap:'48px', marginBottom:'48px'}}>
-          {/* Useful links */}
-          <div>
-            <h3 style={{fontSize:'18px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Užitočné odkazy</h3>
-            <div style={{display:'flex', flexDirection:'column', gap:'8px'}}>
-              <a href="https://kapucini.sk" target="_blank" rel="noopener noreferrer" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
-                → Kapucíni.sk
-              </a>
-              <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
-                → Newsletter
-              </a>
-              <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
-                → Kontakt
-              </a>
+        {/* Main footer content - Two sections */}
+        <div style={{
+          display:'grid',
+          gridTemplateColumns:'1fr 2fr',
+          gap:'60px',
+          marginBottom:'48px',
+          alignItems:'flex-start'
+        }}>
+          {/* Left: Logo + Name + Divider */}
+          <div style={{display:'flex', flexDirection:'column', gap:'20px', alignItems:'flex-start'}}>
+            <img 
+              src="https://i.postimg.cc/43cbVCzM/logop-removebg-preview.png" 
+              alt="Logo"
+              style={{height:'50px', width:'auto'}}
+            />
+            <div>
+              <h3 style={{fontSize:'20px', fontWeight:600, margin:'0 0 4px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Pavel Prihatný</h3>
+              <p style={{fontSize:'13px', color:'var(--text-light)', margin:0, fontFamily:"'Radio Canada', sans-serif"}}>Františkáni - Kapucíni</p>
             </div>
+            <div style={{width:'40px', height:'2px', background:'var(--color-honey)', marginTop:'8px'}}></div>
           </div>
 
-          {/* Navigation */}
-          <div>
-            <h3 style={{fontSize:'18px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Navigácia</h3>
-            <div style={{display:'flex', flexDirection:'column', gap:'8px'}}>
-              <a onClick={()=>navigate('/')} style={{cursor:'pointer', fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
-                → Domov
-              </a>
-              <a onClick={()=>navigate('/projects?cat=Autorské texty')} style={{cursor:'pointer', fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
-                → Obsah
-              </a>
-              <a onClick={()=>navigate('/admin')} style={{cursor:'pointer', fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
-                →Admin
-              </a>
+          {/* Right: Two columns of links */}
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'40px'}}>
+            {/* Užitočné odkazy */}
+            <div>
+              <h3 style={{fontSize:'16px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Užitočné odkazy</h3>
+              <div style={{display:'flex', flexDirection:'column', gap:'10px'}}>
+                <a href="https://kapucini.sk" target="_blank" rel="noopener noreferrer" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
+                  Kapucíni.sk
+                </a>
+                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
+                  Newsletter
+                </a>
+                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
+                  Kontakt
+                </a>
+              </div>
             </div>
-          </div>
 
-          {/* Blog */}
-          <div>
-            <h3 style={{fontSize:'18px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Blog</h3>
-            <div style={{display:'flex', flexDirection:'column', gap:'8px'}}>
-              <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
-                → Najnovšie príspěvky
-              </a>
-              <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
-                → Archív
-              </a>
-              <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms', display:'flex', alignItems:'center', gap:'6px'}} onMouseEnter={(e)=>e.target.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.target.style.color='var(--text-light)'}>
-                → RSS
-              </a>
+            {/* Blog */}
+            <div>
+              <h3 style={{fontSize:'16px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Blog</h3>
+              <div style={{display:'flex', flexDirection:'column', gap:'10px'}}>
+                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
+                  Najnovšie príspěvky
+                </a>
+                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
+                  Archív
+                </a>
+                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
+                  RSS
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom bar with Admin button */}
         <div style={{
           borderTop: '1px solid var(--border)',
           paddingTop: '24px',
@@ -71,16 +78,29 @@ export default function Footer({navigate}){
           gap:'16px'
         }}>
           <p style={{fontSize:'13px', color:'var(--text-light)', margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
-            © 2026 Všetky práva vyhradené.
+            © 2026 Pavel Prihatný. Všetky práva vyhradené.
           </p>
-          <a 
-            onClick={()=>window.location.href = 'mailto:pavel@kapucini.sk'}
-            style={{fontSize:'13px', color:'var(--color-honey)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", cursor:'pointer', transition:'color 200ms'}} 
-            onMouseEnter={(e)=>e.target.style.color='var(--color-red)'}
-            onMouseLeave={(e)=>e.target.style.color='var(--color-honey)'}
-          >
-            pavel@kapucini.sk
-          </a>
+          <div style={{display:'flex', gap:'12px', alignItems:'center'}}>
+            <button 
+              onClick={()=>navigate('/admin')}
+              style={{
+                fontSize:'13px',
+                padding:'8px 16px',
+                background:'var(--color-honey)',
+                color:'white',
+                border:'none',
+                borderRadius:'4px',
+                cursor:'pointer',
+                fontWeight:600,
+                fontFamily:"'Radio Canada', sans-serif",
+                transition:'all 200ms ease'
+              }}
+              onMouseEnter={(e)=>e.currentTarget.style.background='var(--color-red)'}
+              onMouseLeave={(e)=>e.currentTarget.style.background='var(--color-honey)'}
+            >
+              Admin
+            </button>
+          </div>
         </div>
       </div>
     </footer>
