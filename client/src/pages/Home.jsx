@@ -114,7 +114,7 @@ export default function Home({navigate}){
       const heroOverlay = document.querySelector('.hero-overlay')
       if (heroOverlay) {
         const scrollY = window.scrollY
-        const opacity = Math.max(1 - scrollY / 150, 0.3)
+        const opacity = Math.max(1 - scrollY / 300, 0.15)
         heroOverlay.style.opacity = opacity
       }
     }

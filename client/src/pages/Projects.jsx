@@ -15,6 +15,7 @@ export default function Projects({navigate, category}){
       .then(r=>r.json())
       .then(data=>{
         console.log('Fetched pages:', data)
+        console.log('Filtered by category:', category, data.filter(p => !category || p.category === category))
         setPages(data)
         setLoading(false)
       })
@@ -23,6 +24,16 @@ export default function Projects({navigate, category}){
         setLoading(false)
       })
   }, [category])
+
+  useEffect(()=>{
+    const interval = setInterval(() => {
+      fetch(`${API_BASE_URL}/api/pages`)
+        .then(r=>r.json())
+        .then(data=> setPages(data))
+        .catch(err=> console.error('Auto-refresh failed:', err))
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(()=>{
     fetch(`${API_BASE_URL}/api/hero`)
@@ -55,7 +66,7 @@ export default function Projects({navigate, category}){
 
     revealed.forEach(el => observer.observe(el))
     return () => observer.disconnect()
-  }, [filtered])
+  }, [filtered, pages])
 
   // Parallax blur + fade animations
   useEffect(() => {
@@ -155,12 +166,16 @@ export default function Projects({navigate, category}){
         )}
 
         {/* YouTube Ads Section */}
-        {hero.youtubeAdsUrl && hero.youtubeAdsImage && (
+        {hero.youtubeAdsImage && (
           <section className="reveal delay-5" style={{marginTop:'80px', padding:'60px 0 40px', borderTop:'1px solid var(--border)'}}>
             <div style={{textAlign:'center'}}>
-              <a href={hero.youtubeAdsUrl} target="_blank" rel="noopener noreferrer" style={{display:'inline-block', maxWidth:'100%', cursor:'pointer', transition:'transform 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.transform='scale(1.05)'} onMouseLeave={(e)=>e.currentTarget.style.transform='scale(1)'}>
+              {hero.youtubeAdsUrl ? (
+                <a href={hero.youtubeAdsUrl} target="_blank" rel="noopener noreferrer" style={{display:'inline-block', maxWidth:'100%', cursor:'pointer', transition:'transform 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.transform='scale(1.05)'} onMouseLeave={(e)=>e.currentTarget.style.transform='scale(1)'}>
+                  <img src={hero.youtubeAdsImage} alt="YouTube" style={{maxWidth:'100%', height:'auto', borderRadius:'8px', border:'1px solid var(--border)', boxShadow:'0 8px 32px rgba(64, 51, 45, 0.08)'}} />
+                </a>
+              ) : (
                 <img src={hero.youtubeAdsImage} alt="YouTube" style={{maxWidth:'100%', height:'auto', borderRadius:'8px', border:'1px solid var(--border)', boxShadow:'0 8px 32px rgba(64, 51, 45, 0.08)'}} />
-              </a>
+              )}
             </div>
           </section>
         )}
