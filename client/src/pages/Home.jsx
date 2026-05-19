@@ -108,13 +108,13 @@ export default function Home({navigate}){
     return () => observer.disconnect()
   }, [])
 
-  // Hero text fade out animation
+  // Hero text fade out animation - immediate
   useEffect(() => {
     const handleScroll = () => {
       const heroOverlay = document.querySelector('.hero-overlay')
       if (heroOverlay) {
         const scrollY = window.scrollY
-        const opacity = Math.max(1 - scrollY / 200, 0)
+        const opacity = Math.max(1 - scrollY / 80, 0)
         heroOverlay.style.opacity = opacity
       }
     }
@@ -254,7 +254,7 @@ export default function Home({navigate}){
         </section>
 
         {/* YouTube Video Section */}
-        {hero.youtubeImage && hero.youtubeUrl && (
+        {hero.youtubeUrl && (
           <section className="reveal delay-5" style={{padding:'60px 0'}}>
             <div style={{
               position:'relative',
@@ -275,7 +275,18 @@ export default function Home({navigate}){
                   border:'none',
                   borderRadius:'8px'
                 }}
-                src={hero.youtubeUrl.replace('youtu.be/', 'youtube.com/embed/').split('?')[0]}
+                src={(() => {
+                  const url = hero.youtubeUrl
+                  let videoId = ''
+                  if (url.includes('youtube.com/watch?v=')) {
+                    videoId = url.split('v=')[1]?.split('&')[0]
+                  } else if (url.includes('youtu.be/')) {
+                    videoId = url.split('youtu.be/')[1]?.split('?')[0]
+                  } else if (url.includes('youtube.com/embed/')) {
+                    videoId = url.split('embed/')[1]?.split('?')[0]
+                  }
+                  return videoId ? `https://www.youtube.com/embed/${videoId}?rel=0` : ''
+                })()}
                 title="YouTube video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

@@ -8,6 +8,7 @@ export default function Admin({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', youtubeImage:'', youtubeUrl:'' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [refreshTrigger, setRefreshTrigger] = useState(0)
 
   useEffect(()=>{
     let retries = 0
@@ -229,14 +230,14 @@ export default function Admin({navigate}){
 
         <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)'}}>
           <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Pridať príspěvok</h2>
-          <AddPageForm />
+          <AddPageForm onSuccess={() => setRefreshTrigger(prev => prev + 1)} />
         </section>
       </div>
     </div>
   )
 }
 
-function AddPageForm(){
+function AddPageForm({onSuccess}){
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [category, setCategory] = useState('Autorské texty')
@@ -256,12 +257,18 @@ function AddPageForm(){
         body: JSON.stringify({ title, content, category, type }) 
       })
       if (res.ok) {
+        const data = await res.json()
+        console.log('Príspěvok pridaný:', data)
         alert('✓ Príspěvok pridaný!')
         setTitle(''); setContent(''); setCategory('Autorské texty'); setType('Knihy')
+        if (onSuccess) onSuccess()
       } else {
-        alert('Chyba pri pridávaní príspěvku')
+        const errorText = await res.text()
+        console.error('API error:', res.status, errorText)
+        alert('Chyba pri pridávaní príspěvku: ' + res.status)
       }
     } catch (err) {
+      console.error('Submit error:', err)
       alert('Chyba: ' + err.message)
     } finally {
       setSubmitting(false)

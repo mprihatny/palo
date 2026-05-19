@@ -24,7 +24,7 @@ export default function Navbar({navigate, currentRoute}){
       position: 'sticky',
       top: 0,
       zIndex: 100,
-      boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+      boxShadow: 'none'
     }}>
       <div style={{maxWidth:'1200px', margin:'0 auto', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
         {/* Logo */}

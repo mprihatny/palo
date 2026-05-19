@@ -6,6 +6,7 @@ const HERO_IMAGE = 'https://i.postimg.cc/C59V7gs1/hlavne-foto1.jpg'
 export default function Projects({navigate, category}){
   const [pages, setPages] = useState([])
   const [loading, setLoading] = useState(true)
+  const [blur, setBlur] = useState(0)
 
   useEffect(()=>{
     fetch(`${API_BASE_URL}/api/pages`)
@@ -41,6 +42,27 @@ export default function Projects({navigate, category}){
     revealed.forEach(el => observer.observe(el))
     return () => observer.disconnect()
   }, [filtered])
+
+  // Parallax blur + fade animations
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      const heroImage = document.querySelector('.hero-image')
+      const heroOverlay = document.querySelector('.hero-overlay')
+      if (heroImage) {
+        const blurAmount = Math.min(scrollY / 30, 8)
+        setBlur(blurAmount)
+        heroImage.style.filter = `brightness(0.92) contrast(1.05) saturate(0.95) blur(${blurAmount}px)`
+      }
+      if (heroOverlay) {
+        const opacity = Math.max(1 - scrollY / 200, 0)
+        heroOverlay.style.opacity = opacity
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)', display:'flex', flexDirection:'column'}}>
