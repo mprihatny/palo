@@ -108,13 +108,13 @@ export default function Home({navigate}){
     return () => observer.disconnect()
   }, [])
 
-  // Hero text fade out animation - immediate
+  // Hero text fade out animation - gradual with minimum opacity
   useEffect(() => {
     const handleScroll = () => {
       const heroOverlay = document.querySelector('.hero-overlay')
       if (heroOverlay) {
         const scrollY = window.scrollY
-        const opacity = Math.max(1 - scrollY / 80, 0)
+        const opacity = Math.max(1 - scrollY / 150, 0.3)
         heroOverlay.style.opacity = opacity
       }
     }
@@ -168,7 +168,7 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{padding:'100px 0 80px', borderBottom:'1px solid var(--border)'}}>
+        <section className="reveal section-two-col" style={{padding:'160px 0 80px', borderBottom:'1px solid var(--border)'}}>
           {/* Left: O mne */}
           <div className="reveal delay-1 col-left" style={{}}>
             <h2 style={{color:'var(--color-dark)'}}>O mne</h2>
@@ -255,7 +255,7 @@ export default function Home({navigate}){
 
         {/* YouTube Video Section */}
         {hero.youtubeUrl && (
-          <section className="reveal delay-5" style={{padding:'60px 0'}}>
+          <section className="reveal delay-5" style={{padding:'40px 0 20px'}}>
             <div style={{
               position:'relative',
               paddingBottom:'56.25%',
@@ -297,7 +297,7 @@ export default function Home({navigate}){
 
         {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
         {pages.length > 0 && (
-          <section className="reveal delay-5 carousel-container" style={{padding:'60px 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
+          <section className="reveal delay-5 carousel-container" style={{padding:'40px 0 20px', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
             <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'48px'}}>Najnovší obsah</h2>
             
             {/* Carousel Track */}

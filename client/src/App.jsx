@@ -21,12 +21,8 @@ function App(){
   }
 
   const getCategoryFromRoute = (r) => {
-    try{
-      const url = new URL(r, 'http://localhost')
-      return url.searchParams.get('cat')
-    }catch(e){
-      return null
-    }
+    const match = r.match(/\?cat=(.+?)(?:&|$)/)
+    return match ? decodeURIComponent(match[1]) : null
   }
 
   return (

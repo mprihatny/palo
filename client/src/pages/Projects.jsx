@@ -5,13 +5,16 @@ const HERO_IMAGE = 'https://i.postimg.cc/C59V7gs1/hlavne-foto1.jpg'
 
 export default function Projects({navigate, category}){
   const [pages, setPages] = useState([])
+  const [hero, setHero] = useState({})
   const [loading, setLoading] = useState(true)
   const [blur, setBlur] = useState(0)
 
   useEffect(()=>{
+    console.log('Fetching pages for category:', category)
     fetch(`${API_BASE_URL}/api/pages`)
       .then(r=>r.json())
       .then(data=>{
+        console.log('Fetched pages:', data)
         setPages(data)
         setLoading(false)
       })
@@ -20,6 +23,17 @@ export default function Projects({navigate, category}){
         setLoading(false)
       })
   }, [category])
+
+  useEffect(()=>{
+    fetch(`${API_BASE_URL}/api/hero`)
+      .then(r=>r.json())
+      .then(data=>{
+        setHero(data)
+      })
+      .catch(err=>{
+        console.error('Failed to fetch hero:', err)
+      })
+  }, [])
 
   const filtered = category ? pages.filter(p => p.category === category) : pages
   const books = filtered.filter(p => p.type === 'Knihy')
@@ -55,7 +69,7 @@ export default function Projects({navigate, category}){
         heroImage.style.filter = `brightness(0.92) contrast(1.05) saturate(0.95) blur(${blurAmount}px)`
       }
       if (heroOverlay) {
-        const opacity = Math.max(1 - scrollY / 200, 0)
+        const opacity = Math.max(1 - scrollY / 150, 0.3)
         heroOverlay.style.opacity = opacity
       }
     }
@@ -82,8 +96,9 @@ export default function Projects({navigate, category}){
             justifyContent:'center',
             textAlign:'center',
             padding:'48px 24px',
-            zIndex:2
-          }}>
+            zIndex:2,
+            opacity:1
+          }} className="hero-overlay">
             <h1 style={{color:'#ffffff', fontSize:'52px', fontWeight:700, fontFamily:"'Hahmlet', serif", margin:0, textShadow:'0 2px 8px rgba(0,0,0,0.3)'}}>
               {category || 'Všetok obsah'}
             </h1>
@@ -137,6 +152,17 @@ export default function Projects({navigate, category}){
               )}
             </div>
           </div>
+        )}
+
+        {/* YouTube Ads Section */}
+        {hero.youtubeAdsUrl && hero.youtubeAdsImage && (
+          <section className="reveal delay-5" style={{marginTop:'80px', padding:'60px 0 40px', borderTop:'1px solid var(--border)'}}>
+            <div style={{textAlign:'center'}}>
+              <a href={hero.youtubeAdsUrl} target="_blank" rel="noopener noreferrer" style={{display:'inline-block', maxWidth:'100%', cursor:'pointer', transition:'transform 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.transform='scale(1.05)'} onMouseLeave={(e)=>e.currentTarget.style.transform='scale(1)'}>
+                <img src={hero.youtubeAdsImage} alt="YouTube" style={{maxWidth:'100%', height:'auto', borderRadius:'8px', border:'1px solid var(--border)', boxShadow:'0 8px 32px rgba(64, 51, 45, 0.08)'}} />
+              </a>
+            </div>
+          </section>
         )}
       </div>
     </div>

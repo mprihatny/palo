@@ -5,7 +5,7 @@ import API_BASE_URL from '../api'
 const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
-  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', youtubeImage:'', youtubeUrl:'' })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', youtubeImage:'', youtubeUrl:'', youtubeAdsImage:'https://i.postimg.cc/GhWQcpFw/image-removebg-preview.png', youtubeAdsUrl:'' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
@@ -168,6 +168,24 @@ export default function Admin({navigate}){
               <input 
                 value={hero.youtubeUrl||''} 
                 onChange={e=>setHero({...hero, youtubeUrl:e.target.value})} 
+                placeholder="https://youtube.com/watch?v=..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
+            </div>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube Ads - URL obrázka (podstránky)</label>
+              <input 
+                value={hero.youtubeAdsImage||''} 
+                onChange={e=>setHero({...hero, youtubeAdsImage:e.target.value})} 
+                placeholder="https://..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
+            </div>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube Ads - Odkaz (podstránky)</label>
+              <input 
+                value={hero.youtubeAdsUrl||''} 
+                onChange={e=>setHero({...hero, youtubeAdsUrl:e.target.value})} 
                 placeholder="https://youtube.com/watch?v=..." 
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
