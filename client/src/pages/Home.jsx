@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import API_BASE_URL from '../api'
 
-const HERO_IMAGE = 'https://i.postimg.cc/C59V7gs1/hlavne-foto1.jpg'
+const HERO_IMAGE = 'https://i.postimg.cc/BbzXmb3C/ja-web-cb.jpg'
 
 export default function Home({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
@@ -100,16 +100,28 @@ export default function Home({navigate}){
       </div>
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
-        {/* About section - "O mne" */}
-        <section style={{padding:'60px 0 48px', borderBottom:'1px solid var(--border)'}}>
-          <h2 style={{textAlign:'center', marginBottom:'40px'}}>O mne</h2>
-          <p style={{fontSize:'17px', color:'var(--text-light)', maxWidth:'720px', margin:'0 auto', lineHeight:1.85, textAlign:'center', fontFamily:"'Radio Canada', sans-serif"}}>
-            Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast. Môj obsah slúži ako most medzi duchovným dedičstvom a moderným svetom.
-          </p>
+        {/* Two columns: O mne | Myšlienka */}
+        <section style={{padding:'60px 0', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'60px', borderBottom:'1px solid var(--border)'}}>
+          {/* Left: O mne */}
+          <div style={{paddingRight:'30px', borderRight:'1px solid rgba(212, 148, 95, 0.3)'}}>
+            <h2 style={{fontSize:'28px', marginBottom:'24px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>O mne</h2>
+            <p style={{fontSize:'16px', color:'var(--text-light)', lineHeight:1.85, fontFamily:"'Radio Canada', sans-serif"}}>
+              Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast. Môj obsah slúži ako most medzi duchovným dedičstvom a moderným svetom.
+            </p>
+          </div>
+
+          {/* Right: Myšlienka/Quote */}
+          <div style={{paddingLeft:'30px'}}>
+            <h2 style={{fontSize:'28px', marginBottom:'24px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Myšlienka</h2>
+            <p style={{fontSize:'15px', color:'var(--color-honey)', lineHeight:1.85, fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px'}}>
+              {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
+            </p>
+          </div>
         </section>
 
-        {/* Categories grid - tri kolóny */}
+        {/* Categories - tri stĺpce */}
         <section style={{padding:'60px 0'}}>
+          <h2 style={{fontSize:'32px', marginBottom:'48px', textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Obsahy</h2>
           <div style={{
             display:'grid',
             gridTemplateColumns:'repeat(auto-fit, minmax(300px, 1fr))',
@@ -147,6 +159,7 @@ export default function Home({navigate}){
                     {cat.name}
                   </h3>
                   <p style={{fontSize:'16px', color:'var(--text-light)', marginBottom:'16px', fontFamily:"'Radio Canada', sans-serif"}}>
+                    Klikni a pozri si obsah tejto kategórie
                   </p>
                 </div>
               </div>
@@ -158,7 +171,7 @@ export default function Home({navigate}){
         {hero.youtubeImage && hero.youtubeUrl && (
           <section style={{padding:'60px 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
             <div style={{textAlign:'center', maxWidth:'900px', margin:'0 auto'}}>
-              <h2 style={{marginBottom:'32px'}}>Komerčné príspěvky na YouTube</h2>
+              <h2 style={{marginBottom:'32px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Komerčné príspěvky na YouTube</h2>
               <img 
                 src={hero.youtubeImage} 
                 alt="YouTube"
@@ -181,18 +194,6 @@ export default function Home({navigate}){
               >
                 Pozri videa
               </a>
-            </div>
-          </section>
-        )}
-
-        {/* Quote section */}
-        {hero.quote && (
-          <section style={{padding:'60px 0'}}>
-            <div style={{textAlign:'center', maxWidth:'800px', margin:'0 auto', padding:'40px', background:'rgba(212, 148, 95, 0.08)', borderRadius:'8px', borderLeft:'4px solid var(--color-honey)'}}>
-              <h3 style={{fontSize:'20px', marginBottom:'16px', color:'var(--color-red)'}}>Texty/Citáty</h3>
-              <p style={{fontSize:'16px', color:'var(--text-light)', lineHeight:1.85, margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
-                {hero.quote}
-              </p>
             </div>
           </section>
         )}

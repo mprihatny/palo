@@ -7,19 +7,20 @@
 	--color-red: #931413;        /* Tmavočervená */
 	--color-gray: #6D5450;       /* Tmavošedá */
 	--color-dark: #40332D;       /* Veľmi tmavá */
+	--bg-dark: #954535;          /* Nová podkladová farba */
 	
 	/* Aplikované farby */
-	--bg: var(--color-light);
+	--bg: var(--bg-dark);
 	--accent: var(--color-honey);
 	--accent-dark: var(--color-red);
 	--muted: var(--color-gray);
 	--deep: var(--color-dark);
-	--text: #40332D;
-	--text-light: #6D5450;
-	--border: rgba(64, 51, 45, 0.12);
-	--shadow-sm: 0 2px 8px rgba(64, 51, 45, 0.06);
-	--shadow-md: 0 4px 16px rgba(64, 51, 45, 0.1);
-	--shadow-lg: 0 12px 32px rgba(64, 51, 45, 0.15);
+	--text: #E1DED2;
+	--text-light: #C4B5A8;
+	--border: rgba(225, 222, 210, 0.15);
+	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+	--shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
+	--shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
 * { box-sizing: border-box; }
@@ -44,21 +45,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 h1 { 
 	font-size: 48px; 
-	color: var(--color-dark); 
+	color: var(--color-light); 
 	margin-bottom: 20px;
 	font-weight: 700;
 	line-height: 1.2;
 }
 h2 { 
 	font-size: 36px; 
-	color: var(--color-dark); 
+	color: var(--color-light); 
 	margin-bottom: 24px;
 	font-weight: 600;
 	line-height: 1.3;
 }
 h3 { 
 	font-size: 26px; 
-	color: var(--color-red); 
+	color: var(--color-honey); 
 	margin-bottom: 16px;
 	font-weight: 600;
 }
