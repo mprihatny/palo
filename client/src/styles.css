@@ -614,6 +614,17 @@ hr {
 	}
 }
 
+/* Navbar Desktop/Mobile */
+.navbar-desktop {
+	display: none;
+}
+
+@media (min-width: 769px) {
+	.navbar-desktop {
+		display: flex !important;
+	}
+}
+
 /* Hamburger Toggle - Hide on desktop, show on mobile */
 .hamburger-toggle {
 	display: none !important;

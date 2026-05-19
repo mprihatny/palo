@@ -39,7 +39,7 @@ export default function Navbar({navigate, currentRoute}){
         </div>
 
         {/* Navigation items - Desktop */}
-        <div style={{display:'none', gap:'clamp(16px, 3vw, 32px)', alignItems:'center', '@media (min-width: 769px)': {display:'flex'}}}
+        <div style={{display:'none', gap:'clamp(16px, 3vw, 32px)', alignItems:'center'}} className="navbar-desktop">
           {navItems.map((item, idx) => (
             <a
               key={idx}
