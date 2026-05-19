@@ -62,6 +62,24 @@ export default function Home({navigate}){
     { name: 'Pripravované', icon: '🙏', color: '#6D5450', image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg' }
   ]
 
+  useEffect(() => {
+    const revealed = document.querySelectorAll('.reveal')
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.15 }
+    )
+
+    revealed.forEach(el => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)'}}>
       {/* Hero Image */}
@@ -72,17 +90,7 @@ export default function Home({navigate}){
             src={HERO_IMAGE} 
             alt="hero"
           />
-          <div style={{
-            position:'absolute',
-            inset:0,
-            display:'flex',
-            alignItems:'center',
-            justifyContent:'center',
-            flexDirection:'column',
-            textAlign:'center',
-            padding:'48px 24px',
-            zIndex:2
-          }}>
+          <div className="hero-overlay reveal reveal-fast">
             {loading ? (
               <div style={{color:'#E1DED2', fontSize:'24px', fontFamily:"'Radio Canada', sans-serif"}}>Načítavam...</div>
             ) : error ? (
@@ -91,8 +99,8 @@ export default function Home({navigate}){
               </div>
             ) : (
               <>
-                <div style={{...dynamicStyle}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
-                {hero.subtitle && <p style={{color:'#E1DED2', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif"}}>{hero.subtitle}</p>}
+                <div className="hero-headline reveal reveal-fast" style={{...dynamicStyle}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
+                {hero.subtitle && <p className="reveal reveal-fast" style={{color:'#E1DED2', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif"}}>{hero.subtitle}</p>}
               </>
             )}
           </div>
@@ -101,18 +109,18 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka */}
-        <section style={{padding:'60px 0', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'60px', borderBottom:'1px solid var(--border)'}}>
+        <section className="reveal" style={{padding:'60px 0', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'60px', borderBottom:'1px solid var(--border)'}}>
           {/* Left: O mne */}
-          <div style={{paddingRight:'30px', borderRight:'1px solid rgba(212, 148, 95, 0.3)'}}>
-            <h2 style={{fontSize:'28px', marginBottom:'24px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>O mne</h2>
+          <div className="reveal delay-1" style={{paddingRight:'30px', borderRight:'1px solid rgba(212, 148, 95, 0.3)'}}>
+            <h2 style={{fontSize:'28px', marginBottom:'24px', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>O mne</h2>
             <p style={{fontSize:'16px', color:'var(--text-light)', lineHeight:1.85, fontFamily:"'Radio Canada', sans-serif"}}>
               Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast. Môj obsah slúži ako most medzi duchovným dedičstvom a moderným svetom.
             </p>
           </div>
 
           {/* Right: Myšlienka/Quote */}
-          <div style={{paddingLeft:'30px'}}>
-            <h2 style={{fontSize:'28px', marginBottom:'24px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Myšlienka</h2>
+          <div className="reveal delay-2" style={{paddingLeft:'30px'}}>
+            <h2 style={{fontSize:'28px', marginBottom:'24px', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Myšlienka</h2>
             <p style={{fontSize:'15px', color:'var(--color-honey)', lineHeight:1.85, fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
             </p>
@@ -120,8 +128,8 @@ export default function Home({navigate}){
         </section>
 
         {/* Categories - tri stĺpce */}
-        <section style={{padding:'60px 0'}}>
-          <h2 style={{fontSize:'32px', marginBottom:'48px', textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Obsahy</h2>
+        <section className="reveal delay-3" style={{padding:'60px 0'}}>
+          <h2 style={{fontSize:'32px', marginBottom:'48px', textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Obsahy</h2>
           <div style={{
             display:'grid',
             gridTemplateColumns:'repeat(auto-fit, minmax(300px, 1fr))',
@@ -131,6 +139,7 @@ export default function Home({navigate}){
             {categories.map((cat, idx) => (
               <div
                 key={idx}
+                className={`reveal delay-${idx + 4}`}
                 onClick={()=>navigate(`/projects?cat=${encodeURIComponent(cat.name)}`)}
                 style={{
                   cursor:'pointer',
@@ -155,7 +164,7 @@ export default function Home({navigate}){
                   />
                 )}
                 <div>
-                  <h3 style={{fontSize:'24px', marginBottom:'12px', color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif"}}>
+                  <h3 style={{fontSize:'24px', marginBottom:'12px', color:'var(--color-light)', fontWeight:600, fontFamily:"'Hahmlet', serif"}}>
                     {cat.name}
                   </h3>
                   <p style={{fontSize:'16px', color:'var(--text-light)', marginBottom:'16px', fontFamily:"'Radio Canada', sans-serif"}}>
@@ -169,9 +178,9 @@ export default function Home({navigate}){
 
         {/* YouTube section */}
         {hero.youtubeImage && hero.youtubeUrl && (
-          <section style={{padding:'60px 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
+          <section className="reveal delay-8" style={{padding:'60px 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
             <div style={{textAlign:'center', maxWidth:'900px', margin:'0 auto'}}>
-              <h2 style={{marginBottom:'32px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Komerčné príspěvky na YouTube</h2>
+              <h2 style={{marginBottom:'32px', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Komerčné príspěvky na YouTube</h2>
               <img 
                 src={hero.youtubeImage} 
                 alt="YouTube"
