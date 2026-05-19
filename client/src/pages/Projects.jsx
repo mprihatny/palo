@@ -117,22 +117,22 @@ export default function Projects({navigate, category}){
         </div>
       </div>
 
-      {/* Two-column layout */}
-      <div style={{maxWidth:'1200px', width:'100%', margin:'0 auto', padding:'120px 40px 80px', flex:1}}>
+      {/* Two-column layout - Responsive */}
+      <div style={{maxWidth:'1200px', width:'100%', margin:'0 auto', padding:'clamp(60px, 10vw, 120px) clamp(16px, 5vw, 40px) 80px', flex:1}}>
         {loading ? (
           <div style={{fontSize:18, color:'var(--text-light)', textAlign:'center', padding:'60px 0', fontFamily:"'Radio Canada', sans-serif"}}>
             Načítavam...
           </div>
         ) : (
-          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'100px'}}>
+          <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'clamp(40px, 8vw, 100px)', '@media (min-width: 768px)': {gridTemplateColumns:'1fr 1fr'}}}}>
             {/* Left column - Books */}
             <div>
-              <h2 className="reveal delay-1" style={{fontSize:32, marginBottom:60, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Knihy</h2>
+              <h2 className="reveal delay-1" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(30px, 5vw, 60px)', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Knihy</h2>
               {books.length > 0 ? (
-                <div style={{display:'flex', flexDirection:'column', gap:60}}>
+                <div style={{display:'flex', flexDirection:'column', gap:'clamp(30px, 5vw, 60px)'}}>
                   {books.map((p, idx) => (
                     <article key={p._id} className={`reveal delay-${idx % 3 + 1}`}>
-                      <h3 style={{fontSize:26, fontWeight:700, marginBottom:20, color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
+                      <h3 style={{fontSize:'clamp(20px, 4vw, 26px)', fontWeight:700, marginBottom:'clamp(12px, 3vw, 20px)', color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
                         {p.title}
                       </h3>
                       <div style={{fontSize:16, lineHeight:'1.8', color:'var(--text)', fontFamily:"'Radio Canada', sans-serif", letterSpacing:'0.3px'}} dangerouslySetInnerHTML={{__html: p.content}} />
@@ -140,18 +140,18 @@ export default function Projects({navigate, category}){
                   ))}
                 </div>
               ) : (
-                <p className="reveal delay-2" style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:16, lineHeight:'1.6', letterSpacing:'0.2px'}}>Zatiaľ nie sú žiadne knihy v tejto kategórii.</p>
+                <p className="reveal delay-2" style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)', lineHeight:'1.6', letterSpacing:'0.2px'}}>Zatiaľ nie sú žiadne knihy v tejto kategórii.</p>
               )}
             </div>
 
             {/* Right column - Studies */}
             <div>
-              <h2 className="reveal delay-2" style={{fontSize:32, marginBottom:60, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Štúdie</h2>
+              <h2 className="reveal delay-2" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(30px, 5vw, 60px)', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Štúdie</h2>
               {studies.length > 0 ? (
-                <div style={{display:'flex', flexDirection:'column', gap:60}}>
+                <div style={{display:'flex', flexDirection:'column', gap:'clamp(30px, 5vw, 60px)'}}>
                   {studies.map((p, idx) => (
                     <article key={p._id} className={`reveal delay-${idx % 3 + 2}`}>
-                      <h3 style={{fontSize:26, fontWeight:700, marginBottom:20, color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
+                      <h3 style={{fontSize:'clamp(20px, 4vw, 26px)', fontWeight:700, marginBottom:'clamp(12px, 3vw, 20px)', color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
                         {p.title}
                       </h3>
                       <div style={{fontSize:16, lineHeight:'1.8', color:'var(--text)', fontFamily:"'Radio Canada', sans-serif", letterSpacing:'0.3px'}} dangerouslySetInnerHTML={{__html: p.content}} />
@@ -159,7 +159,7 @@ export default function Projects({navigate, category}){
                   ))}
                 </div>
               ) : (
-                <p className="reveal delay-3" style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:16, lineHeight:'1.6', letterSpacing:'0.2px'}}>Zatiaľ nie sú žiadne štúdie v tejto kategórii.</p>
+                <p className="reveal delay-3" style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)', lineHeight:'1.6', letterSpacing:'0.2px'}}>Zatiaľ nie sú žiadne štúdie v tejto kategórii.</p>
               )}
             </div>
           </div>
@@ -167,7 +167,7 @@ export default function Projects({navigate, category}){
 
         {/* YouTube Ads Section */}
         {hero.youtubeAdsImage && (
-          <section className="reveal delay-5" style={{marginTop:'80px', padding:'60px 0 40px', borderTop:'1px solid var(--border)'}}>
+          <section className="reveal delay-5" style={{marginTop:'clamp(40px, 8vw, 80px)', padding:'clamp(30px, 5vw, 60px) 0 clamp(20px, 3vw, 40px)', borderTop:'1px solid var(--border)'}}>
             <div style={{textAlign:'center'}}>
               {hero.youtubeAdsUrl ? (
                 <a href={hero.youtubeAdsUrl} target="_blank" rel="noopener noreferrer" style={{display:'inline-block', maxWidth:'100%', cursor:'pointer', transition:'transform 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.transform='scale(1.05)'} onMouseLeave={(e)=>e.currentTarget.style.transform='scale(1)'}>

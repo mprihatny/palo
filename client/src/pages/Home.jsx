@@ -168,31 +168,33 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{padding:'160px 0 80px', borderBottom:'1px solid var(--border)'}}>
+        <section className="reveal section-two-col" style={{padding:'clamp(60px, 12vw, 160px) 0 clamp(40px, 8vw, 80px)', borderBottom:'1px solid var(--border)'}}>
           {/* Left: O mne */}
-          <div className="reveal delay-1 col-left" style={{}}>
-            <h2 style={{color:'var(--color-dark)'}}>O mne</h2>
-            <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>
+          <div className="reveal delay-1 col-left" style={{paddingRight:'clamp(0px, 5vw, 30px)', borderRight:'1px solid rgba(212, 148, 95, 0.3)'}}>
+            <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>
+            <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.aboutText || 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.'}
             </p>
           </div>
 
           {/* Right: Myšlienka/Quote */}
-          <div className="reveal delay-2 col-right" style={{}}>
-            <h2 style={{color:'var(--color-dark)'}}>Myšlienka</h2>
-            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px'}}>
+          <div className="reveal delay-2 col-right" style={{paddingLeft:'clamp(0px, 5vw, 30px)'}}>
+            <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>Myšlienka</h2>
+            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px', fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
             </p>
           </div>
         </section>
 
-        {/* Categories - 3 SQUARES SIDE BY SIDE */}
-        <section className="reveal delay-3" style={{padding:'80px 0'}}>
+        {/* Categories - 3 SQUARES SIDE BY SIDE - RESPONSIVE */}
+        <section className="reveal delay-3" style={{padding:'clamp(40px, 8vw, 80px) 0'}}>
           <div style={{
             display:'grid',
-            gridTemplateColumns:'repeat(3, 1fr)',
-            gap:'32px',
-            marginBottom:'40px',
+            gridTemplateColumns:'1fr',
+            gap:'clamp(16px, 4vw, 32px)',
+            marginBottom:'clamp(20px, 4vw, 40px)',
+            '@media (min-width: 640px)': {gridTemplateColumns:'repeat(2, 1fr)'},
+            '@media (min-width: 1024px)': {gridTemplateColumns:'repeat(3, 1fr)'}
           }} className="categories-grid">
             {categories.map((cat, idx) => (
               <div
@@ -206,12 +208,12 @@ export default function Home({navigate}){
                   background:'rgba(212, 148, 95, 0.08)',
                   border:'1px solid var(--border)',
                   borderRadius:'12px',
-                  padding:'32px',
+                  padding:'clamp(16px, 4vw, 32px)',
                   display:'flex',
                   flexDirection:'column',
                   alignItems:'center',
                   justifyContent:'center',
-                  gap:'24px',
+                  gap:'clamp(12px, 3vw, 24px)',
                   aspectRatio:'1/1'
                 }}
                 onMouseEnter={(e)=>{
@@ -227,16 +229,16 @@ export default function Home({navigate}){
                 <img 
                   src={cat.icon} 
                   alt={cat.name}
-                  style={{width:'80px', height:'80px', objectFit:'contain'}}
+                  style={{width:'clamp(50px, 12vw, 80px)', height:'clamp(50px, 12vw, 80px)', objectFit:'contain'}}
                 />
                 
                 {/* Title */}
-                <h3 style={{color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif", margin:'0', fontSize:'22px', textAlign:'center'}}>
+                <h3 style={{color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif", margin:'0', fontSize:'clamp(16px, 4vw, 22px)', textAlign:'center'}}>
                   {cat.name}
                 </h3>
                 
                 {/* Button - Oval with border only */}
-                <button style={{padding:'8px 24px', background:'transparent', color:'var(--color-honey)', border:'2px solid var(--color-honey)', borderRadius:'24px', cursor:'pointer', fontWeight:600, fontSize:'13px', transition:'all 300ms ease', fontFamily:"'Radio Canada', sans-serif"}}
+                <button style={{padding:'clamp(6px, 1.5vw, 8px) clamp(16px, 4vw, 24px)', background:'transparent', color:'var(--color-honey)', border:'2px solid var(--color-honey)', borderRadius:'24px', cursor:'pointer', fontWeight:600, fontSize:'clamp(11px, 2vw, 13px)', transition:'all 300ms ease', fontFamily:"'Radio Canada', sans-serif"}}
                   onMouseEnter={(e)=>{
                     e.currentTarget.style.color = 'white'
                     e.currentTarget.style.background = 'var(--color-honey)'
@@ -255,7 +257,7 @@ export default function Home({navigate}){
 
         {/* YouTube Video Section */}
         {hero.youtubeUrl && (
-          <section className="reveal delay-5" style={{padding:'40px 0 20px'}}>
+          <section className="reveal delay-5" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(10px, 2vw, 20px)'}}>
             <div style={{
               position:'relative',
               paddingBottom:'56.25%',
@@ -297,7 +299,7 @@ export default function Home({navigate}){
 
         {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
         {pages.length > 0 && (
-          <section className="reveal delay-5 carousel-container" style={{padding:'40px 0 20px', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
+          <section className="reveal delay-5 carousel-container" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(10px, 2vw, 20px)', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}></section>
             <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'48px'}}>Najnovší obsah</h2>
             
             {/* Carousel Track */}

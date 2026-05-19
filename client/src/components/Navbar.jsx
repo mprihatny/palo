@@ -18,7 +18,7 @@ export default function Navbar({navigate, currentRoute}){
   return (
     <nav style={{
       background: 'var(--bg)',
-      padding: '12px 24px',
+      padding: '12px clamp(12px, 3vw, 24px)',
       borderBottom: 'none',
       position: 'sticky',
       top: 0,
@@ -34,26 +34,27 @@ export default function Navbar({navigate, currentRoute}){
           <img 
             src="https://i.postimg.cc/43cbVCzM/logop-removebg-preview.png" 
             alt="Logo"
-            style={{height:'60px', width:'auto'}}
+            style={{height:'clamp(40px, 8vw, 60px)', width:'auto'}}
           />
         </div>
 
         {/* Navigation items - Desktop */}
-        <div style={{display:'flex', gap:'32px', alignItems:'center', '@media (maxWidth: 768px)': {display:'none'}}}>
+        <div style={{display:'none', gap:'clamp(16px, 3vw, 32px)', alignItems:'center', '@media (min-width: 769px)': {display:'flex'}}}
           {navItems.map((item, idx) => (
             <a
               key={idx}
               onClick={()=>handleNavClick(item.path)}
               style={{
                 cursor:'pointer',
-                fontSize:'14px',
+                fontSize:'clamp(12px, 2vw, 14px)',
                 fontWeight:600,
                 color: currentRoute === item.path ? 'var(--color-honey)' : 'var(--text)',
                 textDecoration:'none',
                 fontFamily:"'Radio Canada', sans-serif",
                 transition:'color 200ms ease',
                 borderBottom: 'none',
-                paddingBottom:'4px'
+                paddingBottom:'4px',
+                whiteSpace:'nowrap'
               }}
               onMouseEnter={(e)=>{e.currentTarget.style.color = 'var(--color-honey)'}}
               onMouseLeave={(e)=>{
@@ -114,8 +115,8 @@ export default function Navbar({navigate, currentRoute}){
         <div style={{
           display:'flex',
           flexDirection:'column',
-          gap:'16px',
-          padding:'24px',
+          gap:'clamp(12px, 3vw, 16px)',
+          padding:'clamp(12px, 3vw, 24px)',
           background:'rgba(212, 148, 95, 0.05)',
           borderTop:'1px solid var(--border)',
           marginTop:'12px',
@@ -127,7 +128,7 @@ export default function Navbar({navigate, currentRoute}){
               onClick={()=>handleNavClick(item.path)}
               style={{
                 cursor:'pointer',
-                fontSize:'16px',
+                fontSize:'clamp(14px, 3vw, 16px)',
                 fontWeight:600,
                 color: currentRoute === item.path ? 'var(--color-honey)' : 'var(--text)',
                 textDecoration:'none',

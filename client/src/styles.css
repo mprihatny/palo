@@ -489,11 +489,17 @@ hr {
 	.carousel-slide {
 		min-width: 50%;
 	}
+	.carousel-slide-content {
+		padding: clamp(12px, 2vw, 20px);
+	}
 }
 
 @media (min-width: 1024px) {
 	.carousel-slide {
 		min-width: 33.333%;
+	}
+	.carousel-slide-content {
+		padding: clamp(16px, 2vw, 20px);
 	}
 }
 
@@ -502,16 +508,16 @@ hr {
 	.section-two-col {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 60px;
+		gap: clamp(40px, 8vw, 60px);
 	}
 	
 	.section-two-col .col-left {
-		padding-right: 30px;
+		padding-right: clamp(15px, 4vw, 30px);
 		border-right: 1px solid rgba(212, 148, 95, 0.3);
 	}
 	
 	.section-two-col .col-right {
-		padding-left: 30px;
+		padding-left: clamp(15px, 4vw, 30px);
 	}
 }
 
@@ -519,16 +525,16 @@ hr {
 	.section-two-col {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 40px;
+		gap: clamp(20px, 5vw, 40px);
 	}
 	
 	.section-two-col .col-left {
-		padding-right: 0;
-		border-right: none;
+		padding-right: 0 !important;
+		border-right: none !important;
 	}
 	
 	.section-two-col .col-right {
-		padding-left: 0;
+		padding-left: 0 !important;
 	}
 }
 
@@ -557,21 +563,27 @@ hr {
 
 /* Mobile optimizations */
 @media (max-width: 640px) {
+	h1 { 
+		font-size: clamp(24px, 6vw, 32px);
+		margin-bottom: clamp(12px, 2vw, 16px);
+	}
+	
 	h2 { 
-		font-size: 24px;
-		margin-bottom: 16px;
+		font-size: clamp(20px, 5vw, 24px);
+		margin-bottom: clamp(12px, 2vw, 16px);
 	}
 	
 	h3 {
-		font-size: 20px;
+		font-size: clamp(16px, 4vw, 20px);
 	}
 	
 	p {
-		font-size: 14px;
+		font-size: clamp(13px, 2.5vw, 14px);
+		line-height: 1.7;
 	}
 	
 	.container {
-		padding: 0 16px;
+		padding: 0 clamp(12px, 3vw, 16px);
 	}
 	
 	.carousel-slide-content h3 {
