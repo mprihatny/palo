@@ -18,7 +18,7 @@ export default function Projects({navigate, category}){
         console.error('Failed to fetch pages:', err)
         setLoading(false)
       })
-  },[])
+  }, [category])
 
   const filtered = category ? pages.filter(p => p.category === category) : pages
   const books = filtered.filter(p => p.type === 'Knihy')
