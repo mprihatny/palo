@@ -108,13 +108,28 @@ export default function Home({navigate}){
     return () => observer.disconnect()
   }, [])
 
+  // Hero text fade out animation
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroOverlay = document.querySelector('.hero-overlay')
+      if (heroOverlay) {
+        const scrollY = window.scrollY
+        const opacity = Math.max(1 - scrollY / 200, 0)
+        heroOverlay.style.opacity = opacity
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   // Parallax blur effect on hero image
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
       const heroImage = document.querySelector('.hero-image')
       if (heroImage) {
-        const blurAmount = Math.min(scrollY / 80, 8)
+        const blurAmount = Math.min(scrollY / 30, 8)
         setBlur(blurAmount)
         heroImage.style.filter = `brightness(0.92) contrast(1.05) saturate(0.95) blur(${blurAmount}px)`
       }
@@ -171,12 +186,11 @@ export default function Home({navigate}){
           </div>
         </section>
 
-        {/* Categories - NEW LAYOUT WITH ICONS */}
+        {/* Categories - 3 SQUARES SIDE BY SIDE */}
         <section className="reveal delay-3" style={{padding:'80px 0'}}>
-          <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'60px'}}>Obsahy</h2>
           <div style={{
             display:'grid',
-            gridTemplateColumns:'1fr',
+            gridTemplateColumns:'repeat(3, 1fr)',
             gap:'32px',
             marginBottom:'40px',
           }} className="categories-grid">
@@ -191,48 +205,84 @@ export default function Home({navigate}){
                   transition:'all 300ms ease',
                   background:'rgba(212, 148, 95, 0.08)',
                   border:'1px solid var(--border)',
-                  borderRadius:'8px',
+                  borderRadius:'12px',
                   padding:'32px',
-                  display:'grid',
-                  gridTemplateColumns:'1fr 120px',
+                  display:'flex',
+                  flexDirection:'column',
                   alignItems:'center',
-                  gap:'32px',
-                  minHeight:'160px'
+                  justifyContent:'center',
+                  gap:'24px',
+                  aspectRatio:'1/1'
                 }}
                 onMouseEnter={(e)=>{
                   e.currentTarget.style.background = 'rgba(212, 148, 95, 0.12)'
-                  e.currentTarget.style.transform = 'translateX(8px)'
+                  e.currentTarget.style.transform = 'scale(1.02)'
                 }}
                 onMouseLeave={(e)=>{
                   e.currentTarget.style.background = 'rgba(212, 148, 95, 0.08)'
-                  e.currentTarget.style.transform = 'translateX(0)'
+                  e.currentTarget.style.transform = 'scale(1)'
                 }}
               >
-                <div>
-                  <h3 style={{color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif", marginBottom:'12px', fontSize:'24px'}}>
-                    {cat.name}
-                  </h3>
-                  <p style={{color:'var(--text-light)', marginBottom:'16px', fontFamily:"'Radio Canada', sans-serif", fontSize:'15px'}}>
-                    Klikni a pozri si obsah tejto kategórie
-                  </p>
-                  <button style={{padding:'8px 16px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:'4px', cursor:'pointer', fontWeight:600, fontSize:'14px', transition:'all 300ms ease', fontFamily:"'Radio Canada', sans-serif"}}
-                    onMouseEnter={(e)=>{e.currentTarget.style.background = 'var(--color-red)'}}
-                    onMouseLeave={(e)=>{e.currentTarget.style.background = 'var(--color-honey)'}}
-                  >
-                    {cat.name}
-                  </button>
-                </div>
-                
-                {/* Icon on the right */}
+                {/* Icon at top */}
                 <img 
                   src={cat.icon} 
                   alt={cat.name}
-                  style={{width:'120px', height:'120px', objectFit:'contain'}}
+                  style={{width:'80px', height:'80px', objectFit:'contain'}}
                 />
+                
+                {/* Title */}
+                <h3 style={{color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif", margin:'0', fontSize:'22px', textAlign:'center'}}>
+                  {cat.name}
+                </h3>
+                
+                {/* Button - Oval with border only */}
+                <button style={{padding:'8px 24px', background:'transparent', color:'var(--color-honey)', border:'2px solid var(--color-honey)', borderRadius:'24px', cursor:'pointer', fontWeight:600, fontSize:'13px', transition:'all 300ms ease', fontFamily:"'Radio Canada', sans-serif"}}
+                  onMouseEnter={(e)=>{
+                    e.currentTarget.style.color = 'white'
+                    e.currentTarget.style.background = 'var(--color-honey)'
+                  }}
+                  onMouseLeave={(e)=>{
+                    e.currentTarget.style.color = 'var(--color-honey)'
+                    e.currentTarget.style.background = 'transparent'
+                  }}
+                >
+                  Pozrieť
+                </button>
               </div>
             ))}
           </div>
         </section>
+
+        {/* YouTube Video Section */}
+        {hero.youtubeImage && hero.youtubeUrl && (
+          <section className="reveal delay-5" style={{padding:'60px 0'}}>
+            <div style={{
+              position:'relative',
+              paddingBottom:'56.25%',
+              height:0,
+              overflow:'hidden',
+              borderRadius:'8px',
+              border:'1px solid var(--border)',
+              boxShadow:'0 8px 32px rgba(64, 51, 45, 0.08)'
+            }}>
+              <iframe
+                style={{
+                  position:'absolute',
+                  top:0,
+                  left:0,
+                  width:'100%',
+                  height:'100%',
+                  border:'none',
+                  borderRadius:'8px'
+                }}
+                src={hero.youtubeUrl.replace('youtu.be/', 'youtube.com/embed/').split('?')[0]}
+                title="YouTube video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </section>
+        )}
 
         {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
         {pages.length > 0 && (

@@ -1,15 +1,13 @@
-import React from 'react'
-
 export default function Footer({navigate}){
   return (
     <footer style={{
       borderTop: '2px solid var(--color-honey)',
       background: 'var(--bg)',
       padding: '60px 24px 40px',
-      marginTop: '80px'
+      marginTop: '60px'
     }}>
       <div style={{maxWidth:'1200px', margin:'0 auto'}}>
-        {/* Main footer content - Two sections */}
+        {/* Main footer content - Left logo + Right links */}
         <div style={{
           display:'grid',
           gridTemplateColumns:'1fr 2fr',
@@ -25,44 +23,21 @@ export default function Footer({navigate}){
               style={{height:'50px', width:'auto'}}
             />
             <div>
-              <h3 style={{fontSize:'20px', fontWeight:600, margin:'0 0 4px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Pavel Prihatný</h3>
-              <p style={{fontSize:'13px', color:'var(--text-light)', margin:0, fontFamily:"'Radio Canada', sans-serif"}}>Františkáni - Kapucíni</p>
+              <h3 style={{fontSize:'20px', fontWeight:600, margin:'0 0 4px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Kapucín</h3>
             </div>
             <div style={{width:'40px', height:'2px', background:'var(--color-honey)', marginTop:'8px'}}></div>
           </div>
 
-          {/* Right: Two columns of links */}
-          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'40px'}}>
-            {/* Užitočné odkazy */}
-            <div>
-              <h3 style={{fontSize:'16px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Užitočné odkazy</h3>
-              <div style={{display:'flex', flexDirection:'column', gap:'10px'}}>
-                <a href="https://kapucini.sk" target="_blank" rel="noopener noreferrer" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
-                  Kapucíni.sk
-                </a>
-                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
-                  Newsletter
-                </a>
-                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
-                  Kontakt
-                </a>
-              </div>
-            </div>
-
-            {/* Blog */}
-            <div>
-              <h3 style={{fontSize:'16px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Blog</h3>
-              <div style={{display:'flex', flexDirection:'column', gap:'10px'}}>
-                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
-                  Najnovšie príspěvky
-                </a>
-                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
-                  Archív
-                </a>
-                <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
-                  RSS
-                </a>
-              </div>
+          {/* Right: Užitočné odkazy */}
+          <div>
+            <h3 style={{fontSize:'16px', fontWeight:600, marginBottom:'16px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Užitočné odkazy</h3>
+            <div style={{display:'flex', flexDirection:'column', gap:'10px'}}>
+              <a href="https://kapucini.sk" target="_blank" rel="noopener noreferrer" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
+                Kapucíni.sk
+              </a>
+              <a href="#" style={{fontSize:'14px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
+                Kontakt
+              </a>
             </div>
           </div>
         </div>

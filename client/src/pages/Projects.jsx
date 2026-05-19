@@ -24,6 +24,24 @@ export default function Projects({navigate, category}){
   const books = filtered.filter(p => p.type === 'Knihy')
   const studies = filtered.filter(p => p.type === 'Štúdie')
 
+  useEffect(() => {
+    const revealed = document.querySelectorAll('.reveal')
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.15 }
+    )
+
+    revealed.forEach(el => observer.observe(el))
+    return () => observer.disconnect()
+  }, [filtered])
+
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)', display:'flex', flexDirection:'column'}}>
       {/* Hero section - "Moja fotka" */}
@@ -64,8 +82,8 @@ export default function Projects({navigate, category}){
               <h2 style={{fontSize:28, marginBottom:40, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Knihy</h2>
               {books.length > 0 ? (
                 <div style={{display:'flex', flexDirection:'column', gap:40}}>
-                  {books.map((p) => (
-                    <article key={p._id}>
+                  {books.map((p, idx) => (
+                    <article key={p._id} className={`reveal delay-${idx % 3 + 1}`}>
                       <h3 style={{fontSize:24, fontWeight:600, marginBottom:16, color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
                         {p.title}
                       </h3>
@@ -83,8 +101,8 @@ export default function Projects({navigate, category}){
               <h2 style={{fontSize:28, marginBottom:40, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Štúdie</h2>
               {studies.length > 0 ? (
                 <div style={{display:'flex', flexDirection:'column', gap:40}}>
-                  {studies.map((p) => (
-                    <article key={p._id}>
+                  {studies.map((p, idx) => (
+                    <article key={p._id} className={`reveal delay-${idx % 3 + 2}`}>
                       <h3 style={{fontSize:24, fontWeight:600, marginBottom:16, color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
                         {p.title}
                       </h3>

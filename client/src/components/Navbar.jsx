@@ -20,7 +20,7 @@ export default function Navbar({navigate, currentRoute}){
     <nav style={{
       background: 'var(--bg)',
       padding: '12px 24px',
-      borderBottom: '2px solid var(--color-honey)',
+      borderBottom: 'none',
       position: 'sticky',
       top: 0,
       zIndex: 100,
