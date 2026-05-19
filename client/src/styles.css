@@ -561,6 +561,17 @@ hr {
 	}
 }
 
+/* Projects two-column layout */
+.projects-two-col {
+	grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+	.projects-two-col {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
 /* Mobile optimizations */
 @media (max-width: 640px) {
 	h1 { 

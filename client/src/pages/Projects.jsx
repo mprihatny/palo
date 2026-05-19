@@ -124,7 +124,7 @@ export default function Projects({navigate, category}){
             Načítavam...
           </div>
         ) : (
-          <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'clamp(40px, 8vw, 100px)', '@media (min-width: 768px)': {gridTemplateColumns:'1fr 1fr'}}}}>
+          <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'clamp(40px, 8vw, 100px)'}} className="projects-two-col">
             {/* Left column - Books */}
             <div>
               <h2 className="reveal delay-1" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(30px, 5vw, 60px)', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Knihy</h2>

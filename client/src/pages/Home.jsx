@@ -192,9 +192,7 @@ export default function Home({navigate}){
             display:'grid',
             gridTemplateColumns:'1fr',
             gap:'clamp(16px, 4vw, 32px)',
-            marginBottom:'clamp(20px, 4vw, 40px)',
-            '@media (min-width: 640px)': {gridTemplateColumns:'repeat(2, 1fr)'},
-            '@media (min-width: 1024px)': {gridTemplateColumns:'repeat(3, 1fr)'}
+            marginBottom:'clamp(20px, 4vw, 40px)'
           }} className="categories-grid">
             {categories.map((cat, idx) => (
               <div
@@ -299,7 +297,7 @@ export default function Home({navigate}){
 
         {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
         {pages.length > 0 && (
-          <section className="reveal delay-5 carousel-container" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(10px, 2vw, 20px)', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}></section>
+          <section className="reveal delay-5 carousel-container" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(10px, 2vw, 20px)', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
             <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'48px'}}>Najnovší obsah</h2>
             
             {/* Carousel Track */}
