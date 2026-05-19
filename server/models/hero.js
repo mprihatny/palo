@@ -9,6 +9,8 @@ const HeroSchema = new mongoose.Schema({
     fontSize: { type: String, default: '48px' }
   },
   quote: { type: String, default: 'Priestor na krátky text/citáciu' },
+  quoteColor: { type: String, default: '#931413' },
+  aboutText: { type: String, default: 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.' },
   youtubeImage: { type: String, default: '' },
   youtubeUrl: { type: String, default: '' },
   youtubeAdsImage: { type: String, default: 'https://i.postimg.cc/GhWQcpFw/image-removebg-preview.png' },

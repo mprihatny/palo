@@ -118,48 +118,48 @@ export default function Projects({navigate, category}){
       </div>
 
       {/* Two-column layout */}
-      <div style={{maxWidth:'1200px', width:'100%', margin:'0 auto', padding:'80px 24px 80px', flex:1}}>
+      <div style={{maxWidth:'1200px', width:'100%', margin:'0 auto', padding:'120px 40px 80px', flex:1}}>
         {loading ? (
           <div style={{fontSize:18, color:'var(--text-light)', textAlign:'center', padding:'60px 0', fontFamily:"'Radio Canada', sans-serif"}}>
             Načítavam...
           </div>
         ) : (
-          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'60px'}}>
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'100px'}}>
             {/* Left column - Books */}
             <div>
-              <h2 style={{fontSize:28, marginBottom:40, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Knihy</h2>
+              <h2 className="reveal delay-1" style={{fontSize:32, marginBottom:60, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Knihy</h2>
               {books.length > 0 ? (
-                <div style={{display:'flex', flexDirection:'column', gap:40}}>
+                <div style={{display:'flex', flexDirection:'column', gap:60}}>
                   {books.map((p, idx) => (
                     <article key={p._id} className={`reveal delay-${idx % 3 + 1}`}>
-                      <h3 style={{fontSize:24, fontWeight:600, marginBottom:16, color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
+                      <h3 style={{fontSize:26, fontWeight:700, marginBottom:20, color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
                         {p.title}
                       </h3>
-                      <div style={{fontSize:16, lineHeight:'1.85', color:'var(--text)', fontFamily:"'Radio Canada', sans-serif"}} dangerouslySetInnerHTML={{__html: p.content}} />
+                      <div style={{fontSize:16, lineHeight:'1.8', color:'var(--text)', fontFamily:"'Radio Canada', sans-serif", letterSpacing:'0.3px'}} dangerouslySetInnerHTML={{__html: p.content}} />
                     </article>
                   ))}
                 </div>
               ) : (
-                <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:16}}>Zatiaľ nie sú žiadne knihy v tejto kategórii.</p>
+                <p className="reveal delay-2" style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:16, lineHeight:'1.6', letterSpacing:'0.2px'}}>Zatiaľ nie sú žiadne knihy v tejto kategórii.</p>
               )}
             </div>
 
             {/* Right column - Studies */}
             <div>
-              <h2 style={{fontSize:28, marginBottom:40, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Štúdie</h2>
+              <h2 className="reveal delay-2" style={{fontSize:32, marginBottom:60, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Štúdie</h2>
               {studies.length > 0 ? (
-                <div style={{display:'flex', flexDirection:'column', gap:40}}>
+                <div style={{display:'flex', flexDirection:'column', gap:60}}>
                   {studies.map((p, idx) => (
                     <article key={p._id} className={`reveal delay-${idx % 3 + 2}`}>
-                      <h3 style={{fontSize:24, fontWeight:600, marginBottom:16, color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
+                      <h3 style={{fontSize:26, fontWeight:700, marginBottom:20, color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
                         {p.title}
                       </h3>
-                      <div style={{fontSize:16, lineHeight:'1.85', color:'var(--text)', fontFamily:"'Radio Canada', sans-serif"}} dangerouslySetInnerHTML={{__html: p.content}} />
+                      <div style={{fontSize:16, lineHeight:'1.8', color:'var(--text)', fontFamily:"'Radio Canada', sans-serif", letterSpacing:'0.3px'}} dangerouslySetInnerHTML={{__html: p.content}} />
                     </article>
                   ))}
                 </div>
               ) : (
-                <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:16}}>Zatiaľ nie sú žiadne štúdie v tejto kategórii.</p>
+                <p className="reveal delay-3" style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:16, lineHeight:'1.6', letterSpacing:'0.2px'}}>Zatiaľ nie sú žiadne štúdie v tejto kategórii.</p>
               )}
             </div>
           </div>

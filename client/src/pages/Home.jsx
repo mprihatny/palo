@@ -114,7 +114,7 @@ export default function Home({navigate}){
       const heroOverlay = document.querySelector('.hero-overlay')
       if (heroOverlay) {
         const scrollY = window.scrollY
-        const opacity = Math.max(1 - scrollY / 300, 0.15)
+        const opacity = Math.max(1 - scrollY / 500, 0.7)
         heroOverlay.style.opacity = opacity
       }
     }
@@ -173,14 +173,14 @@ export default function Home({navigate}){
           <div className="reveal delay-1 col-left" style={{}}>
             <h2 style={{color:'var(--color-dark)'}}>O mne</h2>
             <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>
-              Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.
+              {hero.aboutText || 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.'}
             </p>
           </div>
 
           {/* Right: Myšlienka/Quote */}
           <div className="reveal delay-2 col-right" style={{}}>
             <h2 style={{color:'var(--color-dark)'}}>Myšlienka</h2>
-            <p style={{color:'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px'}}>
+            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
             </p>
           </div>

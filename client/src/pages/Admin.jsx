@@ -5,7 +5,7 @@ import API_BASE_URL from '../api'
 const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
-  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', youtubeImage:'', youtubeUrl:'', youtubeAdsImage:'https://i.postimg.cc/GhWQcpFw/image-removebg-preview.png', youtubeAdsUrl:'' })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', aboutText:'Vitajte na mojej stránke...', youtubeImage:'', youtubeUrl:'', youtubeAdsImage:'https://i.postimg.cc/GhWQcpFw/image-removebg-preview.png', youtubeAdsUrl:'' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
@@ -153,6 +153,26 @@ export default function Admin({navigate}){
                 placeholder="Priestor na krátky text/citáciu..." 
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, minHeight:80, resize:'vertical'}}
               />
+            </div>
+            <div>              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Farba citácie</label>
+              <input 
+                type="color"
+                value={hero.quoteColor||'#931413'} 
+                onChange={e=>setHero({...hero, quoteColor:e.target.value})} 
+                style={{width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, cursor:'pointer', height:44}}
+              />
+            </div>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Text "O mne"</label>
+              <textarea 
+                value={hero.aboutText||''} 
+                onChange={e=>setHero({...hero, aboutText:e.target.value})} 
+                placeholder="Vitajte na mojej stránke..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, minHeight:100, resize:'vertical'}}
+              />
+            </div>
+            <div style={{paddingTop:8, fontSize:12, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic'}}>
+              ⚠️ YouTube sekcia (nižšie)
             </div>
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube - URL na obrázok</label>

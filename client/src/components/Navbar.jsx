@@ -52,7 +52,7 @@ export default function Navbar({navigate, currentRoute}){
                 textDecoration:'none',
                 fontFamily:"'Radio Canada', sans-serif",
                 transition:'color 200ms ease',
-                borderBottom: currentRoute === item.path ? '2px solid var(--color-honey)' : 'none',
+                borderBottom: 'none',
                 paddingBottom:'4px'
               }}
               onMouseEnter={(e)=>{e.currentTarget.style.color = 'var(--color-honey)'}}
