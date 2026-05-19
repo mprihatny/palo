@@ -75,7 +75,7 @@ export default function Home({navigate}){
   }, [pages.length])
 
   const dynamicStyle = {
-    color: hero?.style?.color || '#E1DED2',
+    color: hero?.style?.color || '#2C2520',
     fontWeight: hero?.style?.fontWeight || '700',
     fontSize: hero?.style?.fontSize || '52px',
     lineHeight: 1.2,
@@ -84,9 +84,9 @@ export default function Home({navigate}){
   }
 
   const categories = [
-    { name: 'Autorské texty', icon: '✍️', color: '#D4945F', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' },
-    { name: 'Preklady', icon: '📖', color: '#931413', image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg' },
-    { name: 'Pripravované', icon: '🙏', color: '#6D5450', image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg' }
+    { name: 'Autorské texty', icon: 'https://i.postimg.cc/50JZ8wkk/autorske-texty-removebg-preview.png', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' },
+    { name: 'Preklady', icon: 'https://i.postimg.cc/Jn89jbdp/preklady-removebg-preview.png', image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg' },
+    { name: 'Pripravované', icon: 'https://i.postimg.cc/85GqLhnt/pripravovane-removebg-preview.png', image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg' }
   ]
 
   useEffect(() => {
@@ -119,15 +119,15 @@ export default function Home({navigate}){
           />
           <div className="hero-overlay reveal reveal-fast">
             {loading ? (
-              <div style={{color:'#E1DED2', fontSize:'24px', fontFamily:"'Radio Canada', sans-serif"}}>Načítavam...</div>
+              <div style={{color:'#ffffff', fontSize:'24px', fontFamily:"'Radio Canada', sans-serif"}}>Načítavam...</div>
             ) : error ? (
-              <div style={{color:'#E1DED2', fontSize:'18px', fontFamily:"'Radio Canada', sans-serif"}}>
+              <div style={{color:'#ffffff', fontSize:'18px', fontFamily:"'Radio Canada', sans-serif"}}>
                 <p>Problém s načítaním. Prosím obnovte stránku.</p>
               </div>
             ) : (
               <>
-                <div className="hero-headline reveal reveal-fast" style={{...dynamicStyle}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
-                {hero.subtitle && <p className="reveal reveal-fast" style={{color:'#E1DED2', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif"}}>{hero.subtitle}</p>}
+                <div className="hero-headline reveal reveal-fast" style={{...dynamicStyle, color:'#ffffff', textShadow:'0 2px 8px rgba(0,0,0,0.3)'}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
+                {hero.subtitle && <p className="reveal reveal-fast" style={{color:'#ffffff', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif"}}>{hero.subtitle}</p>}
               </>
             )}
           </div>
@@ -136,10 +136,10 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{padding:'40px 0 60px', borderBottom:'1px solid var(--border)'}}>
+        <section className="reveal section-two-col" style={{padding:'100px 0 80px', borderBottom:'1px solid var(--border)'}}>
           {/* Left: O mne */}
           <div className="reveal delay-1 col-left" style={{}}>
-            <h2 style={{color:'var(--color-light)'}}>O mne</h2>
+            <h2 style={{color:'var(--color-dark)'}}>O mne</h2>
             <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>
               Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.
             </p>
@@ -147,20 +147,20 @@ export default function Home({navigate}){
 
           {/* Right: Myšlienka/Quote */}
           <div className="reveal delay-2 col-right" style={{}}>
-            <h2 style={{color:'var(--color-light)'}}>Myšlienka</h2>
-            <p style={{color:'var(--color-honey)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px'}}>
+            <h2 style={{color:'var(--color-dark)'}}>Myšlienka</h2>
+            <p style={{color:'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
             </p>
           </div>
         </section>
 
-        {/* Categories - RESPONSIVE GRID */}
-        <section className="reveal delay-3" style={{padding:'40px 0 60px'}}>
-          <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Obsahy</h2>
+        {/* Categories - NEW LAYOUT WITH ICONS */}
+        <section className="reveal delay-3" style={{padding:'80px 0'}}>
+          <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'60px'}}>Obsahy</h2>
           <div style={{
             display:'grid',
             gridTemplateColumns:'1fr',
-            gap:'24px',
+            gap:'32px',
             marginBottom:'40px',
           }} className="categories-grid">
             {categories.map((cat, idx) => (
@@ -172,32 +172,46 @@ export default function Home({navigate}){
                   cursor:'pointer',
                   overflow:'hidden',
                   transition:'all 300ms ease',
-                  borderBottom: '3px solid var(--color-honey)',
+                  background:'rgba(212, 148, 95, 0.08)',
+                  border:'1px solid var(--border)',
+                  borderRadius:'8px',
+                  padding:'32px',
+                  display:'grid',
+                  gridTemplateColumns:'1fr 120px',
+                  alignItems:'center',
+                  gap:'32px',
+                  minHeight:'160px'
                 }}
                 onMouseEnter={(e)=>{
-                  e.currentTarget.style.borderBottomColor = 'var(--color-red)'
-                  e.currentTarget.style.transform = 'translateY(-8px)'
+                  e.currentTarget.style.background = 'rgba(212, 148, 95, 0.12)'
+                  e.currentTarget.style.transform = 'translateX(8px)'
                 }}
                 onMouseLeave={(e)=>{
-                  e.currentTarget.style.borderBottomColor = 'var(--color-honey)'
-                  e.currentTarget.style.transform = 'translateY(0)'
+                  e.currentTarget.style.background = 'rgba(212, 148, 95, 0.08)'
+                  e.currentTarget.style.transform = 'translateX(0)'
                 }}
               >
-                {cat.image && (
-                  <img 
-                    src={cat.image} 
-                    alt={cat.name}
-                    style={{width:'100%', height:'200px', objectFit:'cover', filter:'brightness(0.88) contrast(1.08) saturate(0.95)', display:'block', marginBottom:'16px'}}
-                  />
-                )}
                 <div>
-                  <h3 style={{color:'var(--color-light)', fontWeight:600, fontFamily:"'Hahmlet', serif"}}>
+                  <h3 style={{color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif", marginBottom:'12px', fontSize:'24px'}}>
                     {cat.name}
                   </h3>
-                  <p style={{color:'var(--text-light)', marginBottom:'12px', fontFamily:"'Radio Canada', sans-serif"}}>
+                  <p style={{color:'var(--text-light)', marginBottom:'16px', fontFamily:"'Radio Canada', sans-serif", fontSize:'15px'}}>
                     Klikni a pozri si obsah tejto kategórie
                   </p>
+                  <button style={{padding:'8px 16px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:'4px', cursor:'pointer', fontWeight:600, fontSize:'14px', transition:'all 300ms ease', fontFamily:"'Radio Canada', sans-serif"}}
+                    onMouseEnter={(e)=>{e.currentTarget.style.background = 'var(--color-red)'}}
+                    onMouseLeave={(e)=>{e.currentTarget.style.background = 'var(--color-honey)'}}
+                  >
+                    {cat.name}
+                  </button>
                 </div>
+                
+                {/* Icon on the right */}
+                <img 
+                  src={cat.icon} 
+                  alt={cat.name}
+                  style={{width:'120px', height:'120px', objectFit:'contain'}}
+                />
               </div>
             ))}
           </div>
@@ -205,8 +219,8 @@ export default function Home({navigate}){
 
         {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
         {pages.length > 0 && (
-          <section className="reveal delay-5 carousel-container" style={{padding:'40px 0 60px', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
-            <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-light)', marginBottom:'32px'}}>Najnovší obsah</h2>
+          <section className="reveal delay-5 carousel-container" style={{padding:'60px 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
+            <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'48px'}}>Najnovší obsah</h2>
             
             {/* Carousel Track */}
             <div className="carousel-track" style={{transform:`translateX(-${carouselIndex * 100}%)`}}>
@@ -216,15 +230,15 @@ export default function Home({navigate}){
                     onMouseEnter={(e)=>{e.currentTarget.style.background = 'rgba(212, 148, 95, 0.12)', e.currentTarget.style.transform = 'translateY(-4px)'}}
                     onMouseLeave={(e)=>{e.currentTarget.style.background = 'rgba(212, 148, 95, 0.08)', e.currentTarget.style.transform = 'translateY(0)'}}
                   >
-                    <h3 style={{marginBottom:'12px', color:'var(--color-light)', fontWeight:600, fontFamily:"'Hahmlet', serif", lineHeight:1.4}}>
+                    <h3 style={{marginBottom:'12px', color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif", lineHeight:1.4}}>
                       {page.title}
                     </h3>
                     <p style={{color:'var(--text-light)', lineHeight:1.6, marginBottom:'16px', flex:1, fontFamily:"'Radio Canada', sans-serif", display:'-webkit-box', WebkitLineClamp:3, WebkitBoxOrient:'vertical', overflow:'hidden'}} 
                       dangerouslySetInnerHTML={{__html: page.content ? page.content.substring(0, 120) + '...' : ''}}
                     />
-                    <button onClick={() => navigate(`/projects`)} style={{alignSelf:'flex-start', padding:'8px 16px', background:'var(--color-honey)', color:'var(--color-dark)', border:'none', borderRadius:'4px', cursor:'pointer', fontWeight:600, fontSize:'13px', transition:'all 300ms ease', fontFamily:"'Radio Canada', sans-serif"}}
-                      onMouseEnter={(e)=>{e.currentTarget.style.background = 'var(--color-red)', e.currentTarget.style.color = 'white'}}
-                      onMouseLeave={(e)=>{e.currentTarget.style.background = 'var(--color-honey)', e.currentTarget.style.color = 'var(--color-dark)'}}
+                    <button onClick={() => navigate(`/projects`)} style={{alignSelf:'flex-start', padding:'8px 16px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:'4px', cursor:'pointer', fontWeight:600, fontSize:'13px', transition:'all 300ms ease', fontFamily:"'Radio Canada', sans-serif"}}
+                      onMouseEnter={(e)=>{e.currentTarget.style.background = 'var(--color-red)'}}
+                      onMouseLeave={(e)=>{e.currentTarget.style.background = 'var(--color-honey)'}}
                     >
                       Zistiť viac
                     </button>
