@@ -165,20 +165,7 @@ export default function Projects({navigate, category}){
           </div>
         )}
 
-        {/* YouTube Ads Section */}
-        {hero.youtubeAdsImage && (
-          <section className="reveal delay-5" style={{marginTop:'clamp(40px, 8vw, 80px)', padding:'clamp(30px, 5vw, 60px) 0 clamp(20px, 3vw, 40px)', borderTop:'1px solid var(--border)'}}>
-            <div style={{textAlign:'center'}}>
-              {hero.youtubeAdsUrl ? (
-                <a href={hero.youtubeAdsUrl} target="_blank" rel="noopener noreferrer" style={{display:'inline-block', maxWidth:'100%', cursor:'pointer', transition:'transform 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.transform='scale(1.05)'} onMouseLeave={(e)=>e.currentTarget.style.transform='scale(1)'}>
-                  <img src={hero.youtubeAdsImage} alt="YouTube" style={{maxWidth:'100%', height:'auto', borderRadius:'8px', border:'1px solid var(--border)', boxShadow:'0 8px 32px rgba(64, 51, 45, 0.08)'}} />
-                </a>
-              ) : (
-                <img src={hero.youtubeAdsImage} alt="YouTube" style={{maxWidth:'100%', height:'auto', borderRadius:'8px', border:'1px solid var(--border)', boxShadow:'0 8px 32px rgba(64, 51, 45, 0.08)'}} />
-              )}
-            </div>
-          </section>
-        )}
+
       </div>
     </div>
   )

@@ -108,14 +108,16 @@ export default function Home({navigate}){
     return () => observer.disconnect()
   }, [])
 
-  // Hero text fade out animation - gradual with minimum opacity
+  // Hero text - ALWAYS VISIBLE with slide-up animation
   useEffect(() => {
     const handleScroll = () => {
       const heroOverlay = document.querySelector('.hero-overlay')
       if (heroOverlay) {
         const scrollY = window.scrollY
-        const opacity = Math.max(1 - scrollY / 500, 0.7)
-        heroOverlay.style.opacity = opacity
+        // Text stays at 100% opacity, only moves up slightly
+        const translateAmount = Math.min(scrollY / 2, 30)
+        heroOverlay.style.opacity = '1'
+        heroOverlay.style.transform = `translateY(-${translateAmount}px)`
       }
     }
 
@@ -334,6 +336,29 @@ export default function Home({navigate}){
                   className={`carousel-dot ${carouselIndex === idx ? 'active' : ''}`}
                 />
               ))}
+            </div>
+          </section>
+        )}
+
+        {/* YouTube Ads Section - HOME ONLY with text and clickable URL */}
+        {hero.youtubeAdsImage && (
+          <section className="reveal delay-5" style={{marginTop:'clamp(40px, 8vw, 80px)', padding:'clamp(30px, 5vw, 60px) 0 clamp(20px, 3vw, 40px)', borderTop:'1px solid var(--border)'}}>
+            <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'clamp(20px, 4vw, 40px)', alignItems:'center'}}>
+              {/* Image - clickable */}
+              {hero.youtubeAdsUrl ? (
+                <a href={hero.youtubeAdsUrl} target="_blank" rel="noopener noreferrer" style={{display:'block', cursor:'pointer', transition:'transform 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.transform='scale(1.02)'} onMouseLeave={(e)=>e.currentTarget.style.transform='scale(1)'}>
+                  <img src={hero.youtubeAdsImage} alt="Special" style={{width:'100%', height:'auto', borderRadius:'8px', border:'1px solid var(--border)', boxShadow:'0 8px 32px rgba(64, 51, 45, 0.08)'}} />
+                </a>
+              ) : (
+                <img src={hero.youtubeAdsImage} alt="Special" style={{width:'100%', height:'auto', borderRadius:'8px', border:'1px solid var(--border)', boxShadow:'0 8px 32px rgba(64, 51, 45, 0.08)'}} />
+              )}
+              
+              {/* Text - if ads text exists */}
+              {hero.youtubeAdsText && (
+                <div style={{fontSize:'clamp(14px, 2.5vw, 16px)', lineHeight:'1.8', color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", textAlign:'center'}}>
+                  {hero.youtubeAdsText}
+                </div>
+              )}
             </div>
           </section>
         )}

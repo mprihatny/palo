@@ -80,5 +80,17 @@ app.get('/api/pages/:id', async (req, res) => {
   res.json(page);
 });
 
+app.put('/api/pages/:id', async (req, res) => {
+  const page = await Page.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  if (!page) return res.status(404).json({ message: 'Not found' });
+  res.json(page);
+});
+
+app.delete('/api/pages/:id', async (req, res) => {
+  const page = await Page.findByIdAndDelete(req.params.id);
+  if (!page) return res.status(404).json({ message: 'Not found' });
+  res.json({ message: 'Deleted' });
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));

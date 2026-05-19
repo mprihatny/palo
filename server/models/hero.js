@@ -14,7 +14,8 @@ const HeroSchema = new mongoose.Schema({
   youtubeImage: { type: String, default: '' },
   youtubeUrl: { type: String, default: '' },
   youtubeAdsImage: { type: String, default: 'https://i.postimg.cc/GhWQcpFw/image-removebg-preview.png' },
-  youtubeAdsUrl: { type: String, default: '' }
+  youtubeAdsUrl: { type: String, default: '' },
+  youtubeAdsText: { type: String, default: '' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Hero', HeroSchema);

@@ -5,10 +5,13 @@ import API_BASE_URL from '../api'
 const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
-  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', aboutText:'Vitajte na mojej stránke...', youtubeImage:'', youtubeUrl:'', youtubeAdsImage:'https://i.postimg.cc/GhWQcpFw/image-removebg-preview.png', youtubeAdsUrl:'' })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', aboutText:'Vitajte na mojej stránke...', youtubeImage:'', youtubeUrl:'', youtubeAdsImage:'https://i.postimg.cc/GhWQcpFw/image-removebg-preview.png', youtubeAdsUrl:'', youtubeAdsText:'' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
+  const [pages, setPages] = useState([])
+  const [modal, setModal] = useState({show:false, type:'', message:'', success:false})
+  const [editingPage, setEditingPage] = useState(null)
 
   useEffect(()=>{
     let retries = 0
@@ -36,6 +39,20 @@ export default function Admin({navigate}){
     }
     
     loadHero()
+
+    // Load all pages
+    const loadPages = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/pages`)
+        if (res.ok) {
+          const data = await res.json()
+          setPages(data)
+        }
+      } catch (err) {
+        console.error('Failed to load pages:', err)
+      }
+    }
+    loadPages()
   },[])
 
   const save = async ()=>{
@@ -48,10 +65,11 @@ export default function Admin({navigate}){
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
       const data = await response.json()
       setHero(data)
-      alert('✓ Uložené!')
+      setModal({show:true, type:'success', message:'✓ Uložené!', success:true})
+      setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
     } catch (err) {
       console.error('Save error:', err)
-      alert(`Chyba: ${err.message}. Skontroluj server`)
+      setModal({show:true, type:'error', message:`Chyba: ${err.message}`, success:false})
     }
   }
 
@@ -210,6 +228,15 @@ export default function Admin({navigate}){
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube Ads - Text (domov)</label>
+              <textarea 
+                value={hero.youtubeAdsText||''} 
+                onChange={e=>setHero({...hero, youtubeAdsText:e.target.value})} 
+                placeholder="Text pod obrázkom na domovskej stránke..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, minHeight:60, resize:'vertical'}}
+              />
+            </div>
             <div style={{display:'flex', gap:12, paddingTop:12}}>
               <button 
                 onClick={save} 
@@ -267,9 +294,178 @@ export default function Admin({navigate}){
         </section>
 
         <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)'}}>
-          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Pridať príspěvok</h2>
-          <AddPageForm onSuccess={() => setRefreshTrigger(prev => prev + 1)} />
+          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Príspevky</h2>
+          {pages.length === 0 ? (
+            <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>Žiadne príspevky</p>
+          ) : (
+            <div style={{display:'grid', gap:16}}>
+              {pages.map(page => (
+                <div key={page._id} style={{padding:16, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px', display:'flex', justifyContent:'space-between', alignItems:'flex-start'}}>
+                  <div style={{flex:1}}>
+                    <h3 style={{margin:'0 0 8px 0', color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif"}}>{page.title}</h3>
+                    <p style={{margin:0, fontSize:12, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>{page.category} • {page.type}</p>
+                  </div>
+                  <div style={{display:'flex', gap:8}}>
+                    <button 
+                      onClick={() => setEditingPage(page)}
+                      style={{padding:'6px 12px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:'4px', fontSize:12, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif", transition:'all 200ms ease'}}
+                      onMouseEnter={(e)=>e.target.style.background='var(--color-red)'}
+                      onMouseLeave={(e)=>e.target.style.background='var(--color-honey)'}
+                    >
+                      Edit
+                    </button>
+                    <button 
+                      onClick={async () => {
+                        if (!window.confirm('Naozaj chceš odstrániť?')) return
+                        try {
+                          const res = await fetch(`${API_BASE_URL}/api/pages/${page._id}`, {method:'DELETE'})
+                          if (res.ok) {
+                            setPages(pages.filter(p => p._id !== page._id))
+                            setModal({show:true, type:'success', message:'✓ Odstránené!', success:true})
+                            setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
+                          }
+                        } catch (err) {
+                          setModal({show:true, type:'error', message:'Chyba pri mazaní', success:false})
+                        }
+                      }}
+                      style={{padding:'6px 12px', background:'#931413', color:'white', border:'none', borderRadius:'4px', fontSize:12, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif", transition:'all 200ms ease'}}
+                      onMouseEnter={(e)=>e.target.style.background='#700d0c'}
+                      onMouseLeave={(e)=>e.target.style.background='#931413'}
+                    >
+                      Zmazať
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
+
+        <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)'}}>
+          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Pridať príspevok</h2>
+          <AddPageForm onSuccess={() => {
+            setPages([...pages])
+            setModal({show:true, type:'success', message:'✓ Príspevok pridaný!', success:true})
+            setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
+          }} />
+        </section>
+
+        {/* Modal Notification */}
+        {modal.show && (
+          <div style={{
+            position:'fixed',
+            top:'50%',
+            left:'50%',
+            transform:'translate(-50%, -50%)',
+            background:'white',
+            padding:'32px',
+            borderRadius:'8px',
+            boxShadow:'0 20px 60px rgba(0,0,0,0.3)',
+            zIndex:1000,
+            minWidth:'320px',
+            textAlign:'center',
+            fontFamily:"'Radio Canada', sans-serif",
+            border:`2px solid ${modal.success ? 'var(--color-honey)' : '#931413'}`
+          }}>
+            <div style={{fontSize:24, marginBottom:16}}>
+              {modal.success ? '✓' : '✕'}
+            </div>
+            <p style={{margin:0, fontSize:16, color:'var(--color-dark)', fontWeight:600}}>
+              {modal.message}
+            </p>
+          </div>
+        )}
+
+        {/* Modal Backdrop */}
+        {modal.show && (
+          <div style={{
+            position:'fixed',
+            top:0,
+            left:0,
+            right:0,
+            bottom:0,
+            background:'rgba(0,0,0,0.4)',
+            zIndex:999
+          }} onClick={() => setModal({show:false, type:'', message:'', success:false})} />
+        )}
+
+        {/* Edit Modal */}
+        {editingPage && (
+          <div style={{
+            position:'fixed',
+            top:0,
+            left:0,
+            right:0,
+            bottom:0,
+            background:'rgba(0,0,0,0.4)',
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center',
+            zIndex:1001
+          }} onClick={() => setEditingPage(null)}>
+            <div style={{
+              background:'white',
+              padding:'32px',
+              borderRadius:'8px',
+              maxWidth:'600px',
+              width:'90%',
+              maxHeight:'80vh',
+              overflow:'auto'
+            }} onClick={(e) => e.stopPropagation()}>
+              <h3 style={{margin:'0 0 20px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Edit: {editingPage.title}</h3>
+              <textarea 
+                value={editingPage.title} 
+                onChange={e => setEditingPage({...editingPage, title: e.target.value})}
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, marginBottom:16}}
+                placeholder="Nadpis"
+              />
+              <Editor
+                apiKey={TINYMCE_API_KEY}
+                value={editingPage.content||''}
+                init={{
+                  height: 250,
+                  menubar: false,
+                  plugins: 'link code',
+                  toolbar: 'bold italic underline | link code',
+                  relative_urls: false,
+                  remove_script_host: false,
+                  content_css: false
+                }}
+                onEditorChange={(content) => setEditingPage({...editingPage, content})}
+              />
+              <div style={{display:'flex', gap:12, marginTop:16}}>
+                <button 
+                  onClick={async () => {
+                    try {
+                      const res = await fetch(`${API_BASE_URL}/api/pages/${editingPage._id}`, {
+                        method:'PUT',
+                        headers:{'Content-Type':'application/json'},
+                        body: JSON.stringify({title: editingPage.title, content: editingPage.content})
+                      })
+                      if (res.ok) {
+                        setPages(pages.map(p => p._id === editingPage._id ? {...p, ...editingPage} : p))
+                        setEditingPage(null)
+                        setModal({show:true, type:'success', message:'✓ Aktualizované!', success:true})
+                        setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
+                      }
+                    } catch (err) {
+                      setModal({show:true, type:'error', message:'Chyba pri aktualizácii', success:false})
+                    }
+                  }}
+                  style={{padding:'10px 20px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:'4px', cursor:'pointer', fontFamily:"'Radio Canada', sans-serif", fontWeight:600}}
+                >
+                  Uložiť
+                </button>
+                <button 
+                  onClick={() => setEditingPage(null)}
+                  style={{padding:'10px 20px', background:'var(--border)', color:'var(--text)', border:'none', borderRadius:'4px', cursor:'pointer', fontFamily:"'Radio Canada', sans-serif", fontWeight:600}}
+                >
+                  Zrušiť
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
