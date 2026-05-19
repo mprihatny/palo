@@ -7,6 +7,8 @@ export default function Home({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const [pages, setPages] = useState([])
 
   useEffect(()=>{
     let isMounted = true
@@ -46,6 +48,31 @@ export default function Home({navigate}){
       isMounted = false
     }
   },[])
+
+  // Fetch latest pages/posts for carousel
+  useEffect(() => {
+    const fetchPages = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/pages`)
+        if (response.ok) {
+          const data = await response.json()
+          setPages(data.slice(0, 6))
+        }
+      } catch (err) {
+        console.log('Failed to fetch pages:', err)
+      }
+    }
+    fetchPages()
+  }, [])
+
+  // Auto-rotate carousel
+  useEffect(() => {
+    if (pages.length === 0) return
+    const timer = setInterval(() => {
+      setCarouselIndex(prev => (prev + 1) % pages.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [pages.length])
 
   const dynamicStyle = {
     color: hero?.style?.color || '#E1DED2',
@@ -108,34 +135,34 @@ export default function Home({navigate}){
       </div>
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
-        {/* Two columns: O mne | Myšlienka */}
-        <section className="reveal" style={{padding:'60px 0', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'60px', borderBottom:'1px solid var(--border)'}}>
+        {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
+        <section className="reveal section-two-col" style={{padding:'40px 0 60px', borderBottom:'1px solid var(--border)'}}>
           {/* Left: O mne */}
-          <div className="reveal delay-1" style={{paddingRight:'30px', borderRight:'1px solid rgba(212, 148, 95, 0.3)'}}>
-            <h2 style={{fontSize:'28px', marginBottom:'24px', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>O mne</h2>
-            <p style={{fontSize:'16px', color:'var(--text-light)', lineHeight:1.85, fontFamily:"'Radio Canada', sans-serif"}}>
-              Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast. Môj obsah slúži ako most medzi duchovným dedičstvom a moderným svetom.
+          <div className="reveal delay-1 col-left" style={{}}>
+            <h2 style={{color:'var(--color-light)'}}>O mne</h2>
+            <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>
+              Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.
             </p>
           </div>
 
           {/* Right: Myšlienka/Quote */}
-          <div className="reveal delay-2" style={{paddingLeft:'30px'}}>
-            <h2 style={{fontSize:'28px', marginBottom:'24px', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Myšlienka</h2>
-            <p style={{fontSize:'15px', color:'var(--color-honey)', lineHeight:1.85, fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px'}}>
+          <div className="reveal delay-2 col-right" style={{}}>
+            <h2 style={{color:'var(--color-light)'}}>Myšlienka</h2>
+            <p style={{color:'var(--color-honey)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
             </p>
           </div>
         </section>
 
-        {/* Categories - tri stĺpce */}
-        <section className="reveal delay-3" style={{padding:'60px 0'}}>
-          <h2 style={{fontSize:'32px', marginBottom:'48px', textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Obsahy</h2>
+        {/* Categories - RESPONSIVE GRID */}
+        <section className="reveal delay-3" style={{padding:'40px 0 60px'}}>
+          <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Obsahy</h2>
           <div style={{
             display:'grid',
-            gridTemplateColumns:'repeat(auto-fit, minmax(300px, 1fr))',
-            gap:'40px',
-            marginBottom:'60px'
-          }}>
+            gridTemplateColumns:'1fr',
+            gap:'24px',
+            marginBottom:'40px',
+          }} className="categories-grid">
             {categories.map((cat, idx) => (
               <div
                 key={idx}
@@ -160,14 +187,14 @@ export default function Home({navigate}){
                   <img 
                     src={cat.image} 
                     alt={cat.name}
-                    style={{width:'100%', height:'240px', objectFit:'cover', filter:'brightness(0.88) contrast(1.08) saturate(0.95)', display:'block', marginBottom:'24px'}}
+                    style={{width:'100%', height:'200px', objectFit:'cover', filter:'brightness(0.88) contrast(1.08) saturate(0.95)', display:'block', marginBottom:'16px'}}
                   />
                 )}
                 <div>
-                  <h3 style={{fontSize:'24px', marginBottom:'12px', color:'var(--color-light)', fontWeight:600, fontFamily:"'Hahmlet', serif"}}>
+                  <h3 style={{color:'var(--color-light)', fontWeight:600, fontFamily:"'Hahmlet', serif"}}>
                     {cat.name}
                   </h3>
-                  <p style={{fontSize:'16px', color:'var(--text-light)', marginBottom:'16px', fontFamily:"'Radio Canada', sans-serif"}}>
+                  <p style={{color:'var(--text-light)', marginBottom:'12px', fontFamily:"'Radio Canada', sans-serif"}}>
                     Klikni a pozri si obsah tejto kategórie
                   </p>
                 </div>
@@ -176,33 +203,45 @@ export default function Home({navigate}){
           </div>
         </section>
 
-        {/* YouTube section */}
-        {hero.youtubeImage && hero.youtubeUrl && (
-          <section className="reveal delay-8" style={{padding:'60px 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
-            <div style={{textAlign:'center', maxWidth:'900px', margin:'0 auto'}}>
-              <h2 style={{marginBottom:'32px', fontFamily:"'Hahmlet', serif", color:'var(--color-light)'}}>Komerčné príspěvky na YouTube</h2>
-              <img 
-                src={hero.youtubeImage} 
-                alt="YouTube"
-                style={{width:'100%', maxWidth:'600px', height:'auto', objectFit:'cover', borderRadius:'8px', marginBottom:'24px'}}
-              />
-              <a href={hero.youtubeUrl} target="_blank" rel="noopener noreferrer" style={{
-                display:'inline-block',
-                padding:'12px 32px',
-                background:'var(--color-red)',
-                color:'white',
-                textDecoration:'none',
-                borderRadius:'4px',
-                fontWeight:600,
-                fontSize:'16px',
-                transition:'all 300ms ease',
-                fontFamily:"'Radio Canada', sans-serif"
-              }}
-              onMouseEnter={(e)=>{e.currentTarget.style.background = 'var(--color-dark)', e.currentTarget.style.transform = 'scale(1.05)'}}
-              onMouseLeave={(e)=>{e.currentTarget.style.background = 'var(--color-red)', e.currentTarget.style.transform = 'scale(1)'}}
-              >
-                Pozri videa
-              </a>
+        {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
+        {pages.length > 0 && (
+          <section className="reveal delay-5 carousel-container" style={{padding:'40px 0 60px', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
+            <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-light)', marginBottom:'32px'}}>Najnovší obsah</h2>
+            
+            {/* Carousel Track */}
+            <div className="carousel-track" style={{transform:`translateX(-${carouselIndex * 100}%)`}}>
+              {pages.map((page, idx) => (
+                <div key={idx} className="carousel-slide">
+                  <div className="carousel-slide-content"
+                    onMouseEnter={(e)=>{e.currentTarget.style.background = 'rgba(212, 148, 95, 0.12)', e.currentTarget.style.transform = 'translateY(-4px)'}}
+                    onMouseLeave={(e)=>{e.currentTarget.style.background = 'rgba(212, 148, 95, 0.08)', e.currentTarget.style.transform = 'translateY(0)'}}
+                  >
+                    <h3 style={{marginBottom:'12px', color:'var(--color-light)', fontWeight:600, fontFamily:"'Hahmlet', serif", lineHeight:1.4}}>
+                      {page.title}
+                    </h3>
+                    <p style={{color:'var(--text-light)', lineHeight:1.6, marginBottom:'16px', flex:1, fontFamily:"'Radio Canada', sans-serif", display:'-webkit-box', WebkitLineClamp:3, WebkitBoxOrient:'vertical', overflow:'hidden'}} 
+                      dangerouslySetInnerHTML={{__html: page.content ? page.content.substring(0, 120) + '...' : ''}}
+                    />
+                    <button onClick={() => navigate(`/projects`)} style={{alignSelf:'flex-start', padding:'8px 16px', background:'var(--color-honey)', color:'var(--color-dark)', border:'none', borderRadius:'4px', cursor:'pointer', fontWeight:600, fontSize:'13px', transition:'all 300ms ease', fontFamily:"'Radio Canada', sans-serif"}}
+                      onMouseEnter={(e)=>{e.currentTarget.style.background = 'var(--color-red)', e.currentTarget.style.color = 'white'}}
+                      onMouseLeave={(e)=>{e.currentTarget.style.background = 'var(--color-honey)', e.currentTarget.style.color = 'var(--color-dark)'}}
+                    >
+                      Zistiť viac
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Carousel Indicators */}
+            <div className="carousel-indicators">
+              {pages.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCarouselIndex(idx)}
+                  className={`carousel-dot ${carouselIndex === idx ? 'active' : ''}`}
+                />
+              ))}
             </div>
           </section>
         )}
