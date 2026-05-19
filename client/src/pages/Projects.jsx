@@ -44,7 +44,7 @@ export default function Projects({navigate, category}){
             padding:'48px 24px',
             zIndex:2
           }}>
-            <h1 style={{color:'#E1DED2', fontSize:'52px', fontWeight:700, fontFamily:"'Hahmlet', serif", margin:0}}>
+            <h1 style={{color:'#ffffff', fontSize:'52px', fontWeight:700, fontFamily:"'Hahmlet', serif", margin:0, textShadow:'0 2px 8px rgba(0,0,0,0.3)'}}>
               {category || 'Všetok obsah'}
             </h1>
           </div>
@@ -52,7 +52,7 @@ export default function Projects({navigate, category}){
       </div>
 
       {/* Two-column layout */}
-      <div style={{maxWidth:'1200px', width:'100%', margin:'0 auto', padding:'60px 24px 80px', flex:1}}>
+      <div style={{maxWidth:'1200px', width:'100%', margin:'0 auto', padding:'80px 24px 80px', flex:1}}>
         {loading ? (
           <div style={{fontSize:18, color:'var(--text-light)', textAlign:'center', padding:'60px 0', fontFamily:"'Radio Canada', sans-serif"}}>
             Načítavam...
@@ -98,35 +98,6 @@ export default function Projects({navigate, category}){
             </div>
           </div>
         )}
-      </div>
-
-      {/* Back button */}
-      <div style={{padding:'24px', textAlign:'center', borderTop:'1px solid var(--border)'}}>
-        <button 
-          onClick={()=>navigate('/')}
-          style={{
-            background:'var(--color-honey)',
-            border:'none',
-            fontSize:16,
-            fontWeight:600,
-            color:'white',
-            cursor:'pointer',
-            display:'inline-flex',
-            alignItems:'center',
-            gap:8,
-            padding:'12px 24px',
-            borderRadius:'4px',
-            transition:'all 300ms ease',
-            fontFamily:"'Radio Canada', sans-serif"
-          }}
-          onMouseEnter={(e)=>{e.target.style.background = 'var(--color-red)', e.target.style.transform = 'scale(1.05)'}}
-          onMouseLeave={(e)=>{e.target.style.background = 'var(--color-honey)', e.target.style.transform = 'scale(1)'}}
-        >
-          <svg style={{width:16, height:16}} fill="white" viewBox="0 0 16 16">
-            <path fillRule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
-          </svg>
-          Späť domov
-        </button>
       </div>
     </div>
   )

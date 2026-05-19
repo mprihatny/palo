@@ -9,6 +9,7 @@ export default function Home({navigate}){
   const [error, setError] = useState(null)
   const [carouselIndex, setCarouselIndex] = useState(0)
   const [pages, setPages] = useState([])
+  const [blur, setBlur] = useState(0)
 
   useEffect(()=>{
     let isMounted = true
@@ -105,6 +106,22 @@ export default function Home({navigate}){
 
     revealed.forEach(el => observer.observe(el))
     return () => observer.disconnect()
+  }, [])
+
+  // Parallax blur effect on hero image
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      const heroImage = document.querySelector('.hero-image')
+      if (heroImage) {
+        const blurAmount = Math.min(scrollY / 80, 8)
+        setBlur(blurAmount)
+        heroImage.style.filter = `brightness(0.92) contrast(1.05) saturate(0.95) blur(${blurAmount}px)`
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
