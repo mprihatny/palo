@@ -136,7 +136,7 @@ export default function Home({navigate}){
             src={HERO_IMAGE} 
             alt="hero"
           />
-          <div className="hero-overlay reveal reveal-fast">
+          <div className="hero-overlay">
             {loading ? (
               <div style={{color:'#ffffff', fontSize:'24px', fontFamily:"'Radio Canada', sans-serif"}}>Načítavam...</div>
             ) : error ? (
@@ -145,8 +145,8 @@ export default function Home({navigate}){
               </div>
             ) : (
               <>
-                <div className="hero-headline reveal reveal-fast" style={{...dynamicStyle, color:'#ffffff', textShadow:'0 2px 8px rgba(0,0,0,0.3)'}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
-                {hero.subtitle && <p className="reveal reveal-fast" style={{color:'#ffffff', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif"}}>{hero.subtitle}</p>}
+                <div className="hero-headline" style={{...dynamicStyle, color:'#ffffff', textShadow:'0 2px 8px rgba(0,0,0,0.3)', opacity: 1, animation: 'none'}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
+                {hero.subtitle && <p style={{color:'#ffffff', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif", opacity: 1}}>{hero.subtitle}</p>}
               </>
             )}
           </div>
@@ -239,48 +239,6 @@ export default function Home({navigate}){
             ))}
           </div>
         </section>
-
-        {/* YouTube Video Section */}
-        {hero.youtubeUrl && (
-          <section className="reveal delay-5" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(10px, 2vw, 20px)'}}>
-            <div style={{
-              position:'relative',
-              paddingBottom:'56.25%',
-              height:0,
-              overflow:'hidden',
-              borderRadius:'8px',
-              border:'1px solid var(--border)',
-              boxShadow:'0 8px 32px rgba(64, 51, 45, 0.08)'
-            }}>
-              <iframe
-                style={{
-                  position:'absolute',
-                  top:0,
-                  left:0,
-                  width:'100%',
-                  height:'100%',
-                  border:'none',
-                  borderRadius:'8px'
-                }}
-                src={(() => {
-                  const url = hero.youtubeUrl
-                  let videoId = ''
-                  if (url.includes('youtube.com/watch?v=')) {
-                    videoId = url.split('v=')[1]?.split('&')[0]
-                  } else if (url.includes('youtu.be/')) {
-                    videoId = url.split('youtu.be/')[1]?.split('?')[0]
-                  } else if (url.includes('youtube.com/embed/')) {
-                    videoId = url.split('embed/')[1]?.split('?')[0]
-                  }
-                  return videoId ? `https://www.youtube.com/embed/${videoId}?rel=0` : ''
-                })()}
-                title="YouTube video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </section>
-        )}
 
         {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
         {pages.length > 0 && (

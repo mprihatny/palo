@@ -12,7 +12,13 @@ export default function Admin({navigate}){
   const [pages, setPages] = useState([])
   const [modal, setModal] = useState({show:false, type:'', message:'', success:false})
   const [editingPage, setEditingPage] = useState(null)
-  const [links, setLinks] = useState({ links: [] })
+  const [links, setLinks] = useState({ 
+    links: [
+      { title: 'Kapucín Slovensko', url: 'https://kapucini.sk', description: 'Webová stránka Kapucínskej komunity na Slovensku', icon: '' },
+      { title: 'Vatikán', url: 'https://www.vatican.va', description: 'Oficiálna webová stránka Vatikánu', icon: '' },
+      { title: 'Bibliacech', url: 'https://bibliacech.sk', description: 'Bibliografia českých a slovenských kapucínov', icon: '' }
+    ]
+  })
   const [categoryHeroes, setCategoryHeroes] = useState({ autorske: {}, preklady: {}, pripravovane: {} })
 
   useEffect(()=>{

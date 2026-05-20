@@ -97,7 +97,17 @@ app.delete('/api/pages/:id', async (req, res) => {
 // Links endpoints
 app.get('/api/links', async (req, res) => {
   let links = await Links.findOne();
-  if (!links) links = new Links({ links: [] });
+  if (!links) {
+    // Create with default links if none exist
+    links = new Links({ 
+      links: [
+        { title: 'Kapucín Slovensko', url: 'https://kapucini.sk', description: 'Webová stránka Kapucínskej komunity na Slovensku', icon: '' },
+        { title: 'Vatikán', url: 'https://www.vatican.va', description: 'Oficiálna webová stránka Vatikánu', icon: '' },
+        { title: 'Bibliacech', url: 'https://bibliacech.sk', description: 'Bibliografia českých a slovenských kapucínov', icon: '' }
+      ]
+    });
+    await links.save();
+  }
   res.json(links);
 });
 
