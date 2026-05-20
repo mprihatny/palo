@@ -171,13 +171,10 @@ p {
 .reveal.delay-8 { transition-delay: 420ms; }
 .reveal-fast { transition-duration: 520ms !important; }
 .hero-headline {
-	opacity: 0;
-	transform: translateY(18px);
-	transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1), transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.hero-headline.visible {
 	opacity: 1;
 	transform: translateY(0);
+	transition: none;
+	margin: 0;
 }
 
 /* CTA buttons section removed - using icon cards instead */
