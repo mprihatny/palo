@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import API_BASE_URL from '../api'
 
-const HERO_IMAGE = 'https://i.postimg.cc/C59V7gs1/hlavne-foto1.jpg'
+const DEFAULT_HERO_IMAGE = 'https://i.postimg.cc/C59V7gs1/hlavne-foto1.jpg'
 
 export default function Projects({navigate, category}){
   const [pages, setPages] = useState([])
   const [hero, setHero] = useState({})
   const [loading, setLoading] = useState(true)
   const [blur, setBlur] = useState(0)
+  const [categoryHeroes, setCategoryHeroes] = useState({})
+  const [heroImage, setHeroImage] = useState(DEFAULT_HERO_IMAGE)
 
   useEffect(()=>{
     console.log('Fetching pages for category:', category)
@@ -46,6 +48,28 @@ export default function Projects({navigate, category}){
       })
   }, [])
 
+  useEffect(()=>{
+    fetch(`${API_BASE_URL}/api/category-heroes`)
+      .then(r=>r.json())
+      .then(data=>{
+        setCategoryHeroes(data)
+        // Set hero image based on category
+        if (category === 'Autorské texty' && data.autorske?.image) {
+          setHeroImage(data.autorske.image)
+        } else if (category === 'Preklady' && data.preklady?.image) {
+          setHeroImage(data.preklady.image)
+        } else if (category === 'Pripravované' && data.pripravovane?.image) {
+          setHeroImage(data.pripravovane.image)
+        } else {
+          setHeroImage(DEFAULT_HERO_IMAGE)
+        }
+      })
+      .catch(err=>{
+        console.error('Failed to fetch category heroes:', err)
+        setHeroImage(DEFAULT_HERO_IMAGE)
+      })
+  }, [category])
+
   const filtered = category ? pages.filter(p => p.category === category) : pages
   const books = filtered.filter(p => p.type === 'Knihy')
   const studies = filtered.filter(p => p.type === 'Štúdie')
@@ -68,20 +92,15 @@ export default function Projects({navigate, category}){
     return () => observer.disconnect()
   }, [filtered, pages])
 
-  // Parallax blur + fade animations
+  // Parallax blur effect on hero image only
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
       const heroImage = document.querySelector('.hero-image')
-      const heroOverlay = document.querySelector('.hero-overlay')
       if (heroImage) {
         const blurAmount = Math.min(scrollY / 30, 8)
         setBlur(blurAmount)
         heroImage.style.filter = `brightness(0.92) contrast(1.05) saturate(0.95) blur(${blurAmount}px)`
-      }
-      if (heroOverlay) {
-        const opacity = Math.max(1 - scrollY / 150, 0.3)
-        heroOverlay.style.opacity = opacity
       }
     }
 
@@ -96,7 +115,7 @@ export default function Projects({navigate, category}){
         <div className="hero-container">
           <img 
             className="hero-image"
-            src={HERO_IMAGE} 
+            src={heroImage} 
             alt="hero"
           />
           <div style={{

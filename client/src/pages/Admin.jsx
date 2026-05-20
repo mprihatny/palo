@@ -12,6 +12,8 @@ export default function Admin({navigate}){
   const [pages, setPages] = useState([])
   const [modal, setModal] = useState({show:false, type:'', message:'', success:false})
   const [editingPage, setEditingPage] = useState(null)
+  const [links, setLinks] = useState({ links: [] })
+  const [categoryHeroes, setCategoryHeroes] = useState({ autorske: {}, preklady: {}, pripravovane: {} })
 
   useEffect(()=>{
     let retries = 0
@@ -53,6 +55,34 @@ export default function Admin({navigate}){
       }
     }
     loadPages()
+
+    // Load links
+    const loadLinks = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/links`)
+        if (res.ok) {
+          const data = await res.json()
+          setLinks(data)
+        }
+      } catch (err) {
+        console.error('Failed to load links:', err)
+      }
+    }
+    loadLinks()
+
+    // Load category heroes
+    const loadCategoryHeroes = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/category-heroes`)
+        if (res.ok) {
+          const data = await res.json()
+          setCategoryHeroes(data)
+        }
+      } catch (err) {
+        console.error('Failed to load category heroes:', err)
+      }
+    }
+    loadCategoryHeroes()
   },[])
 
   const save = async ()=>{
@@ -69,6 +99,42 @@ export default function Admin({navigate}){
       setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
     } catch (err) {
       console.error('Save error:', err)
+      setModal({show:true, type:'error', message:`Chyba: ${err.message}`, success:false})
+    }
+  }
+
+  const saveLinks = async ()=>{
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/links`, { 
+        method:'PUT', 
+        headers:{'Content-Type':'application/json'}, 
+        body: JSON.stringify(links)
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      const data = await response.json()
+      setLinks(data)
+      setModal({show:true, type:'success', message:'✓ Odkazy uložené!', success:true})
+      setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
+    } catch (err) {
+      console.error('Save links error:', err)
+      setModal({show:true, type:'error', message:`Chyba: ${err.message}`, success:false})
+    }
+  }
+
+  const saveCategoryHeroes = async ()=>{
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/category-heroes`, { 
+        method:'PUT', 
+        headers:{'Content-Type':'application/json'}, 
+        body: JSON.stringify(categoryHeroes)
+      })
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      const data = await response.json()
+      setCategoryHeroes(data)
+      setModal({show:true, type:'success', message:'✓ Obrázky kategórií uložené!', success:true})
+      setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
+    } catch (err) {
+      console.error('Save category heroes error:', err)
       setModal({show:true, type:'error', message:`Chyba: ${err.message}`, success:false})
     }
   }
@@ -350,6 +416,121 @@ export default function Admin({navigate}){
           }} />
         </section>
 
+        {/* Useful Links Section */}
+        <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)', marginTop:32}}>
+          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Užitočné odkazy</h2>
+          <div style={{display:'grid', gap:24, maxWidth:900, marginBottom:24}}>
+            {links.links && links.links.map((link, idx) => (
+              <div key={idx} style={{padding:16, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
+                <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Nadpis odkazu</label>
+                <input 
+                  value={link.title||''} 
+                  onChange={e => {
+                    const newLinks = [...links.links]
+                    newLinks[idx].title = e.target.value
+                    setLinks({...links, links: newLinks})
+                  }} 
+                  placeholder="Názov odkazu" 
+                  style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, marginBottom:12}}
+                />
+                <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>URL</label>
+                <input 
+                  value={link.url||''} 
+                  onChange={e => {
+                    const newLinks = [...links.links]
+                    newLinks[idx].url = e.target.value
+                    setLinks({...links, links: newLinks})
+                  }} 
+                  placeholder="https://..." 
+                  style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, marginBottom:12}}
+                />
+                <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Popis (voliteľný)</label>
+                <textarea 
+                  value={link.description||''} 
+                  onChange={e => {
+                    const newLinks = [...links.links]
+                    newLinks[idx].description = e.target.value
+                    setLinks({...links, links: newLinks})
+                  }} 
+                  placeholder="Popis odkazu..." 
+                  style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, minHeight:60, resize:'vertical', marginBottom:12}}
+                />
+                <button 
+                  onClick={() => {
+                    const newLinks = links.links.filter((_, i) => i !== idx)
+                    setLinks({...links, links: newLinks})
+                  }}
+                  style={{padding:'6px 12px', background:'#931413', color:'white', border:'none', borderRadius:'4px', fontSize:12, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif"}}
+                >
+                  Odstrániť
+                </button>
+              </div>
+            ))}
+          </div>
+          <button 
+            onClick={() => {
+              setLinks({...links, links: [...(links.links||[]), {title: '', url: '', description: '', icon: ''}]})
+            }}
+            style={{padding:'10px 20px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:'4px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif", marginBottom:12}}
+          >
+            + Pridať odkaz
+          </button>
+          <button 
+            onClick={saveLinks}
+            style={{padding:'10px 20px', background:'var(--color-red)', color:'white', border:'none', borderRadius:'4px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif"}}
+          >
+            Uložiť odkazy
+          </button>
+        </section>
+
+        {/* Category Heroes Section */}
+        <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)', marginTop:32}}>
+          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Obrázky podstránok</h2>
+          <div style={{display:'grid', gap:32, maxWidth:900}}>
+            {/* Autorské texty */}
+            <div style={{padding:20, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
+              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Autorské texty</h3>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Obrázok URL</label>
+              <input 
+                value={categoryHeroes.autorske?.image||''} 
+                onChange={e => setCategoryHeroes({...categoryHeroes, autorske: {...categoryHeroes.autorske, image: e.target.value}})} 
+                placeholder="https://..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
+            </div>
+
+            {/* Preklady */}
+            <div style={{padding:20, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
+              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Preklady</h3>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Obrázok URL</label>
+              <input 
+                value={categoryHeroes.preklady?.image||''} 
+                onChange={e => setCategoryHeroes({...categoryHeroes, preklady: {...categoryHeroes.preklady, image: e.target.value}})} 
+                placeholder="https://..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
+            </div>
+
+            {/* Pripravované */}
+            <div style={{padding:20, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
+              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Pripravované</h3>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Obrázok URL</label>
+              <input 
+                value={categoryHeroes.pripravovane?.image||''} 
+                onChange={e => setCategoryHeroes({...categoryHeroes, pripravovane: {...categoryHeroes.pripravovane, image: e.target.value}})} 
+                placeholder="https://..." 
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
+            </div>
+          </div>
+          <button 
+            onClick={saveCategoryHeroes}
+            style={{padding:'12px 28px', background:'var(--color-red)', color:'white', border:'none', borderRadius:'4px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif", marginTop:24}}
+          >
+            Uložiť obrázky
+          </button>
+        </section>
+
         {/* Modal Notification */}
         {modal.show && (
           <div style={{
@@ -479,10 +660,6 @@ function AddPageForm({onSuccess}){
   const [submitting, setSubmitting] = useState(false)
 
   const submit = async ()=>{
-    if (!title.trim() || !content.trim()) {
-      alert('Prosím vyplň nadpis a obsah')
-      return
-    }
     setSubmitting(true)
     try {
       const res = await fetch(`${API_BASE_URL}/api/pages`, { 

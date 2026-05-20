@@ -108,22 +108,7 @@ export default function Home({navigate}){
     return () => observer.disconnect()
   }, [])
 
-  // Hero text - ALWAYS VISIBLE with slide-up animation
-  useEffect(() => {
-    const handleScroll = () => {
-      const heroOverlay = document.querySelector('.hero-overlay')
-      if (heroOverlay) {
-        const scrollY = window.scrollY
-        // Text stays at 100% opacity, only moves up slightly
-        const translateAmount = Math.min(scrollY / 2, 30)
-        heroOverlay.style.opacity = '1'
-        heroOverlay.style.transform = `translateY(-${translateAmount}px)`
-      }
-    }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   // Parallax blur effect on hero image
   useEffect(() => {
@@ -189,12 +174,12 @@ export default function Home({navigate}){
         </section>
 
         {/* Categories - 3 SQUARES SIDE BY SIDE - RESPONSIVE */}
-        <section className="reveal delay-3" style={{padding:'clamp(40px, 8vw, 80px) 0'}}>
+        <section className="reveal delay-3" style={{padding:'clamp(30px, 5vw, 60px) 0 0'}}>
           <div style={{
             display:'grid',
             gridTemplateColumns:'1fr',
             gap:'clamp(16px, 4vw, 32px)',
-            marginBottom:'clamp(20px, 4vw, 40px)'
+            marginBottom:'clamp(12px, 2vw, 24px)'
           }} className="categories-grid">
             {categories.map((cat, idx) => (
               <div
@@ -299,8 +284,8 @@ export default function Home({navigate}){
 
         {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
         {pages.length > 0 && (
-          <section className="reveal delay-5 carousel-container" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(10px, 2vw, 20px)', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)'}}>
-            <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'48px'}}>Najnovší obsah</h2>
+          <section className="reveal delay-5 carousel-container" style={{padding:'clamp(16px, 2vw, 24px) 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)', marginTop:'clamp(20px, 3vw, 40px)'}}>
+            <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'32px', fontSize:'clamp(20px, 4vw, 28px)'}}>Najnovší obsah</h2>
             
             {/* Carousel Track */}
             <div className="carousel-track" style={{transform:`translateX(-${carouselIndex * 100}%)`}}>
@@ -342,8 +327,8 @@ export default function Home({navigate}){
 
         {/* YouTube Ads Section - HOME ONLY with text and clickable URL */}
         {hero.youtubeAdsImage && (
-          <section className="reveal delay-5" style={{marginTop:'clamp(40px, 8vw, 80px)', padding:'clamp(30px, 5vw, 60px) 0 clamp(20px, 3vw, 40px)', borderTop:'1px solid var(--border)'}}>
-            <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'clamp(20px, 4vw, 40px)', alignItems:'center'}}>
+          <section className="reveal delay-5" style={{marginTop:'clamp(20px, 3vw, 40px)', padding:'clamp(20px, 3vw, 40px) 0', borderTop:'1px solid var(--border)'}}>
+            <div style={{display:'grid', gridTemplateColumns:'1fr', gap:'clamp(12px, 2vw, 24px)', alignItems:'center'}}>
               {/* Image - clickable */}
               {hero.youtubeAdsUrl ? (
                 <a href={hero.youtubeAdsUrl} target="_blank" rel="noopener noreferrer" style={{display:'block', cursor:'pointer', transition:'transform 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.transform='scale(1.02)'} onMouseLeave={(e)=>e.currentTarget.style.transform='scale(1)'}>

@@ -115,7 +115,7 @@ p {
 	border-radius: 16px;
 }
 
-/* Hero overlay - duchovný a pokojný */
+/* Hero overlay - duchovný a pokojný - ALWAYS VISIBLE */
 .hero-overlay { 
 	position: absolute; 
 	inset: 0; 
@@ -126,9 +126,9 @@ p {
 	text-align: center; 
 	padding: 48px; 
 	z-index: 2;
-	opacity: 0;
-	transform: translateY(20px);
-	transition: opacity 700ms ease, transform 700ms ease;
+	opacity: 1;
+	transform: translateY(0);
+	transition: none;
 }
 .hero-overlay.visible {
 	opacity: 1;
@@ -355,6 +355,16 @@ hr {
 .container > h2 {
 	margin-top: 32px;
 	margin-bottom: 18px;
+}
+
+/* Categories Grid Responsive */
+.categories-grid {
+	grid-template-columns: 1fr !important;
+}
+@media (min-width: 769px) {
+	.categories-grid {
+		grid-template-columns: repeat(3, 1fr) !important;
+	}
 }
 
 /* Responsive */

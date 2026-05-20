@@ -5,6 +5,8 @@ require('dotenv').config();
 
 const Hero = require('./models/hero');
 const Page = require('./models/page');
+const Links = require('./models/links');
+const CategoryHeroes = require('./models/categoryHeroes');
 
 const app = express();
 app.use(cors());
@@ -90,6 +92,43 @@ app.delete('/api/pages/:id', async (req, res) => {
   const page = await Page.findByIdAndDelete(req.params.id);
   if (!page) return res.status(404).json({ message: 'Not found' });
   res.json({ message: 'Deleted' });
+});
+
+// Links endpoints
+app.get('/api/links', async (req, res) => {
+  let links = await Links.findOne();
+  if (!links) links = new Links({ links: [] });
+  res.json(links);
+});
+
+app.put('/api/links', async (req, res) => {
+  let links = await Links.findOne();
+  if (!links) links = new Links(req.body);
+  else Object.assign(links, req.body);
+  await links.save();
+  res.json(links);
+});
+
+// Category Heroes endpoints
+app.get('/api/category-heroes', async (req, res) => {
+  let heroes = await CategoryHeroes.findOne();
+  if (!heroes) {
+    heroes = new CategoryHeroes({
+      autorske: { image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg', title: 'Autorské texty' },
+      preklady: { image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg', title: 'Preklady' },
+      pripravovane: { image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg', title: 'Pripravované' }
+    });
+    await heroes.save();
+  }
+  res.json(heroes);
+});
+
+app.put('/api/category-heroes', async (req, res) => {
+  let heroes = await CategoryHeroes.findOne();
+  if (!heroes) heroes = new CategoryHeroes(req.body);
+  else Object.assign(heroes, req.body);
+  await heroes.save();
+  res.json(heroes);
 });
 
 const PORT = process.env.PORT || 5000;
