@@ -133,16 +133,13 @@ export default function Projects({navigate, category}){
               <h1 className="hero-headline" style={{color:'#ffffff', fontSize:'clamp(32px, 8vw, 56px)', fontWeight:700, fontFamily:"'Hahmlet', serif", margin:'0 0 16px 0', textShadow:'0 2px 8px rgba(0,0,0,0.3)', animation:'heroFadeIn 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards'}}>
                 {category || 'Všetok obsah'}
               </h1>
-              <p style={{color:'rgba(255,255,255,0.9)', fontSize:'clamp(14px, 3vw, 18px)', fontFamily:"'Radio Canada', sans-serif", margin:0, textShadow:'0 1px 4px rgba(0,0,0,0.3)', animation:'heroFadeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 100ms forwards', opacity:0}}>
-                Objavte našu zbierku kníh a štúdií
-              </p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Two-column layout - Responsive */}
-      <div style={{maxWidth:'1200px', width:'100%', margin:'0 auto', padding:'clamp(60px, 10vw, 120px) clamp(16px, 5vw, 40px) 80px', flex:1}}>
+      <div style={{maxWidth:'1200px', width:'100%', margin:'0 auto', padding:'clamp(60px, 10vw, 120px) clamp(16px, 5vw, 40px) 0', flex:1}}>
         {loading ? (
           <div style={{fontSize:18, color:'var(--text-light)', textAlign:'center', padding:'60px 0', fontFamily:"'Radio Canada', sans-serif"}}>
             Načítavam...
