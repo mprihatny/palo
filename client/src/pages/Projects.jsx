@@ -129,9 +129,14 @@ export default function Projects({navigate, category}){
             zIndex:2,
             opacity:1
           }} className="hero-overlay">
-            <h1 style={{color:'#ffffff', fontSize:'52px', fontWeight:700, fontFamily:"'Hahmlet', serif", margin:0, textShadow:'0 2px 8px rgba(0,0,0,0.3)'}}>
-              {category || 'Všetok obsah'}
-            </h1>
+            <div style={{maxWidth:'600px'}}>
+              <h1 className="hero-headline" style={{color:'#ffffff', fontSize:'clamp(32px, 8vw, 56px)', fontWeight:700, fontFamily:"'Hahmlet', serif", margin:'0 0 16px 0', textShadow:'0 2px 8px rgba(0,0,0,0.3)', animation:'heroFadeIn 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards'}}>
+                {category || 'Všetok obsah'}
+              </h1>
+              <p style={{color:'rgba(255,255,255,0.9)', fontSize:'clamp(14px, 3vw, 18px)', fontFamily:"'Radio Canada', sans-serif", margin:0, textShadow:'0 1px 4px rgba(0,0,0,0.3)', animation:'heroFadeIn 900ms cubic-bezier(0.22, 1, 0.36, 1) 100ms forwards', opacity:0}}>
+                Objavte našu zbierku kníh a štúdií
+              </p>
+            </div>
           </div>
         </div>
       </div>

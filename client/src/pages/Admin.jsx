@@ -5,7 +5,7 @@ import API_BASE_URL from '../api'
 const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
-  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', aboutText:'Vitajte na mojej stránke...', youtubeImage:'', youtubeUrl:'', youtubeAdsImage:'https://i.postimg.cc/GhWQcpFw/image-removebg-preview.png', youtubeAdsUrl:'', youtubeAdsText:'' })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', aboutText:'Vitajte na mojej stránke...' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
@@ -159,15 +159,18 @@ export default function Admin({navigate}){
   )
 
   return (
-    <div style={{minHeight:'100vh', background:'var(--bg)'}}>
-      <div style={{maxWidth:'1200px', margin:'0 auto', padding:'40px 24px'}}>
-        <h1 style={{marginTop:0, marginBottom:40, fontFamily:"'Hahmlet', serif"}}>Admin Panel</h1>
-        
-        <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', marginBottom:40, border:'1px solid var(--border)'}}>
-          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Nastavenia Heru</h2>
-          <div style={{display:'grid', gap:24, maxWidth:900}}>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Text v Heru (Rich Editor)</label>
+    <div className="admin-container">
+      <div className="admin-header">
+        <h1 style={{fontFamily:"'Hahmlet', serif"}}>Admin Panel</h1>
+        <p style={{color:'var(--text-light)', fontSize:'16px', margin:0}}>Spravujte obsah a nastavenia stránky</p>
+      </div>
+      
+      <div className="admin-grid">
+        <section className="admin-section">
+          <h2>⚙️ Nastavenia Heru</h2>
+          <div style={{display:'grid', gap:24}}>
+            <div className="admin-form-group">
+              <label>Text v Heru (Rich Editor)</label>
               <Editor
                 apiKey={TINYMCE_API_KEY}
                 value={hero.title||''}
@@ -183,152 +186,89 @@ export default function Admin({navigate}){
                 onEditorChange={(content) => setHero({...hero, title: content})}
               />
             </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Podtitul (voliteľný)</label>
+            <div className="admin-form-group">
+              <label>Podtitul (voliteľný)</label>
               <input 
                 value={hero.subtitle||''} 
                 onChange={e=>setHero({...hero, subtitle:e.target.value})} 
-                placeholder="Voliteľný podtitul..." 
-                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+                placeholder="Voliteľný podtitul..."
               />
             </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Farba textu</label>
+            <div className="admin-form-group">
+              <label>Farba textu</label>
               <div style={{display:'flex', gap:12, alignItems:'center'}}>
                 <input 
                   type="color" 
                   value={hero.style?.color||'#E1DED2'} 
                   onChange={e=>setHero({...hero, style:{...hero.style, color:e.target.value}})} 
-                  style={{width:60, height:40, cursor:'pointer', border:'1px solid var(--border)', borderRadius:'4px'}} 
+                  style={{width:60, height:40, cursor:'pointer'}} 
                 />
                 <input 
                   type="text" 
                   value={hero.style?.color||''} 
                   onChange={e=>setHero({...hero, style:{...hero.style, color:e.target.value}})} 
-                  placeholder="#E1DED2" 
-                  style={{flex:1, padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+                  placeholder="#E1DED2"
+                  style={{flex:1}}
                 />
               </div>
             </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Váha fontu</label>
+            <div className="admin-form-group">
+              <label>Váha fontu</label>
               <select 
                 value={hero.style?.fontWeight||'700'} 
                 onChange={e=>setHero({...hero, style:{...hero.style, fontWeight:e.target.value}})}
-                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               >
                 <option value="400">400 - Regular</option>
                 <option value="600">600 - Semi Bold</option>
                 <option value="700">700 - Bold</option>
               </select>
             </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Veľkosť fontu</label>
+            <div className="admin-form-group">
+              <label>Veľkosť fontu</label>
               <div style={{display:'flex', alignItems:'center', gap:8}}>
                 <input 
                   type="number" 
                   value={parseInt(hero.style?.fontSize)||52} 
                   onChange={e=>setHero({...hero, style:{...hero.style, fontSize:e.target.value + 'px'}})} 
-                  placeholder="52" 
-                  style={{width:120, padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+                  placeholder="52"
+                  style={{width:120}}
                 />
-                <span style={{fontSize:12, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>pixelov</span>
+                <span style={{fontSize:12, color:'var(--text-light)'}}>pixelov</span>
               </div>
             </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Text/Citácia</label>
+            <div className="admin-form-group">
+              <label>Text/Citácia</label>
               <textarea 
                 value={hero.quote||''} 
                 onChange={e=>setHero({...hero, quote:e.target.value})} 
-                placeholder="Priestor na krátky text/citáciu..." 
-                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, minHeight:80, resize:'vertical'}}
+                placeholder="Priestor na krátky text/citáciu..."
+                style={{minHeight:80, resize:'vertical'}}
               />
             </div>
-            <div>              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Farba citácie</label>
+            <div className="admin-form-group">
+              <label>Farba citácie</label>
               <input 
                 type="color"
                 value={hero.quoteColor||'#931413'} 
-                onChange={e=>setHero({...hero, quoteColor:e.target.value})} 
-                style={{width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, cursor:'pointer', height:44}}
+                onChange={e=>setHero({...hero, quoteColor:e.target.value})}
+                style={{height:44}}
               />
             </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>Text "O mne"</label>
+            <div className="admin-form-group">
+              <label>Text "O mne"</label>
               <textarea 
                 value={hero.aboutText||''} 
                 onChange={e=>setHero({...hero, aboutText:e.target.value})} 
-                placeholder="Vitajte na mojej stránke..." 
-                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, minHeight:100, resize:'vertical'}}
+                placeholder="Vitajte na mojej stránke..."
+                style={{minHeight:100, resize:'vertical'}}
               />
             </div>
-            <div style={{paddingTop:8, fontSize:12, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic'}}>
-              ⚠️ YouTube sekcia (nižšie)
-            </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube - URL na obrázok</label>
-              <input 
-                value={hero.youtubeImage||''} 
-                onChange={e=>setHero({...hero, youtubeImage:e.target.value})} 
-                placeholder="https://..." 
-                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
-              />
-            </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube - Odkaz na video</label>
-              <input 
-                value={hero.youtubeUrl||''} 
-                onChange={e=>setHero({...hero, youtubeUrl:e.target.value})} 
-                placeholder="https://youtube.com/watch?v=..." 
-                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
-              />
-            </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube Ads - URL obrázka (podstránky)</label>
-              <input 
-                value={hero.youtubeAdsImage||''} 
-                onChange={e=>setHero({...hero, youtubeAdsImage:e.target.value})} 
-                placeholder="https://..." 
-                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
-              />
-            </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube Ads - Odkaz (podstránky)</label>
-              <input 
-                value={hero.youtubeAdsUrl||''} 
-                onChange={e=>setHero({...hero, youtubeAdsUrl:e.target.value})} 
-                placeholder="https://youtube.com/watch?v=..." 
-                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
-              />
-            </div>
-            <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:14, color:'var(--color-dark)'}}>YouTube Ads - Text (domov)</label>
-              <textarea 
-                value={hero.youtubeAdsText||''} 
-                onChange={e=>setHero({...hero, youtubeAdsText:e.target.value})} 
-                placeholder="Text pod obrázkom na domovskej stránke..." 
-                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, minHeight:60, resize:'vertical'}}
-              />
-            </div>
-            <div style={{display:'flex', gap:12, paddingTop:12}}>
+
+            <div className="admin-button-group">
               <button 
-                onClick={save} 
-                style={{
-                  padding:'12px 28px',
-                  background:'var(--color-honey)',
-                  color:'white',
-                  border:'none',
-                  borderRadius:'4px',
-                  fontSize:14,
-                  fontWeight:600,
-                  cursor:'pointer',
-                  fontFamily:"'Radio Canada', sans-serif",
-                  transition:'all 300ms ease',
-                  display:'flex',
-                  alignItems:'center',
-                  gap:6
-                }}
-                onMouseEnter={(e)=>{e.target.style.background='var(--color-red)', e.target.style.transform='scale(1.05)'}}
-                onMouseLeave={(e)=>{e.target.style.background='var(--color-honey)', e.target.style.transform='scale(1)'}}
+                onClick={save}
+                className="admin-button admin-button-primary"
+                style={{display:'flex', alignItems:'center', gap:6}}
               >
                 <svg style={{width:16, height:16}} fill="white" viewBox="0 0 16 16">
                   <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
@@ -337,24 +277,9 @@ export default function Admin({navigate}){
                 Uložiť
               </button>
               <button 
-                onClick={()=>navigate('/')} 
-                style={{
-                  padding:'12px 28px',
-                  background:'var(--border)',
-                  color:'var(--color-dark)',
-                  border:'1px solid var(--border)',
-                  borderRadius:'4px',
-                  fontSize:14,
-                  fontWeight:600,
-                  cursor:'pointer',
-                  fontFamily:"'Radio Canada', sans-serif",
-                  transition:'all 300ms ease',
-                  display:'flex',
-                  alignItems:'center',
-                  gap:6
-                }}
-                onMouseEnter={(e)=>{e.target.style.background='var(--color-light)'}}
-                onMouseLeave={(e)=>{e.target.style.background='var(--border)'}}
+                onClick={()=>navigate('/')}
+                className="admin-button admin-button-secondary"
+                style={{display:'flex', alignItems:'center', gap:6}}
               >
                 <svg style={{width:16, height:16}} fill="currentColor" viewBox="0 0 16 16">
                   <path fillRule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
@@ -365,8 +290,8 @@ export default function Admin({navigate}){
           </div>
         </section>
 
-        <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)'}}>
-          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Príspevky</h2>
+        <section className="admin-section">
+          <h2>📝 Príspevky</h2>
           {pages.length === 0 ? (
             <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>Žiadne príspevky</p>
           ) : (
