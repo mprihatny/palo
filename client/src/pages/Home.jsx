@@ -242,7 +242,7 @@ export default function Home({navigate}){
 
         {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
         {pages.length > 0 && !loading && (
-          <section className="reveal delay-5 carousel-container" style={{padding:'clamp(16px, 2vw, 24px) 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)', marginTop:'clamp(20px, 3vw, 40px)'}}>
+          <section className="reveal delay-5 carousel-container" style={{padding:'clamp(16px, 2vw, 24px) 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)', marginTop:'0'}}>
             <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'32px', fontSize:'clamp(20px, 4vw, 28px)'}}>Najnovší obsah</h2>
             
             {/* Carousel Track */}
