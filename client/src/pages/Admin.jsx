@@ -5,7 +5,7 @@ import API_BASE_URL from '../api'
 const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
-  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', aboutText:'Vitajte na mojej stránke...' })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', quoteWeight:'400', quoteStyle:'italic', aboutText:'Vitajte na mojej stránke...' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
@@ -255,6 +255,26 @@ export default function Admin({navigate}){
               />
             </div>
             <div className="admin-form-group">
+              <label>Váha fontu citácie</label>
+              <select 
+                value={hero.quoteWeight||'400'} 
+                onChange={e=>setHero({...hero, quoteWeight:e.target.value})}
+              >
+                <option value="400">400 - Regular</option>
+                <option value="600">600 - Semi Bold</option>
+                <option value="700">700 - Bold</option>
+              </select>
+            </div>
+            <div className="admin-form-group">
+              <label>Kuřzíva</label>
+              <input 
+                type="checkbox"
+                checked={hero.quoteStyle === 'italic'} 
+                onChange={e=>setHero({...hero, quoteStyle: e.target.checked ? 'italic' : 'normal'})}
+              />
+              <span style={{marginLeft:'8px', fontSize:'14px', color:'var(--text-light)'}}>Zapnuť kuřzívu</span>
+            </div>
+            <div className="admin-form-group">
               <label>Text "O mne"</label>
               <textarea 
                 value={hero.aboutText||''} 
@@ -345,73 +365,6 @@ export default function Admin({navigate}){
             setModal({show:true, type:'success', message:'✓ Príspevok pridaný!', success:true})
             setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
           }} />
-        </section>
-
-        {/* Useful Links Section */}
-        <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)', marginTop:32}}>
-          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Užitočné odkazy</h2>
-          <div style={{display:'grid', gap:24, maxWidth:900, marginBottom:24}}>
-            {links.links && links.links.map((link, idx) => (
-              <div key={idx} style={{padding:16, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
-                <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Nadpis odkazu</label>
-                <input 
-                  value={link.title||''} 
-                  onChange={e => {
-                    const newLinks = [...links.links]
-                    newLinks[idx].title = e.target.value
-                    setLinks({...links, links: newLinks})
-                  }} 
-                  placeholder="Názov odkazu" 
-                  style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, marginBottom:12}}
-                />
-                <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>URL</label>
-                <input 
-                  value={link.url||''} 
-                  onChange={e => {
-                    const newLinks = [...links.links]
-                    newLinks[idx].url = e.target.value
-                    setLinks({...links, links: newLinks})
-                  }} 
-                  placeholder="https://..." 
-                  style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, marginBottom:12}}
-                />
-                <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Popis (voliteľný)</label>
-                <textarea 
-                  value={link.description||''} 
-                  onChange={e => {
-                    const newLinks = [...links.links]
-                    newLinks[idx].description = e.target.value
-                    setLinks({...links, links: newLinks})
-                  }} 
-                  placeholder="Popis odkazu..." 
-                  style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14, minHeight:60, resize:'vertical', marginBottom:12}}
-                />
-                <button 
-                  onClick={() => {
-                    const newLinks = links.links.filter((_, i) => i !== idx)
-                    setLinks({...links, links: newLinks})
-                  }}
-                  style={{padding:'6px 12px', background:'#931413', color:'white', border:'none', borderRadius:'4px', fontSize:12, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif"}}
-                >
-                  Odstrániť
-                </button>
-              </div>
-            ))}
-          </div>
-          <button 
-            onClick={() => {
-              setLinks({...links, links: [...(links.links||[]), {title: '', url: '', description: '', icon: ''}]})
-            }}
-            style={{padding:'10px 20px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:'4px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif", marginBottom:12}}
-          >
-            + Pridať odkaz
-          </button>
-          <button 
-            onClick={saveLinks}
-            style={{padding:'10px 20px', background:'var(--color-red)', color:'white', border:'none', borderRadius:'4px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif"}}
-          >
-            Uložiť odkazy
-          </button>
         </section>
 
         {/* Category Heroes Section */}

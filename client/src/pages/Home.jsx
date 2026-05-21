@@ -145,7 +145,7 @@ export default function Home({navigate}){
               </div>
             ) : (
               <>
-                <div className="hero-headline" style={{...dynamicStyle, color:'#ffffff', textShadow:'0 2px 8px rgba(0,0,0,0.3)', opacity: 1, animation: 'none'}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
+                <div className="hero-headline" style={{...dynamicStyle, color:'#ffffff', textShadow:'0 2px 8px rgba(0,0,0,0.3)', animation:'heroFadeIn 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards'}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
                 {hero.subtitle && <p style={{color:'#ffffff', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif", opacity: 1}}>{hero.subtitle}</p>}
               </>
             )}
@@ -167,7 +167,7 @@ export default function Home({navigate}){
           {/* Right: Myšlienka/Quote */}
           <div className="reveal delay-2 col-right" style={{paddingLeft:'clamp(0px, 5vw, 30px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>Myšlienka</h2>
-            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle:'italic', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px', fontSize:'clamp(14px, 2.5vw, 16px)'}}>
+            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: hero.quoteStyle || 'italic', fontWeight: hero.quoteWeight || '400', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px', fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
             </p>
           </div>
@@ -241,7 +241,7 @@ export default function Home({navigate}){
         </section>
 
         {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
-        {pages.length > 0 && (
+        {pages.length > 0 && !loading && (
           <section className="reveal delay-5 carousel-container" style={{padding:'clamp(16px, 2vw, 24px) 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)', marginTop:'clamp(20px, 3vw, 40px)'}}>
             <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'32px', fontSize:'clamp(20px, 4vw, 28px)'}}>Najnovší obsah</h2>
             

@@ -60,13 +60,10 @@ export default function Projects({navigate, category}){
           setHeroImage(data.preklady.image)
         } else if (category === 'Pripravované' && data.pripravovane?.image) {
           setHeroImage(data.pripravovane.image)
-        } else {
-          setHeroImage(DEFAULT_HERO_IMAGE)
         }
       })
       .catch(err=>{
         console.error('Failed to fetch category heroes:', err)
-        setHeroImage(DEFAULT_HERO_IMAGE)
       })
   }, [category])
 
@@ -111,6 +108,7 @@ export default function Projects({navigate, category}){
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)', display:'flex', flexDirection:'column'}}>
       {/* Hero section - "Moja fotka" */}
+      {heroImage && (
       <div style={{paddingTop:0, paddingBottom:0}}>
         <div className="hero-container">
           <img 
@@ -137,6 +135,7 @@ export default function Projects({navigate, category}){
           </div>
         </div>
       </div>
+      )}
 
       {/* Two-column layout - Responsive */}
       <div style={{maxWidth:'1200px', width:'100%', margin:'0 auto', padding:'clamp(60px, 10vw, 120px) clamp(16px, 5vw, 40px) 0', flex:1}}>
