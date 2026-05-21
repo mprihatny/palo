@@ -167,14 +167,14 @@ export default function Home({navigate}){
           {/* Right: Myšlienka/Quote */}
           <div className="reveal delay-2 col-right" style={{paddingLeft:'clamp(0px, 5vw, 30px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>Myšlienka</h2>
-            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: hero.quoteStyle || 'italic', fontWeight: hero.quoteWeight || '400', borderLeft:'4px solid var(--color-honey)', paddingLeft:'16px', fontSize:'clamp(14px, 2.5vw, 16px)'}}>
+            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: 'italic', fontWeight: hero.quoteWeight || '400', ...(hero.quoteBorder ? {borderLeft: `4px solid ${hero.quoteBorderColor || 'var(--color-honey)'}`, paddingLeft:'16px'} : {}), fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
             </p>
           </div>
         </section>
 
         {/* Categories - 3 SQUARES SIDE BY SIDE - RESPONSIVE */}
-        <section className="reveal delay-3" style={{padding:'clamp(30px, 5vw, 60px) 0 0'}}>
+        <section className="reveal delay-3" style={{padding:'0 0 0'}}>
           <div style={{
             display:'grid',
             gridTemplateColumns:'1fr',
