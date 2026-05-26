@@ -73,10 +73,12 @@ export default function Projects({navigate, category}){
 
   useEffect(() => {
     const revealed = document.querySelectorAll('.reveal')
-    // Show all reveal elements immediately on page load
-    revealed.forEach(el => {
-      el.classList.add('visible')
-    })
+    // Show all reveal elements immediately on page load with small delay to trigger animation
+    setTimeout(() => {
+      revealed.forEach(el => {
+        el.classList.add('visible')
+      })
+    }, 50)
   }, [filtered, pages])
 
   // Parallax blur effect on hero image only

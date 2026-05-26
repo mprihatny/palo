@@ -92,7 +92,6 @@ p {
 	border-radius: 8px;
 	display: block;
 	filter: brightness(0.92) contrast(1.05) saturate(0.95);
-	box-shadow: 0 8px 32px rgba(64, 51, 45, 0.12);
 	transition: filter 0.5s ease;
 }
 
