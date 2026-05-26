@@ -7,8 +7,6 @@ export default function Home({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [carouselIndex, setCarouselIndex] = useState(0)
-  const [pages, setPages] = useState([])
   const [blur, setBlur] = useState(0)
 
   useEffect(()=>{
@@ -50,30 +48,7 @@ export default function Home({navigate}){
     }
   },[])
 
-  // Fetch latest pages/posts for carousel
-  useEffect(() => {
-    const fetchPages = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/pages`)
-        if (response.ok) {
-          const data = await response.json()
-          setPages(data.slice(0, 6))
-        }
-      } catch (err) {
-        console.log('Failed to fetch pages:', err)
-      }
-    }
-    fetchPages()
-  }, [])
 
-  // Auto-rotate carousel
-  useEffect(() => {
-    if (pages.length === 0) return
-    const timer = setInterval(() => {
-      setCarouselIndex(prev => (prev + 1) % pages.length)
-    }, 6000)
-    return () => clearInterval(timer)
-  }, [pages.length])
 
   const dynamicStyle = {
     color: hero?.style?.color || '#2C2520',
@@ -240,48 +215,7 @@ export default function Home({navigate}){
           </div>
         </section>
 
-        {/* News Carousel - INSPIRED BY CONTEMPLATIVEOUTREACH */}
-        {pages.length > 0 && !loading && (
-          <section className="reveal delay-5 carousel-container" style={{padding:'clamp(16px, 2vw, 24px) 0', borderTop:'1px solid var(--border)', borderBottom:'1px solid var(--border)', marginTop:'0'}}>
-            <h2 style={{textAlign:'center', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', marginBottom:'32px', fontSize:'clamp(20px, 4vw, 28px)'}}>Najnovší obsah</h2>
-            
-            {/* Carousel Track */}
-            <div className="carousel-track" style={{transform:`translateX(-${carouselIndex * 100}%)`}}>
-              {pages.map((page, idx) => (
-                <div key={idx} className="carousel-slide">
-                  <div className="carousel-slide-content"
-                    onMouseEnter={(e)=>{e.currentTarget.style.background = 'rgba(212, 148, 95, 0.12)', e.currentTarget.style.transform = 'translateY(-4px)'}}
-                    onMouseLeave={(e)=>{e.currentTarget.style.background = 'rgba(212, 148, 95, 0.08)', e.currentTarget.style.transform = 'translateY(0)'}}
-                  >
-                    <h3 style={{marginBottom:'12px', color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif", lineHeight:1.4}}>
-                      {page.title}
-                    </h3>
-                    <p style={{color:'var(--text-light)', lineHeight:1.6, marginBottom:'16px', flex:1, fontFamily:"'Radio Canada', sans-serif", display:'-webkit-box', WebkitLineClamp:3, WebkitBoxOrient:'vertical', overflow:'hidden'}} 
-                      dangerouslySetInnerHTML={{__html: page.content ? page.content.substring(0, 120) + '...' : ''}}
-                    />
-                    <button onClick={() => navigate(`/projects`)} style={{alignSelf:'flex-start', padding:'8px 16px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:'4px', cursor:'pointer', fontWeight:600, fontSize:'13px', transition:'all 300ms ease', fontFamily:"'Radio Canada', sans-serif"}}
-                      onMouseEnter={(e)=>{e.currentTarget.style.background = 'var(--color-red)'}}
-                      onMouseLeave={(e)=>{e.currentTarget.style.background = 'var(--color-honey)'}}
-                    >
-                      Zistiť viac
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
 
-            {/* Carousel Indicators */}
-            <div className="carousel-indicators">
-              {pages.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setCarouselIndex(idx)}
-                  className={`carousel-dot ${carouselIndex === idx ? 'active' : ''}`}
-                />
-              ))}
-            </div>
-          </section>
-        )}
 
 
       </div>
