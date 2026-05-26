@@ -67,20 +67,10 @@ export default function Home({navigate}){
 
   useEffect(() => {
     const revealed = document.querySelectorAll('.reveal')
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.15 }
-    )
-
-    revealed.forEach(el => observer.observe(el))
-    return () => observer.disconnect()
+    // Show all reveal elements immediately on page load
+    revealed.forEach(el => {
+      el.classList.add('visible')
+    })
   }, [])
 
 
@@ -130,7 +120,7 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{padding:'clamp(60px, 12vw, 160px) 0 clamp(40px, 8vw, 80px)', borderBottom:'1px solid var(--border)', paddingBottom:'clamp(80px, 12vw, 160px)'}}>
+        <section className="reveal section-two-col" style={{padding:'clamp(40px, 8vw, 100px) 0 clamp(40px, 8vw, 80px)', borderBottom:'1px solid var(--border)', paddingBottom:'clamp(80px, 12vw, 160px)'}}>
           {/* Left: O mne */}
           <div className="reveal delay-1 col-left" style={{paddingRight:'clamp(0px, 5vw, 30px)', borderRight:'1px solid rgba(212, 148, 95, 0.3)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>

@@ -73,20 +73,10 @@ export default function Projects({navigate, category}){
 
   useEffect(() => {
     const revealed = document.querySelectorAll('.reveal')
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.15 }
-    )
-
-    revealed.forEach(el => observer.observe(el))
-    return () => observer.disconnect()
+    // Show all reveal elements immediately on page load
+    revealed.forEach(el => {
+      el.classList.add('visible')
+    })
   }, [filtered, pages])
 
   // Parallax blur effect on hero image only
