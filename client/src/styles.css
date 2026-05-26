@@ -10,12 +10,12 @@
 	--bg-light: #F5F1EB;         /* Svetlý background */
 	
 	/* Aplikované farby */
-	--bg: var(--bg-light);
+	--bg: #E1DED2;
 	--accent: var(--color-honey);
 	--accent-dark: var(--color-red);
 	--muted: var(--color-gray);
 	--deep: var(--color-dark);
-	--text: #2C2520;
+	--text: #40332D;
 	--text-light: #5C5550;
 	--border: rgba(212, 148, 95, 0.2);
 	--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);

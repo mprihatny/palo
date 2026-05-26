@@ -130,7 +130,7 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{padding:'clamp(60px, 12vw, 160px) 0 clamp(40px, 8vw, 80px)', borderBottom:'1px solid var(--border)'}}>
+        <section className="reveal section-two-col" style={{padding:'clamp(60px, 12vw, 160px) 0 clamp(40px, 8vw, 80px)', borderBottom:'1px solid var(--border)', paddingBottom:'clamp(80px, 12vw, 160px)'}}>
           {/* Left: O mne */}
           <div className="reveal delay-1 col-left" style={{paddingRight:'clamp(0px, 5vw, 30px)', borderRight:'1px solid rgba(212, 148, 95, 0.3)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>
@@ -142,7 +142,7 @@ export default function Home({navigate}){
           {/* Right: Myšlienka/Quote */}
           <div className="reveal delay-2 col-right" style={{paddingLeft:'clamp(0px, 5vw, 30px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>Myšlienka</h2>
-            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: 'italic', fontWeight: hero.quoteWeight || '400', ...(hero.quoteBorder ? {borderLeft: `4px solid ${hero.quoteBorderColor || 'var(--color-honey)'}`, paddingLeft:'16px'} : {}), fontSize:'clamp(14px, 2.5vw, 16px)'}}>
+            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: 'italic', fontWeight: hero.quoteWeight || '400', fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
             </p>
           </div>

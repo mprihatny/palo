@@ -32,9 +32,9 @@ export default function Navbar({navigate, currentRoute}){
           style={{cursor:'pointer', display:'flex', alignItems:'center'}}
         >
           <img 
-            src="https://i.postimg.cc/43cbVCzM/logop-removebg-preview.png" 
+            src="https://i.postimg.cc/T3WJq6ps/image-removebg-preview-(1).png" 
             alt="Logo"
-            style={{height:'clamp(40px, 8vw, 60px)', width:'auto'}}
+            style={{height:'48px', width:'auto'}}
           />
         </div>
 
