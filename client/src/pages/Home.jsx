@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import API_BASE_URL from '../api'
 
-const DEFAULT_HERO_IMAGE = 'https://i.postimg.cc/3N0N2K6j/vinice-jesenni.jpg' // Vineyard autumn image
+const DEFAULT_HERO_IMAGE = 'https://i.postimg.cc/BbzXmb3C/ja-web-cb.jpg' // Home page hero image
 
 export default function Home({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
