@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import API_BASE_URL from '../api'
 
-const HERO_IMAGE = 'https://i.postimg.cc/BbzXmb3C/ja-web-cb.jpg'
-
 export default function Home({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
+  const [heroImage, setHeroImage] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [blur, setBlur] = useState(0)
+
+  useEffect(()=>{
+    // Clean up old upload-based images from database
+    fetch(`${API_BASE_URL}/api/cleanup-hero-images`, { method: 'POST' })
+      .catch(err => console.log('Cleanup check skipped:', err.message))
+  }, [])
 
   useEffect(()=>{
     let isMounted = true
@@ -23,6 +28,10 @@ export default function Home({navigate}){
         if (isMounted) {
           if (data && Object.keys(data).length) {
             setHero(prev => ({ ...prev, ...data }))
+            // Only use heroImage if it's a valid external URL (not from uploads folder)
+            if (data.heroImage && !data.heroImage.includes('/uploads/')) {
+              setHeroImage(data.heroImage)
+            }
             retries = 0
           }
           setLoading(false)
@@ -98,11 +107,13 @@ export default function Home({navigate}){
       {/* Hero Image */}
       <div style={{paddingTop:0, paddingBottom:0}}>
         <div className="hero-container">
+          {heroImage && (
           <img 
             className="hero-image"
-            src={HERO_IMAGE} 
+            src={heroImage} 
             alt="hero"
           />
+          )}
           <div className="hero-overlay">
             {loading ? (
               <div style={{color:'#ffffff', fontSize:'24px', fontFamily:"'Radio Canada', sans-serif"}}>Načítavam...</div>
@@ -122,9 +133,9 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(40px, 8vw, 80px)', borderBottom:'1px solid var(--border)', paddingBottom:'clamp(80px, 12vw, 160px)'}}>
+        <section className="reveal section-two-col" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(40px, 8vw, 80px)'}}>
           {/* Left: O mne */}
-          <div className="reveal delay-1 col-left" style={{paddingRight:'clamp(0px, 5vw, 30px)', borderRight:'1px solid rgba(212, 148, 95, 0.3)'}}>
+          <div className="reveal delay-1 col-left" style={{paddingRight:'clamp(20px, 8vw, 60px)', borderRight:'1px solid rgba(212, 148, 95, 0.3)', marginRight:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>
             <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.aboutText || 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.'}
@@ -132,7 +143,7 @@ export default function Home({navigate}){
           </div>
 
           {/* Right: Myšlienka/Quote */}
-          <div className="reveal delay-2 col-right" style={{paddingLeft:'clamp(0px, 5vw, 30px)'}}>
+          <div className="reveal delay-2 col-right" style={{paddingLeft:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>Myšlienka</h2>
             <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: 'italic', fontWeight: hero.quoteWeight || '400', fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
@@ -141,7 +152,7 @@ export default function Home({navigate}){
         </section>
 
         {/* Categories - 3 SQUARES SIDE BY SIDE - RESPONSIVE */}
-        <section className="reveal delay-3" style={{padding:'0 0 0'}}>
+        <section className="reveal delay-3" style={{padding:'0 0 0', marginTop:'clamp(60px, 10vw, 120px)'}}>
           <div style={{
             display:'grid',
             gridTemplateColumns:'1fr',
