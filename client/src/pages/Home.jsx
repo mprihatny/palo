@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import API_BASE_URL from '../api'
 
+const DEFAULT_HERO_IMAGE = 'https://i.postimg.cc/3N0N2K6j/vinice-jesenni.jpg' // Vineyard autumn image
+
 export default function Home({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
-  const [heroImage, setHeroImage] = useState(null)
+  const [heroImage, setHeroImage] = useState(DEFAULT_HERO_IMAGE)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [blur, setBlur] = useState(0)
@@ -71,7 +73,7 @@ export default function Home({navigate}){
   const categories = [
     { name: 'Autorské texty', icon: 'https://i.postimg.cc/50JZ8wkk/autorske-texty-removebg-preview.png', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' },
     { name: 'Preklady', icon: 'https://i.postimg.cc/Jn89jbdp/preklady-removebg-preview.png', image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg' },
-    { name: 'Pripravované', icon: 'https://i.postimg.cc/85GqLhnt/pripravovane-removebg-preview.png', image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg' }
+    { name: 'Pripravované', icon: 'https://i.postimg.cc/85GqLhnt/pripravovane-removebg-preview.png', image: 'https://i.postimg.cc/MKPT0fCXw/pripravovane1.jpg' }
   ]
 
   useEffect(() => {
@@ -133,17 +135,20 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(40px, 8vw, 80px)'}}>
+        <section className="reveal section-two-col" style={{display:'flex', alignItems:'stretch', justifyContent:'center', gap:'0', padding:'clamp(20px, 4vw, 40px) 0 clamp(40px, 8vw, 80px)'}}>
           {/* Left: O mne */}
-          <div className="reveal delay-1 col-left" style={{paddingRight:'clamp(20px, 8vw, 60px)', borderRight:'1px solid rgba(212, 148, 95, 0.3)', marginRight:'clamp(20px, 8vw, 60px)'}}>
+          <div className="reveal delay-1 col-left" style={{flex:1, paddingRight:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>
             <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.aboutText || 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.'}
             </p>
           </div>
 
+          {/* Center divider line - properly centered */}
+          <div style={{width:'1px', background:'rgba(212, 148, 95, 0.3)', minHeight:'auto', margin:'0 clamp(12px, 4vw, 24px)'}} />
+
           {/* Right: Myšlienka/Quote */}
-          <div className="reveal delay-2 col-right" style={{paddingLeft:'clamp(20px, 8vw, 60px)'}}>
+          <div className="reveal delay-2 col-right" style={{flex:1, paddingLeft:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>Myšlienka</h2>
             <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: 'italic', fontWeight: hero.quoteWeight || '400', fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
