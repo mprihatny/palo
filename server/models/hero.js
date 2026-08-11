@@ -14,6 +14,7 @@ const HeroSchema = new mongoose.Schema({
   quoteBorder: { type: Boolean, default: true },
   quoteBorderColor: { type: String, default: '#D4945F' },
   aboutText: { type: String, default: 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.' },
+  omneText: { type: String, default: 'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.' },
   heroImage: { type: String, default: '' },
   youtubeImage: { type: String, default: '' },
   youtubeUrl: { type: String, default: '' },

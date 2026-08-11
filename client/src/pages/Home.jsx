@@ -82,8 +82,8 @@ export default function Home({navigate}){
   const youtubeButtonUrl = hero.youtubeButtonUrl !== undefined ? hero.youtubeButtonUrl : 'https://www.youtube.com/@thepavolp'
   const defaultYoutubeBackground = '/youtube-card-bg.svg'
   const youtubeImage = hero.youtubeImage && hero.youtubeImage.trim() ? hero.youtubeImage.trim() : ''
-  const youtubeBackgroundImage = youtubeImage ? `url(${youtubeImage}), url(${defaultYoutubeBackground})` : `url(${defaultYoutubeBackground})`
-  const youtubeBackgroundStyle = `linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.14)), ${youtubeBackgroundImage}`
+  const [youtubeBgUrl, setYoutubeBgUrl] = useState(defaultYoutubeBackground)
+  const youtubeBackgroundStyle = `linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.14)), url("${youtubeBgUrl}")`
   const quoteHeading = hero.quoteHeading !== undefined ? hero.quoteHeading : 'Myšlienka'
   const quoteStyle = hero.quoteStyle || 'italic'
 
@@ -97,6 +97,25 @@ export default function Home({navigate}){
     }, 50)
   }, [])
 
+  useEffect(() => {
+    let isMounted = true
+    const href = youtubeImage
+    if (!href) {
+      setYoutubeBgUrl(defaultYoutubeBackground)
+      return () => { isMounted = false }
+    }
+
+    const img = new Image()
+    img.onload = () => {
+      if (isMounted) setYoutubeBgUrl(href)
+    }
+    img.onerror = () => {
+      if (isMounted) setYoutubeBgUrl(defaultYoutubeBackground)
+    }
+    img.src = href
+
+    return () => { isMounted = false }
+  }, [youtubeImage, defaultYoutubeBackground])
 
 
   // Parallax blur effect on hero image

@@ -14,7 +14,7 @@ export default function Omne(){
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const data = await res.json()
         if (isMounted) {
-          setAboutText(data?.aboutText || 'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.')
+          setAboutText(data?.omneText || data?.aboutText || 'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.')
           setLoading(false)
         }
       } catch (err) {
