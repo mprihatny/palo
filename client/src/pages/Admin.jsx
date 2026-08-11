@@ -283,15 +283,6 @@ export default function Admin({navigate}){
               </select>
             </div>
             <div className="admin-form-group">
-              <label>Kuřzíva</label>
-              <input 
-                type="checkbox"
-                checked={hero.quoteStyle === 'italic'} 
-                onChange={e=>setHero({...hero, quoteStyle: e.target.checked ? 'italic' : 'normal'})}
-              />
-              <span style={{marginLeft:'8px', fontSize:'14px', color:'var(--text-light)'}}>Zapnuť kuřzívu</span>
-            </div>
-            <div className="admin-form-group">
               <label>Text "O mne"</label>
               <textarea 
                 value={hero.aboutText||''} 

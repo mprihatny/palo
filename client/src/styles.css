@@ -520,18 +520,24 @@ hr {
 @media (min-width: 768px) {
 	.section-two-col {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1fr auto 1fr;
 		gap: clamp(40px, 8vw, 60px);
+		align-items: stretch;
 	}
 	
 	.section-two-col .col-left {
 		padding-right: clamp(15px, 4vw, 30px);
-		border-right: none;
 	}
 	
 	.section-two-col .col-right {
 		padding-left: clamp(15px, 4vw, 30px);
-		border-left: 4px solid rgba(212, 148, 95, 0.45);
+	}
+	
+	.column-divider {
+		width: 4px;
+		background: rgba(212, 148, 95, 0.45);
+		border-radius: 999px;
+		margin: 0 clamp(12px, 4vw, 24px);
 	}
 }
 

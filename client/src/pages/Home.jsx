@@ -153,10 +153,12 @@ export default function Home({navigate}){
             </p>
           </div>
 
+          <div className="column-divider" />
+
           {/* Right: Myšlienka/Quote */}
-          <div className="reveal delay-2 col-right" style={{flex:1, paddingLeft:'clamp(20px, 8vw, 60px)', borderTopLeftRadius:24, borderBottomLeftRadius:24}}>
+          <div className="reveal delay-2 col-right" style={{flex:1, paddingLeft:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>{quoteHeading}</h2>
-            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: quoteStyle, fontWeight: hero.quoteWeight || '400', fontSize:'clamp(14px, 2.5vw, 16px)'}} dangerouslySetInnerHTML={{__html: hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}} />
+            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontWeight: hero.quoteWeight || '400', fontSize:'clamp(14px, 2.5vw, 16px)'}} dangerouslySetInnerHTML={{__html: hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}} />
           </div>
         </section>
 
@@ -228,25 +230,20 @@ export default function Home({navigate}){
         </section>
 
         <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(24px, 4vw, 48px)'}}>
-          <div className="youtube-card">
-            <div className="youtube-card-inner">
-              <div className="youtube-card-text">
-                {youtubeHeading && (
-                  <h3 style={{margin:'0 0 12px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(24px, 5vw, 32px)', color:'var(--color-dark)'}}>
-                    {youtubeHeading}
-                  </h3>
-                )}
-                <p style={{margin:'0', color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(15px, 2.5vw, 17px)', lineHeight:1.8}}>
+          <div className="youtube-card" style={{padding:'clamp(24px, 32px, 40px)', borderRadius:'20px', background:'rgba(212, 148, 95, 0.08)', border:'1px solid var(--border)'}}>
+            <div style={{display:'flex', flexDirection:'column', gap:'18px', alignItems:'flex-start'}}>
+              <div>
+                <h3 style={{margin:'0 0 10px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(24px, 5vw, 32px)', color:'var(--color-dark)'}}>
+                  {youtubeHeading}
+                </h3>
+                <p style={{margin:0, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(15px, 2.5vw, 17px)', lineHeight:1.8}}>
                   {youtubeText}
                 </p>
-                {youtubeButtonUrl && (
-                  <a href={youtubeButtonUrl} target="_blank" rel="noopener noreferrer" className="youtube-card-button">
-                    {youtubeButtonText}
-                  </a>
-                )}
               </div>
-              {youtubeImage && (
-                <img src={youtubeImage} alt="YouTube" className="youtube-card-image" />
+              {youtubeButtonUrl && (
+                <a href={youtubeButtonUrl} target="_blank" rel="noopener noreferrer" className="youtube-card-button">
+                  {youtubeButtonText}
+                </a>
               )}
             </div>
           </div>
