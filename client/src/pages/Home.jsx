@@ -228,7 +228,7 @@ export default function Home({navigate}){
         </section>
 
         <section className="reveal delay-8 youtube-card-section">
-          <div className="youtube-card" style={{backgroundImage: `linear-gradient(rgba(255,255,255,0.84), rgba(255,255,255,0.84)), url(${youtubeBackground})`, backgroundSize:'cover', backgroundPosition:'center', minHeight:'360px'}}>
+          <div className="youtube-card" style={{backgroundImage: `url(${youtubeBackground})`, backgroundSize:'cover', backgroundPosition:'center', backgroundRepeat:'no-repeat', minHeight:'360px'}}>
             <div className="youtube-card-inner">
               <div className="youtube-card-text">
                 <h3>{youtubeHeading}</h3>

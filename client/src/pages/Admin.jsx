@@ -284,11 +284,19 @@ export default function Admin({navigate}){
             </div>
             <div className="admin-form-group">
               <label>Text "O mne"</label>
-              <textarea 
-                value={hero.aboutText||''} 
-                onChange={e=>setHero({...hero, aboutText:e.target.value})} 
-                placeholder="Vitajte na mojej stránke..."
-                style={{minHeight:100, resize:'vertical'}}
+              <Editor
+                apiKey={TINYMCE_API_KEY}
+                value={hero.aboutText||''}
+                init={{
+                  height: 240,
+                  menubar: false,
+                  plugins: 'link code',
+                  toolbar: 'bold italic underline | alignleft aligncenter alignright | link code',
+                  relative_urls: false,
+                  remove_script_host: false,
+                  content_css: false
+                }}
+                onEditorChange={(content) => setHero({...hero, aboutText: content})}
               />
             </div>
 

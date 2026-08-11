@@ -588,17 +588,17 @@ hr {
 }
 
 .youtube-card {
-	background: rgba(212, 148, 95, 0.08);
-	border: 1px solid var(--border);
+	background: rgba(255,255,255,0.92);
+	border: 1px solid rgba(212, 148, 95, 0.18);
 	border-radius: 12px;
 	overflow: hidden;
-	transition: background 200ms ease, transform 200ms ease, border-color 200ms ease;
+	transition: box-shadow 200ms ease, transform 200ms ease, border-color 200ms ease;
 }
 
 .youtube-card:hover {
-	background: rgba(212, 148, 95, 0.14);
-	border-color: rgba(212, 148, 95, 0.35);
+	box-shadow: 0 22px 48px rgba(0, 0, 0, 0.12);
 	transform: translateY(-2px);
+	border-color: rgba(212, 148, 95, 0.35);
 }
 
 .youtube-card-inner {
