@@ -534,8 +534,9 @@ hr {
 	}
 	
 	.column-divider {
-		width: 4px;
-		background: rgba(212, 148, 95, 0.45);
+		width: 2px;
+		height: auto;
+		background: rgba(212, 148, 95, 0.55);
 		border-radius: 999px;
 		margin: 0 clamp(12px, 4vw, 24px);
 	}

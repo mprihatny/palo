@@ -80,7 +80,7 @@ export default function Home({navigate}){
   const youtubeText = hero.youtubeText !== undefined ? hero.youtubeText : 'Nové videá, autorské texty a preklady sú pravidelne zdieľané na kanáli thepavolp. Klikni na link nižšie a pozri si posledné príspevky.'
   const youtubeButtonText = hero.youtubeButtonText !== undefined ? hero.youtubeButtonText : 'Pozrieť YouTube kanál'
   const youtubeButtonUrl = hero.youtubeButtonUrl !== undefined ? hero.youtubeButtonUrl : 'https://www.youtube.com/@thepavolp'
-  const youtubeImage = hero.youtubeImage || ''
+  const youtubeBackground = hero.youtubeImage && hero.youtubeImage.trim() ? hero.youtubeImage : 'https://i.postimg.cc/xC28bWn1/thumbnail-ja-web.png'
   const quoteHeading = hero.quoteHeading !== undefined ? hero.quoteHeading : 'Myšlienka'
   const quoteStyle = hero.quoteStyle || 'italic'
 
@@ -148,9 +148,7 @@ export default function Home({navigate}){
           {/* Left: O mne */}
           <div className="reveal delay-1 col-left" style={{flex:1, paddingRight:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>
-            <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)'}}>
-              {hero.aboutText || 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.'}
-            </p>
+            <div style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)', lineHeight:1.8}} dangerouslySetInnerHTML={{__html: hero.aboutText || 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.'}} />
           </div>
 
           <div className="column-divider" />
@@ -230,7 +228,7 @@ export default function Home({navigate}){
         </section>
 
         <section className="reveal delay-8 youtube-card-section">
-          <div className="youtube-card">
+          <div className="youtube-card" style={{backgroundImage: `linear-gradient(rgba(255,255,255,0.84), rgba(255,255,255,0.84)), url(${youtubeBackground})`, backgroundSize:'cover', backgroundPosition:'center', minHeight:'360px'}}>
             <div className="youtube-card-inner">
               <div className="youtube-card-text">
                 <h3>{youtubeHeading}</h3>
