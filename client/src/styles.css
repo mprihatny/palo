@@ -575,6 +575,69 @@ hr {
 	}
 }
 
+.youtube-card-section {
+	padding: 0 0 0;
+}
+
+.youtube-card {
+	background: rgba(255, 255, 255, 0.96);
+	border: 1px solid rgba(212, 148, 95, 0.18);
+	border-radius: 28px;
+	box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+	overflow: hidden;
+}
+
+.youtube-card-inner {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 24px;
+	padding: 32px;
+}
+
+.youtube-card-image {
+	width: 100%;
+	height: auto;
+	border-radius: 20px;
+	object-fit: cover;
+}
+
+.youtube-card-text h3 {
+	margin-bottom: 12px;
+}
+
+.youtube-card-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 14px 26px;
+	background: var(--color-honey);
+	color: white;
+	border-radius: 999px;
+	text-decoration: none;
+	font-weight: 700;
+	font-family: "'Radio Canada', sans-serif";
+	font-size: clamp(14px, 2.5vw, 16px);
+	transition: transform 200ms ease, background 200ms ease;
+}
+
+.youtube-card-button:hover {
+	transform: translateY(-1px);
+	background: #c87d34;
+}
+
+@media (min-width: 768px) {
+	.youtube-card-inner {
+		grid-template-columns: 1.35fr 0.9fr;
+		align-items: center;
+	}
+}
+
+@media (max-width: 767px) {
+	.youtube-card-inner {
+		padding: 24px;
+	}
+}
+
 /* Projects two-column layout */
 .projects-two-col {
 	grid-template-columns: 1fr;

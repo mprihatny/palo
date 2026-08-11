@@ -76,6 +76,16 @@ export default function Home({navigate}){
     { name: 'Pripravované', icon: 'https://i.postimg.cc/85GqLhnt/pripravovane-removebg-preview.png', image: 'https://i.postimg.cc/MKPT0fCXw/pripravovane1.jpg' }
   ]
 
+  const showYoutubeSection = !!(
+    hero.youtubeHeading ||
+    hero.youtubeText ||
+    hero.youtubeButtonText ||
+    hero.youtubeButtonUrl ||
+    hero.youtubeImage
+  )
+
+  const showYoutubeButton = !!(hero.youtubeButtonText && hero.youtubeButtonUrl)
+
   useEffect(() => {
     const revealed = document.querySelectorAll('.reveal')
     // Show all reveal elements immediately on page load with small delay to trigger animation
@@ -221,27 +231,34 @@ export default function Home({navigate}){
           </div>
         </section>
 
-        <section className="reveal delay-8" style={{marginTop:'clamp(24px, 4vw, 48px)', padding:'32px', border:'1px solid rgba(212, 148, 95, 0.18)', borderRadius:'32px', background:'rgba(255, 255, 255, 0.95)', boxShadow:'0 18px 45px rgba(0,0,0,0.08)'}}>
-          <div style={{display:'grid', gap:'22px', alignItems:'center'}}>
-            <div style={{display:'flex', flexDirection:'column', gap:'14px'}}>
-              <h3 style={{margin:0, fontFamily:"'Hahmlet', serif", fontSize:'clamp(24px, 5vw, 32px)', color:'var(--color-dark)'}}>
-                {hero.youtubeHeading || 'Sleduj nás na YouTube'}
-              </h3>
-              <p style={{margin:0, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(15px, 2.5vw, 17px)', lineHeight:1.8}}>
-                {hero.youtubeText || 'Nové videá, autorské texty a preklady sú pravidelne zdieľané na kanáli thepavolp. Klikni na link nižšie a pozri si posledné príspevky.'}
-              </p>
+        {showYoutubeSection && (
+          <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(24px, 4vw, 48px)'}}>
+            <div className="youtube-card">
+              <div className="youtube-card-inner">
+                <div className="youtube-card-text">
+                  {hero.youtubeHeading && (
+                    <h3 style={{margin:'0 0 12px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(24px, 5vw, 32px)', color:'var(--color-dark)'}}>
+                      {hero.youtubeHeading}
+                    </h3>
+                  )}
+                  {hero.youtubeText && (
+                    <p style={{margin:'0', color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(15px, 2.5vw, 17px)', lineHeight:1.8}}>
+                      {hero.youtubeText}
+                    </p>
+                  )}
+                  {showYoutubeButton && (
+                    <a href={hero.youtubeButtonUrl} target="_blank" rel="noopener noreferrer" className="youtube-card-button">
+                      {hero.youtubeButtonText}
+                    </a>
+                  )}
+                </div>
+                {hero.youtubeImage && (
+                  <img src={hero.youtubeImage} alt="YouTube" className="youtube-card-image" />
+                )}
+              </div>
             </div>
-
-            <div style={{display:'flex', flexWrap:'wrap', justifyContent:'space-between', alignItems:'center', gap:'16px'}}>
-              <a href={hero.youtubeButtonUrl || 'https://www.youtube.com/@thepavolp'} target="_blank" rel="noopener noreferrer" style={{display:'inline-flex', alignItems:'center', justifyContent:'center', minWidth:220, padding:'16px 28px', background:'var(--color-honey)', color:'white', borderRadius:'999px', textDecoration:'none', fontWeight:700, fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)'}}>
-                {hero.youtubeButtonText || 'Pozrieť YouTube kanál'}
-              </a>
-              {hero.youtubeImage && (
-                <img src={hero.youtubeImage} alt="YouTube" style={{width:'100%', maxWidth:220, borderRadius:20, objectFit:'cover'}} />
-              )}
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
       </div>
     </div>
