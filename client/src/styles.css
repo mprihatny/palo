@@ -633,13 +633,14 @@ hr {
 	font-weight: 700;
 	font-family: "'Radio Canada', sans-serif";
 	font-size: clamp(14px, 2.5vw, 16px);
-	transition: transform 200ms ease, background 200ms ease;
-	align-self: flex-start;
+	transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
+	align-self: center;
 }
 
 .youtube-card-button:hover {
 	transform: translateY(-1px);
 	background: #c87d34;
+	box-shadow: 0 10px 20px rgba(200, 125, 52, 0.18);
 }
 
 @media (max-width: 767px) {
