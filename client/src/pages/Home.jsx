@@ -136,7 +136,7 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(40px, 8vw, 80px)'}}>
+        <section className="reveal section-two-col" style={{display:'flex', alignItems:'stretch', justifyContent:'center', gap:'0', padding:'clamp(20px, 4vw, 40px) 0 clamp(40px, 8vw, 80px)'}}>
           {/* Left: O mne */}
           <div className="reveal delay-1 col-left" style={{flex:1, paddingRight:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>
@@ -144,6 +144,9 @@ export default function Home({navigate}){
               {hero.aboutText || 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.'}
             </p>
           </div>
+
+          {/* Center divider line - properly centered */}
+          <div style={{width:'1px', background:'rgba(212, 148, 95, 0.3)', minHeight:'auto', margin:'0 clamp(12px, 4vw, 24px)'}} />
 
           {/* Right: Myšlienka/Quote */}
           <div className="reveal delay-2 col-right" style={{flex:1, paddingLeft:'clamp(20px, 8vw, 60px)'}}>
