@@ -81,6 +81,7 @@ export default function Home({navigate}){
   const youtubeButtonText = hero.youtubeButtonText !== undefined ? hero.youtubeButtonText : 'Pozrieť YouTube kanál'
   const youtubeButtonUrl = hero.youtubeButtonUrl !== undefined ? hero.youtubeButtonUrl : 'https://www.youtube.com/@thepavolp'
   const youtubeBackground = hero.youtubeImage && hero.youtubeImage.trim() ? hero.youtubeImage : 'https://i.postimg.cc/xC28bWn1/thumbnail-ja-web.png'
+  const youtubeBackgroundStyle = `linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.14)), url(${youtubeBackground})`
   const quoteHeading = hero.quoteHeading !== undefined ? hero.quoteHeading : 'Myšlienka'
   const quoteStyle = hero.quoteStyle || 'italic'
 
@@ -228,7 +229,7 @@ export default function Home({navigate}){
         </section>
 
         <section className="reveal delay-8 youtube-card-section">
-          <div className="youtube-card" style={{backgroundImage: `url(${youtubeBackground})`, backgroundSize:'cover', backgroundPosition:'center center', backgroundRepeat:'no-repeat', minHeight:'420px', display:'flex', alignItems:'center', justifyContent:'center'}}>
+          <div className="youtube-card" style={{backgroundImage: youtubeBackgroundStyle, backgroundSize:'cover', backgroundPosition:'center center', backgroundRepeat:'no-repeat', minHeight:'420px', display:'flex', alignItems:'center', justifyContent:'center', backgroundColor:'#111'}}>
             <div className="youtube-card-inner">
               <div className="youtube-card-text">
                 <h3>{youtubeHeading}</h3>

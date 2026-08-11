@@ -588,7 +588,7 @@ hr {
 }
 
 .youtube-card {
-	background: transparent;
+	background: #111;
 	border: 1px solid rgba(212, 148, 95, 0.18);
 	border-radius: 16px;
 	overflow: hidden;
@@ -601,7 +601,7 @@ hr {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.08));
+	background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.12));
 	pointer-events: none;
 	z-index: 1;
 }
