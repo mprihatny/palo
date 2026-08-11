@@ -607,8 +607,8 @@ hr {
 }
 
 .youtube-card:hover {
-	box-shadow: 0 22px 48px rgba(0, 0, 0, 0.14);
-	transform: translateY(-2px);
+	box-shadow: none;
+	transform: none;
 	border-color: rgba(212, 148, 95, 0.35);
 }
 
