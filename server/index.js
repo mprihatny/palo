@@ -33,9 +33,11 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
   res.json({ url });
 });
 
-const MONGO_URI = process.env.MONGO_URI || '';
+const MONGO_URI = (process.env.MONGO_URI || process.env.MONGODB_URI || '').trim();
 if (!MONGO_URI) {
-  console.warn('Warning: MONGO_URI not set, server will try to start but DB will not be connected. Set MONGO_URI in .env');
+  console.warn('Warning: MONGO_URI / MONGODB_URI not set, server will try to start but DB will not be connected. Set MONGO_URI or MONGODB_URI in .env / Render environment variables.');
+} else {
+  console.log('MongoDB connection string prefix:', MONGO_URI.slice(0, 16));
 }
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
@@ -51,17 +53,27 @@ app.get('/', (req, res) => {
 
 // Hero endpoints
 app.get('/api/hero', async (req, res) => {
-  const hero = await Hero.findOne();
-  res.json(hero || {});
+  try {
+    const hero = await Hero.findOne();
+    res.json(hero || {});
+  } catch (err) {
+    console.error('Hero fetch error:', err.message);
+    res.status(500).json({ error: 'Failed to load hero data' });
+  }
 });
 
 app.put('/api/hero', async (req, res) => {
-  const data = req.body;
-  let hero = await Hero.findOne();
-  if (!hero) hero = new Hero(data);
-  else Object.assign(hero, data);
-  await hero.save();
-  res.json(hero);
+  try {
+    const data = req.body;
+    let hero = await Hero.findOne();
+    if (!hero) hero = new Hero(data);
+    else Object.assign(hero, data);
+    await hero.save();
+    res.json(hero);
+  } catch (err) {
+    console.error('Hero save error:', err.message);
+    res.status(500).json({ error: 'Failed to save hero data' });
+  }
 });
 
 // Pages endpoints
@@ -139,6 +151,22 @@ app.put('/api/category-heroes', async (req, res) => {
   else Object.assign(heroes, req.body);
   await heroes.save();
   res.json(heroes);
+});
+
+// Cleanup endpoint - clear old upload-based heroImages from database
+app.post('/api/cleanup-hero-images', async (req, res) => {
+  try {
+    const hero = await Hero.findOne();
+    if (hero && hero.heroImage && hero.heroImage.includes('/uploads/')) {
+      hero.heroImage = '';
+      await hero.save();
+      res.json({ message: 'Cleared old uploads from heroImage', hero });
+    } else {
+      res.json({ message: 'No cleanup needed', hero });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 const PORT = process.env.PORT || 5000;

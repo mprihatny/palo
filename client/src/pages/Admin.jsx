@@ -5,7 +5,7 @@ import API_BASE_URL from '../api'
 const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
-  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', quoteWeight:'400', quoteStyle:'italic', aboutText:'Vitajte na mojej stránke...' })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', quoteWeight:'400', quoteStyle:'italic', aboutText:'Vitajte na mojej stránke...', heroImage:'' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
@@ -281,6 +281,16 @@ export default function Admin({navigate}){
                 onChange={e=>setHero({...hero, aboutText:e.target.value})} 
                 placeholder="Vitajte na mojej stránke..."
                 style={{minHeight:100, resize:'vertical'}}
+              />
+            </div>
+
+            <div className="admin-form-group">
+              <label>Hero obrázok URL</label>
+              <input 
+                type="text"
+                value={hero.heroImage||''} 
+                onChange={e=>setHero({...hero, heroImage:e.target.value})} 
+                placeholder="https://i.postimg.cc/..."
               />
             </div>
 

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import API_BASE_URL from '../api'
 
-const DEFAULT_HERO_IMAGE = 'https://i.postimg.cc/C59V7gs1/hlavne-foto1.jpg'
-
 export default function Projects({navigate, category}){
   const [pages, setPages] = useState([])
   const [hero, setHero] = useState({})
   const [loading, setLoading] = useState(true)
   const [blur, setBlur] = useState(0)
   const [categoryHeroes, setCategoryHeroes] = useState({})
-  const [heroImage, setHeroImage] = useState(DEFAULT_HERO_IMAGE)
+  const [heroImage, setHeroImage] = useState(null)
 
   useEffect(()=>{
     console.log('Fetching pages for category:', category)

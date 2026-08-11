@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import API_BASE_URL from '../api'
 
-const HERO_IMAGE = 'https://i.postimg.cc/BbzXmb3C/ja-web-cb.jpg'
+const DEFAULT_HERO_IMAGE = 'https://i.postimg.cc/BbzXmb3C/ja-web-cb.jpg' // Home page hero image
 
 export default function Home({navigate}){
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' } })
+  const [heroImage, setHeroImage] = useState(DEFAULT_HERO_IMAGE)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [blur, setBlur] = useState(0)
+
+  useEffect(()=>{
+    // Clean up old upload-based images from database
+    fetch(`${API_BASE_URL}/api/cleanup-hero-images`, { method: 'POST' })
+      .catch(err => console.log('Cleanup check skipped:', err.message))
+  }, [])
 
   useEffect(()=>{
     let isMounted = true
@@ -23,6 +30,10 @@ export default function Home({navigate}){
         if (isMounted) {
           if (data && Object.keys(data).length) {
             setHero(prev => ({ ...prev, ...data }))
+            // Only use heroImage if it's a valid external URL (not from uploads folder)
+            if (data.heroImage && !data.heroImage.includes('/uploads/')) {
+              setHeroImage(data.heroImage)
+            }
             retries = 0
           }
           setLoading(false)
@@ -62,7 +73,7 @@ export default function Home({navigate}){
   const categories = [
     { name: 'Autorské texty', icon: 'https://i.postimg.cc/50JZ8wkk/autorske-texty-removebg-preview.png', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' },
     { name: 'Preklady', icon: 'https://i.postimg.cc/Jn89jbdp/preklady-removebg-preview.png', image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg' },
-    { name: 'Pripravované', icon: 'https://i.postimg.cc/85GqLhnt/pripravovane-removebg-preview.png', image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg' }
+    { name: 'Pripravované', icon: 'https://i.postimg.cc/85GqLhnt/pripravovane-removebg-preview.png', image: 'https://i.postimg.cc/MKPT0fCXw/pripravovane1.jpg' }
   ]
 
   useEffect(() => {
@@ -98,22 +109,25 @@ export default function Home({navigate}){
       {/* Hero Image */}
       <div style={{paddingTop:0, paddingBottom:0}}>
         <div className="hero-container">
+          {heroImage && (
           <img 
             className="hero-image"
-            src={HERO_IMAGE} 
+            src={heroImage} 
             alt="hero"
           />
+          )}
           <div className="hero-overlay">
             {loading ? (
               <div style={{color:'#ffffff', fontSize:'24px', fontFamily:"'Radio Canada', sans-serif"}}>Načítavam...</div>
-            ) : error ? (
-              <div style={{color:'#ffffff', fontSize:'18px', fontFamily:"'Radio Canada', sans-serif"}}>
-                <p>Problém s načítaním. Prosím obnovte stránku.</p>
-              </div>
             ) : (
               <>
                 <div className="hero-headline" style={{...dynamicStyle, color:'#ffffff', textShadow:'0 2px 8px rgba(0,0,0,0.3)', animation:'heroFadeIn 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards'}} dangerouslySetInnerHTML={{__html: hero.title || 'Moja kníca'}} />
                 {hero.subtitle && <p style={{color:'#ffffff', fontSize:'18px', marginTop:12, fontFamily:"'Radio Canada', sans-serif", opacity: 1}}>{hero.subtitle}</p>}
+                {error && (
+                  <div style={{marginTop:16, color:'#ffd9c2', fontSize:'14px', fontFamily:"'Radio Canada', sans-serif", opacity:0.95}}>
+                    Problém s načítaním obsahu. Skontroluj, či je backend dostupný a MongoDB pripojenie nastavené.
+                  </div>
+                )}
               </>
             )}
           </div>
@@ -122,9 +136,9 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(40px, 8vw, 80px)', borderBottom:'1px solid var(--border)', paddingBottom:'clamp(80px, 12vw, 160px)'}}>
+        <section className="reveal section-two-col" style={{padding:'clamp(20px, 4vw, 40px) 0 clamp(40px, 8vw, 80px)'}}>
           {/* Left: O mne */}
-          <div className="reveal delay-1 col-left" style={{paddingRight:'clamp(0px, 5vw, 30px)', borderRight:'1px solid rgba(212, 148, 95, 0.3)'}}>
+          <div className="reveal delay-1 col-left" style={{flex:1, paddingRight:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>
             <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.aboutText || 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.'}
@@ -132,7 +146,7 @@ export default function Home({navigate}){
           </div>
 
           {/* Right: Myšlienka/Quote */}
-          <div className="reveal delay-2 col-right" style={{paddingLeft:'clamp(0px, 5vw, 30px)'}}>
+          <div className="reveal delay-2 col-right" style={{flex:1, paddingLeft:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>Myšlienka</h2>
             <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: 'italic', fontWeight: hero.quoteWeight || '400', fontSize:'clamp(14px, 2.5vw, 16px)'}}>
               {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
@@ -141,7 +155,7 @@ export default function Home({navigate}){
         </section>
 
         {/* Categories - 3 SQUARES SIDE BY SIDE - RESPONSIVE */}
-        <section className="reveal delay-3" style={{padding:'0 0 0'}}>
+        <section className="reveal delay-3" style={{padding:'0 0 0', marginTop:'clamp(60px, 10vw, 120px)'}}>
           <div style={{
             display:'grid',
             gridTemplateColumns:'1fr',
@@ -207,8 +221,15 @@ export default function Home({navigate}){
           </div>
         </section>
 
-
-
+        <section className="reveal delay-8" style={{marginTop:'clamp(24px, 4vw, 48px)', padding:'24px', border:'1px solid rgba(212, 148, 95, 0.18)', borderRadius:'20px', background:'rgba(255, 255, 255, 0.92)', boxShadow:'0 12px 40px rgba(0,0,0,0.06)'}}>
+          <h3 style={{margin:'0 0 12px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(20px, 4vw, 28px)', color:'var(--color-dark)'}}>Sleduj nás na YouTube</h3>
+          <p style={{margin:'0 0 18px 0', color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)', lineHeight:1.7}}>
+            Nové videá, autorské texty a preklady sú pravidelne zdieľané na kanáli <strong>thepavolp</strong>. Klikni na link nižšie a pozri si posledné príspevky.
+          </p>
+          <a href="https://www.youtube.com/@thepavolp" target="_blank" rel="noopener noreferrer" style={{display:'inline-flex', alignItems:'center', gap:'10px', padding:'12px 22px', background:'var(--color-honey)', color:'white', borderRadius:'999px', textDecoration:'none', fontWeight:700, fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(14px, 2.5vw, 16px)'}}>
+            Pozrieť YouTube kanál thepavolp
+          </a>
+        </section>
 
       </div>
     </div>
