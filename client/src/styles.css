@@ -599,7 +599,8 @@ hr {
 	flex-direction: column;
 	gap: 18px;
 	padding: 32px;
-	align-items: flex-start;
+	align-items: center;
+	text-align: center;
 }
 
 .youtube-card-text {
