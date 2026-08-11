@@ -285,6 +285,52 @@ export default function Admin({navigate}){
             </div>
 
             <div className="admin-form-group">
+              <label>Nadpis YouTube sekcie</label>
+              <input 
+                type="text"
+                value={hero.youtubeHeading||''}
+                onChange={e=>setHero({...hero, youtubeHeading:e.target.value})}
+                placeholder="Sleduj nás na YouTube"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label>Popis YouTube sekcie</label>
+              <textarea
+                value={hero.youtubeText||''}
+                onChange={e=>setHero({...hero, youtubeText:e.target.value})}
+                placeholder="Popis pre YouTube sekciu..."
+                style={{minHeight:100, resize:'vertical'}}
+              />
+            </div>
+            <div className="admin-form-group">
+              <label>Text tlačidla YouTube</label>
+              <input
+                type="text"
+                value={hero.youtubeButtonText||''}
+                onChange={e=>setHero({...hero, youtubeButtonText:e.target.value})}
+                placeholder="Pozrieť YouTube kanál"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label>URL tlačidla YouTube</label>
+              <input
+                type="text"
+                value={hero.youtubeButtonUrl||''}
+                onChange={e=>setHero({...hero, youtubeButtonUrl:e.target.value})}
+                placeholder="https://www.youtube.com/@thepavolp"
+              />
+            </div>
+            <div className="admin-form-group">
+              <label>Obrázok sekcie YouTube (voliteľný)</label>
+              <input
+                type="text"
+                value={hero.youtubeImage||''}
+                onChange={e=>setHero({...hero, youtubeImage:e.target.value})}
+                placeholder="https://..."
+              />
+            </div>
+
+            <div className="admin-form-group">
               <label>Hero obrázok URL</label>
               <input 
                 type="text"

@@ -17,6 +17,10 @@ const HeroSchema = new mongoose.Schema({
   heroImage: { type: String, default: '' },
   youtubeImage: { type: String, default: '' },
   youtubeUrl: { type: String, default: '' },
+  youtubeHeading: { type: String, default: 'Sleduj nás na YouTube' },
+  youtubeText: { type: String, default: 'Nové videá, autorské texty a preklady sú pravidelne zdieľané na kanáli thepavolp. Klikni na link nižšie a pozri si posledné príspevky.' },
+  youtubeButtonText: { type: String, default: 'Pozrieť YouTube kanál' },
+  youtubeButtonUrl: { type: String, default: 'https://www.youtube.com/@thepavolp' },
   youtubeAdsImage: { type: String, default: 'https://i.postimg.cc/GhWQcpFw/image-removebg-preview.png' },
   youtubeAdsUrl: { type: String, default: '' },
   youtubeAdsText: { type: String, default: '' }

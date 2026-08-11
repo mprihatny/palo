@@ -526,11 +526,12 @@ hr {
 	
 	.section-two-col .col-left {
 		padding-right: clamp(15px, 4vw, 30px);
-		border-right: 1px solid rgba(212, 148, 95, 0.3);
+		border-right: none;
 	}
 	
 	.section-two-col .col-right {
 		padding-left: clamp(15px, 4vw, 30px);
+		border-left: 4px solid rgba(212, 148, 95, 0.45);
 	}
 }
 
