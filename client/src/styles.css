@@ -601,13 +601,9 @@ hr {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.18));
+	background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.08));
 	pointer-events: none;
 	z-index: 1;
-}
-
-.youtube-card {
-	background-blend-mode: overlay;
 }
 
 .youtube-card:hover {
