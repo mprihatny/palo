@@ -594,19 +594,20 @@ hr {
 	overflow: hidden;
 	position: relative;
 	transition: box-shadow 200ms ease, transform 200ms ease, border-color 200ms ease;
+	z-index: 0;
 }
 
 .youtube-card::before {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.32));
-	backdrop-filter: blur(4px);
+	background: linear-gradient(180deg, rgba(0,0,0,0.26), rgba(0,0,0,0.34));
 	pointer-events: none;
+	z-index: 1;
 }
 
 .youtube-card:hover {
-	box-shadow: 0 22px 48px rgba(0, 0, 0, 0.12);
+	box-shadow: 0 22px 48px rgba(0, 0, 0, 0.18);
 	transform: translateY(-2px);
 	border-color: rgba(212, 148, 95, 0.35);
 }
@@ -618,6 +619,8 @@ hr {
 	padding: 32px;
 	align-items: center;
 	text-align: center;
+	position: relative;
+	z-index: 2;
 }
 
 .youtube-card-text {
@@ -629,12 +632,13 @@ hr {
 	font-family: "'Hahmlet', serif";
 	font-weight: 600;
 	font-size: clamp(24px, 5vw, 32px);
-	color: var(--color-dark);
+	color: #ffffff;
+	text-shadow: 0 4px 16px rgba(0,0,0,0.35);
 }
 
 .youtube-card-text p {
 	margin: 0;
-	color: var(--text-light);
+	color: rgba(255,255,255,0.92);
 	font-family: "'Radio Canada', sans-serif";
 	font-size: clamp(15px, 2.5vw, 17px);
 	line-height: 1.8;
