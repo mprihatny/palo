@@ -298,6 +298,18 @@ export default function Admin({navigate}){
                 }}
                 onEditorChange={(content) => setHero({...hero, aboutText: content})}
               />
+              <div style={{marginTop:16, padding:16, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:8}}>
+                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', gap:12, flexWrap:'wrap'}}>
+                  <p style={{margin:0, fontWeight:600, color:'var(--color-dark)'}}>Náhľad stránky /omne</p>
+                  <button
+                    onClick={()=>navigate('/omne')}
+                    style={{padding:'10px 18px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:6, cursor:'pointer', fontWeight:600, fontFamily:"'Radio Canada', sans-serif"}}
+                  >
+                    Otvoriť /omne
+                  </button>
+                </div>
+                <div style={{marginTop:16, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:14, lineHeight:1.8}} dangerouslySetInnerHTML={{__html: hero.aboutText || '<em>Žiaden text nie je nastavený.</em>'}} />
+              </div>
             </div>
 
             <div className="admin-form-group">

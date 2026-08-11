@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a1a" />
+      <stop offset="100%" stop-color="#0b0b0b" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffb56b" />
+      <stop offset="100%" stop-color="#d97d2f" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="800" cy="450" r="320" fill="rgba(255, 255, 255, 0.05)" />
+  <g opacity="0.9">
+    <rect x="540" y="330" width="520" height="240" rx="120" fill="#000" filter="url(#blur)" />
+    <polygon points="660,360 660,540 820,450" fill="#ffcc88" />
+    <path d="M940 360 L940 540 C940 565 920 580 900 580 H820 C795 580 770 565 770 540 V360 C770 335 795 320 820 320 H900 C920 320 940 335 940 360 Z" fill="rgba(255,255,255,0.08)" />
+  </g>
+  <text x="800" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="72" fill="#ffffff">YouTube</text>
+  <text x="800" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="36" fill="#f7d59c">Sleduj náš kanál</text>
+  <g filter="url(#glow)">
+    <rect x="520" y="560" width="560" height="120" rx="60" fill="none" stroke="url(#glow)" stroke-width="6" />
+  </g>
+</svg>

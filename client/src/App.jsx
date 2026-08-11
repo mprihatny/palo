@@ -10,7 +10,8 @@ function App(){
   const normalizeRoute = (raw) => {
     if (!raw) return '/'
     const clean = raw.startsWith('#') ? raw.slice(1) : raw
-    return clean === '' ? '/' : clean
+    const normalized = clean === '' ? '/' : clean
+    return normalized.endsWith('/') && normalized !== '/' ? normalized.slice(0, -1) : normalized
   }
 
   const getCurrentRoute = () => {

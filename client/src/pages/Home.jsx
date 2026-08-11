@@ -80,8 +80,10 @@ export default function Home({navigate}){
   const youtubeText = hero.youtubeText !== undefined ? hero.youtubeText : 'Nové videá, autorské texty a preklady sú pravidelne zdieľané na kanáli thepavolp. Klikni na link nižšie a pozri si posledné príspevky.'
   const youtubeButtonText = hero.youtubeButtonText !== undefined ? hero.youtubeButtonText : 'Pozrieť YouTube kanál'
   const youtubeButtonUrl = hero.youtubeButtonUrl !== undefined ? hero.youtubeButtonUrl : 'https://www.youtube.com/@thepavolp'
-  const youtubeBackground = hero.youtubeImage && hero.youtubeImage.trim() ? hero.youtubeImage : 'https://i.postimg.cc/xC28bWn1/thumbnail-ja-web.png'
-  const youtubeBackgroundStyle = `linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.14)), url(${youtubeBackground})`
+  const defaultYoutubeBackground = '/youtube-card-bg.svg'
+  const youtubeImage = hero.youtubeImage && hero.youtubeImage.trim() ? hero.youtubeImage.trim() : ''
+  const youtubeBackgroundImage = youtubeImage ? `url(${youtubeImage}), url(${defaultYoutubeBackground})` : `url(${defaultYoutubeBackground})`
+  const youtubeBackgroundStyle = `linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.14)), ${youtubeBackgroundImage}`
   const quoteHeading = hero.quoteHeading !== undefined ? hero.quoteHeading : 'Myšlienka'
   const quoteStyle = hero.quoteStyle || 'italic'
 
