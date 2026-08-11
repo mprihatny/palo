@@ -616,6 +616,7 @@ hr {
 .youtube-card-text h3 {
 	margin: 0 0 12px 0;
 	font-family: "'Hahmlet', serif";
+	font-weight: 600;
 	font-size: clamp(24px, 5vw, 32px);
 	color: var(--color-dark);
 }
