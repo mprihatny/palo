@@ -591,6 +591,13 @@ hr {
 	border: 1px solid var(--border);
 	border-radius: 12px;
 	overflow: hidden;
+	transition: background 200ms ease, transform 200ms ease, border-color 200ms ease;
+}
+
+.youtube-card:hover {
+	background: rgba(212, 148, 95, 0.14);
+	border-color: rgba(212, 148, 95, 0.35);
+	transform: translateY(-2px);
 }
 
 .youtube-card-inner {
@@ -626,21 +633,24 @@ hr {
 	align-items: center;
 	justify-content: center;
 	padding: 14px 26px;
-	background: var(--color-honey);
-	color: white;
+	background: transparent;
+	color: var(--color-honey);
+	border: 2px solid var(--color-honey);
 	border-radius: 999px;
 	text-decoration: none;
 	font-weight: 700;
 	font-family: "'Radio Canada', sans-serif";
 	font-size: clamp(14px, 2.5vw, 16px);
-	transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
+	transition: transform 200ms ease, background 200ms ease, color 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 	align-self: center;
 }
 
 .youtube-card-button:hover {
 	transform: translateY(-1px);
-	background: #c87d34;
+	background: var(--color-honey);
+	color: white;
 	box-shadow: 0 10px 20px rgba(200, 125, 52, 0.18);
+	border-color: var(--color-honey);
 }
 
 @media (max-width: 767px) {
