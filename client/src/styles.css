@@ -601,13 +601,17 @@ hr {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(180deg, rgba(0,0,0,0.26), rgba(0,0,0,0.34));
+	background: linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.18));
 	pointer-events: none;
 	z-index: 1;
 }
 
+.youtube-card {
+	background-blend-mode: overlay;
+}
+
 .youtube-card:hover {
-	box-shadow: 0 22px 48px rgba(0, 0, 0, 0.18);
+	box-shadow: 0 22px 48px rgba(0, 0, 0, 0.14);
 	transform: translateY(-2px);
 	border-color: rgba(212, 148, 95, 0.35);
 }
@@ -633,7 +637,7 @@ hr {
 	font-weight: 600;
 	font-size: clamp(24px, 5vw, 32px);
 	color: #ffffff;
-	text-shadow: 0 4px 16px rgba(0,0,0,0.35);
+	text-shadow: 0 4px 14px rgba(0,0,0,0.4);
 }
 
 .youtube-card-text p {

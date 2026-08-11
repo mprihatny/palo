@@ -7,18 +7,40 @@ import Admin from './pages/Admin'
 import Footer from './components/Footer'
 
 function App(){
-  const [route, setRoute] = useState(window.location.pathname);
+  const normalizeRoute = (raw) => {
+    if (!raw) return '/'
+    const clean = raw.startsWith('#') ? raw.slice(1) : raw
+    return clean === '' ? '/' : clean
+  }
+
+  const getCurrentRoute = () => {
+    const hash = window.location.hash
+    if (hash) return normalizeRoute(hash)
+    return normalizeRoute(window.location.pathname)
+  }
+
+  const [route, setRoute] = useState(getCurrentRoute());
 
   useEffect(()=>{
-    const onPop = ()=> setRoute(window.location.pathname);
-    window.addEventListener('popstate', onPop);
-    return ()=> window.removeEventListener('popstate', onPop);
+    if (!window.location.hash && window.location.pathname !== '/') {
+      const newHash = `#${window.location.pathname}${window.location.search}`
+      window.location.replace(newHash)
+      setRoute(normalizeRoute(newHash))
+      return
+    }
+
+    const onHashChange = () => setRoute(getCurrentRoute())
+    window.addEventListener('hashchange', onHashChange)
+    return ()=> window.removeEventListener('hashchange', onHashChange)
   },[])
 
   const navigate = (path) => {
-    window.history.pushState({}, '', path);
-    setRoute(path);
-    window.scrollTo(0, 0);
+    const targetHash = path.startsWith('#') ? path : `#${path}`
+    if (window.location.hash !== targetHash) {
+      window.location.hash = targetHash
+    }
+    setRoute(normalizeRoute(targetHash))
+    window.scrollTo(0, 0)
   }
 
   const getCategoryFromRoute = (r) => {
