@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import API_BASE_URL from '../api'
 
+const DEFAULT_HERO_IMAGE = 'https://i.postimg.cc/BbzXmb3C/ja-web-cb.jpg'
+
 export default function Projects({navigate, category}){
   const [pages, setPages] = useState([])
   const [hero, setHero] = useState({})
   const [loading, setLoading] = useState(true)
   const [blur, setBlur] = useState(0)
   const [categoryHeroes, setCategoryHeroes] = useState({})
-  const [heroImage, setHeroImage] = useState(null)
+  const [heroImage, setHeroImage] = useState(DEFAULT_HERO_IMAGE)
 
   useEffect(()=>{
     console.log('Fetching pages for category:', category)
@@ -40,6 +42,9 @@ export default function Projects({navigate, category}){
       .then(r=>r.json())
       .then(data=>{
         setHero(data)
+        if (data?.heroImage && data.heroImage.trim() && !data.heroImage.includes('/uploads/')) {
+          setHeroImage(data.heroImage.trim())
+        }
       })
       .catch(err=>{
         console.error('Failed to fetch hero:', err)
@@ -51,19 +56,21 @@ export default function Projects({navigate, category}){
       .then(r=>r.json())
       .then(data=>{
         setCategoryHeroes(data)
-        // Set hero image based on category
-        if (category === 'Autorské texty' && data.autorske?.image) {
-          setHeroImage(data.autorske.image)
-        } else if (category === 'Preklady' && data.preklady?.image) {
-          setHeroImage(data.preklady.image)
-        } else if (category === 'Pripravované' && data.pripravovane?.image) {
-          setHeroImage(data.pripravovane.image)
+        // Use main hero image if present, otherwise fall back to category image
+        if (!hero.heroImage) {
+          if (category === 'Autorské texty' && data.autorske?.image) {
+            setHeroImage(data.autorske.image)
+          } else if (category === 'Preklady' && data.preklady?.image) {
+            setHeroImage(data.preklady.image)
+          } else if (category === 'Pripravované' && data.pripravovane?.image) {
+            setHeroImage(data.pripravovane.image)
+          }
         }
       })
       .catch(err=>{
         console.error('Failed to fetch category heroes:', err)
       })
-  }, [category])
+  }, [category, hero.heroImage])
 
   const filtered = category ? pages.filter(p => p.category === category) : pages
   const books = filtered.filter(p => p.type === 'Knihy')
@@ -95,15 +102,17 @@ export default function Projects({navigate, category}){
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const effectiveHeroImage = hero.heroImage || heroImage
+
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)', display:'flex', flexDirection:'column'}}>
       {/* Hero section - "Moja fotka" */}
-      {heroImage && (
+      {effectiveHeroImage && (
       <div style={{paddingTop:0, paddingBottom:0}}>
         <div className="hero-container">
           <img 
             className="hero-image"
-            src={heroImage} 
+            src={effectiveHeroImage} 
             alt="hero"
           />
           <div style={{
