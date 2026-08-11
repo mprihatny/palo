@@ -617,7 +617,7 @@ hr {
 	display: flex;
 	flex-direction: column;
 	gap: 28px;
-	padding: 56px 32px 20px;
+	padding: 80px 32px 20px;
 	align-items: center;
 	text-align: center;
 	position: relative;
@@ -650,7 +650,7 @@ hr {
 	align-items: center;
 	justify-content: center;
 	padding: 14px 26px;
-	margin-top: 12px;
+	margin-top: 24px;
 	background: transparent;
 	color: var(--color-honey);
 	border: 2px solid var(--color-honey);
