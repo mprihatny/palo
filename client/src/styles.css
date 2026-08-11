@@ -593,8 +593,8 @@ hr {
 	border-radius: 16px;
 	overflow: hidden;
 	position: relative;
-	transition: transform 200ms ease, border-color 200ms ease;
-	box-shadow: none;
+	transition: all 280ms ease;
+	box-shadow: var(--shadow-sm);
 	z-index: 0;
 }
 
@@ -608,8 +608,8 @@ hr {
 }
 
 .youtube-card:hover {
-	box-shadow: none !important;
-	transform: none;
+	box-shadow: var(--shadow-md);
+	transform: translateY(-2px);
 	border-color: rgba(212, 148, 95, 0.35);
 }
 
