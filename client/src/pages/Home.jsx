@@ -229,16 +229,12 @@ export default function Home({navigate}){
           </div>
         </section>
 
-        <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(24px, 4vw, 48px)'}}>
-          <div className="youtube-card" style={{padding:'clamp(24px, 32px, 40px)', borderRadius:'20px', background:'rgba(212, 148, 95, 0.08)', border:'1px solid var(--border)'}}>
-            <div style={{display:'flex', flexDirection:'column', gap:'18px', alignItems:'flex-start'}}>
-              <div>
-                <h3 style={{margin:'0 0 10px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(24px, 5vw, 32px)', color:'var(--color-dark)'}}>
-                  {youtubeHeading}
-                </h3>
-                <p style={{margin:0, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(15px, 2.5vw, 17px)', lineHeight:1.8}}>
-                  {youtubeText}
-                </p>
+        <section className="reveal delay-8 youtube-card-section">
+          <div className="youtube-card">
+            <div className="youtube-card-inner">
+              <div className="youtube-card-text">
+                <h3>{youtubeHeading}</h3>
+                <p>{youtubeText}</p>
               </div>
               {youtubeButtonUrl && (
                 <a href={youtubeButtonUrl} target="_blank" rel="noopener noreferrer" className="youtube-card-button">
