@@ -80,7 +80,7 @@ export default function Home({navigate}){
   const youtubeText = hero.youtubeText !== undefined ? hero.youtubeText : 'Nové videá, autorské texty a preklady sú pravidelne zdieľané na kanáli thepavolp. Klikni na link nižšie a pozri si posledné príspevky.'
   const youtubeButtonText = hero.youtubeButtonText !== undefined ? hero.youtubeButtonText : 'Pozrieť YouTube kanál'
   const youtubeButtonUrl = hero.youtubeButtonUrl !== undefined ? hero.youtubeButtonUrl : 'https://www.youtube.com/@thepavolp'
-  const defaultYoutubeBackground = '/youtube-card-bg.svg'
+  const defaultYoutubeBackground = 'https://i.postimg.cc/xC28bWn1/thumbnail-ja-web.png'
   const youtubeImage = hero.youtubeImage && hero.youtubeImage.trim() ? hero.youtubeImage.trim() : ''
   const [youtubeBgUrl, setYoutubeBgUrl] = useState(defaultYoutubeBackground)
   const youtubeBackgroundStyle = `linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.14)), url("${youtubeBgUrl}")`
@@ -98,23 +98,20 @@ export default function Home({navigate}){
   }, [])
 
   useEffect(() => {
-    let isMounted = true
     const href = youtubeImage
     if (!href) {
       setYoutubeBgUrl(defaultYoutubeBackground)
-      return () => { isMounted = false }
+      return
     }
 
     const img = new Image()
     img.onload = () => {
-      if (isMounted) setYoutubeBgUrl(href)
+      setYoutubeBgUrl(href)
     }
     img.onerror = () => {
-      if (isMounted) setYoutubeBgUrl(defaultYoutubeBackground)
+      setYoutubeBgUrl(defaultYoutubeBackground)
     }
     img.src = href
-
-    return () => { isMounted = false }
   }, [youtubeImage, defaultYoutubeBackground])
 
 
