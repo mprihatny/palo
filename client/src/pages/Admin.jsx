@@ -284,7 +284,7 @@ export default function Admin({navigate}){
               </select>
             </div>
             <div className="admin-form-group">
-              <label>Text "O mne"</label>
+              <label>Text sekcie "O mne" na hlavnej stránke</label>
               <Editor
                 apiKey={TINYMCE_API_KEY}
                 value={hero.aboutText||''}
@@ -298,6 +298,24 @@ export default function Admin({navigate}){
                   content_css: false
                 }}
                 onEditorChange={(content) => setHero({...hero, aboutText: content})}
+              />
+            </div>
+
+            <div className="admin-form-group">
+              <label>Text stránky O mne</label>
+              <Editor
+                apiKey={TINYMCE_API_KEY}
+                value={hero.omneText||''}
+                init={{
+                  height: 240,
+                  menubar: false,
+                  plugins: 'link code',
+                  toolbar: 'bold italic underline | alignleft aligncenter alignright | link code',
+                  relative_urls: false,
+                  remove_script_host: false,
+                  content_css: false
+                }}
+                onEditorChange={(content) => setHero({...hero, omneText: content})}
               />
               <div style={{marginTop:16, padding:16, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:8}}>
                 <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', gap:12, flexWrap:'wrap'}}>
@@ -317,7 +335,7 @@ export default function Admin({navigate}){
                     </button>
                   </div>
                 </div>
-                <div style={{marginTop:16, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:14, lineHeight:1.8}} dangerouslySetInnerHTML={{__html: hero.aboutText || '<em>Žiaden text nie je nastavený.</em>'}} />
+                <div style={{marginTop:16, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:14, lineHeight:1.8}} dangerouslySetInnerHTML={{__html: hero.omneText || '<em>Žiaden text nie je nastavený.</em>'}} />
               </div>
             </div>
 

@@ -601,7 +601,7 @@ hr {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.12));
+	background: transparent;
 	pointer-events: none;
 	z-index: 1;
 }

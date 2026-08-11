@@ -83,7 +83,7 @@ export default function Home({navigate}){
   const defaultYoutubeBackground = 'https://i.postimg.cc/xC28bWn1/thumbnail-ja-web.png'
   const youtubeImage = hero.youtubeImage && hero.youtubeImage.trim() ? hero.youtubeImage.trim() : ''
   const [youtubeBgUrl, setYoutubeBgUrl] = useState(defaultYoutubeBackground)
-  const youtubeBackgroundStyle = `linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.14)), url("${youtubeBgUrl}")`
+  const youtubeBackgroundStyle = `url("${youtubeBgUrl}")`
   const quoteHeading = hero.quoteHeading !== undefined ? hero.quoteHeading : 'Myšlienka'
   const quoteStyle = hero.quoteStyle || 'italic'
 
