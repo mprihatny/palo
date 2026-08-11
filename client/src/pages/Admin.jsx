@@ -237,12 +237,29 @@ export default function Admin({navigate}){
               </div>
             </div>
             <div className="admin-form-group">
+              <label>Nadpis sekcie Myšlienka</label>
+              <input
+                type="text"
+                value={hero.quoteHeading||''}
+                onChange={e=>setHero({...hero, quoteHeading:e.target.value})}
+                placeholder="Myšlienka"
+              />
+            </div>
+            <div className="admin-form-group">
               <label>Text/Citácia</label>
-              <textarea 
-                value={hero.quote||''} 
-                onChange={e=>setHero({...hero, quote:e.target.value})} 
-                placeholder="Priestor na krátky text/citáciu..."
-                style={{minHeight:80, resize:'vertical'}}
+              <Editor
+                apiKey={TINYMCE_API_KEY}
+                value={hero.quote||''}
+                init={{
+                  height: 180,
+                  menubar: false,
+                  plugins: 'link code',
+                  toolbar: 'bold italic underline | link code',
+                  relative_urls: false,
+                  remove_script_host: false,
+                  content_css: false
+                }}
+                onEditorChange={(content) => setHero({...hero, quote: content})}
               />
             </div>
             <div className="admin-form-group">

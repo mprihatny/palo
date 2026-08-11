@@ -76,15 +76,13 @@ export default function Home({navigate}){
     { name: 'Pripravované', icon: 'https://i.postimg.cc/85GqLhnt/pripravovane-removebg-preview.png', image: 'https://i.postimg.cc/MKPT0fCXw/pripravovane1.jpg' }
   ]
 
-  const showYoutubeSection = !!(
-    hero.youtubeHeading ||
-    hero.youtubeText ||
-    hero.youtubeButtonText ||
-    hero.youtubeButtonUrl ||
-    hero.youtubeImage
-  )
-
-  const showYoutubeButton = !!(hero.youtubeButtonText && hero.youtubeButtonUrl)
+  const youtubeHeading = hero.youtubeHeading !== undefined ? hero.youtubeHeading : 'Sleduj nás na YouTube'
+  const youtubeText = hero.youtubeText !== undefined ? hero.youtubeText : 'Nové videá, autorské texty a preklady sú pravidelne zdieľané na kanáli thepavolp. Klikni na link nižšie a pozri si posledné príspevky.'
+  const youtubeButtonText = hero.youtubeButtonText !== undefined ? hero.youtubeButtonText : 'Pozrieť YouTube kanál'
+  const youtubeButtonUrl = hero.youtubeButtonUrl !== undefined ? hero.youtubeButtonUrl : 'https://www.youtube.com/@thepavolp'
+  const youtubeImage = hero.youtubeImage || ''
+  const quoteHeading = hero.quoteHeading !== undefined ? hero.quoteHeading : 'Myšlienka'
+  const quoteStyle = hero.quoteStyle || 'italic'
 
   useEffect(() => {
     const revealed = document.querySelectorAll('.reveal')
@@ -156,11 +154,9 @@ export default function Home({navigate}){
           </div>
 
           {/* Right: Myšlienka/Quote */}
-          <div className="reveal delay-2 col-right" style={{flex:1, paddingLeft:'clamp(20px, 8vw, 60px)'}}>
-            <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>Myšlienka</h2>
-            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: 'italic', fontWeight: hero.quoteWeight || '400', fontSize:'clamp(14px, 2.5vw, 16px)'}}>
-              {hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}
-            </p>
+          <div className="reveal delay-2 col-right" style={{flex:1, paddingLeft:'clamp(20px, 8vw, 60px)', borderTopLeftRadius:24, borderBottomLeftRadius:24}}>
+            <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>{quoteHeading}</h2>
+            <p style={{color: hero.quoteColor || 'var(--color-red)', fontFamily:"'Radio Canada', sans-serif", fontStyle: quoteStyle, fontWeight: hero.quoteWeight || '400', fontSize:'clamp(14px, 2.5vw, 16px)'}} dangerouslySetInnerHTML={{__html: hero.quote || 'Tu sa objaví inšpiratívna myšlienka alebo citát...'}} />
           </div>
         </section>
 
@@ -231,34 +227,30 @@ export default function Home({navigate}){
           </div>
         </section>
 
-        {showYoutubeSection && (
-          <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(24px, 4vw, 48px)'}}>
-            <div className="youtube-card">
-              <div className="youtube-card-inner">
-                <div className="youtube-card-text">
-                  {hero.youtubeHeading && (
-                    <h3 style={{margin:'0 0 12px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(24px, 5vw, 32px)', color:'var(--color-dark)'}}>
-                      {hero.youtubeHeading}
-                    </h3>
-                  )}
-                  {hero.youtubeText && (
-                    <p style={{margin:'0', color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(15px, 2.5vw, 17px)', lineHeight:1.8}}>
-                      {hero.youtubeText}
-                    </p>
-                  )}
-                  {showYoutubeButton && (
-                    <a href={hero.youtubeButtonUrl} target="_blank" rel="noopener noreferrer" className="youtube-card-button">
-                      {hero.youtubeButtonText}
-                    </a>
-                  )}
-                </div>
-                {hero.youtubeImage && (
-                  <img src={hero.youtubeImage} alt="YouTube" className="youtube-card-image" />
+        <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(24px, 4vw, 48px)'}}>
+          <div className="youtube-card">
+            <div className="youtube-card-inner">
+              <div className="youtube-card-text">
+                {youtubeHeading && (
+                  <h3 style={{margin:'0 0 12px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(24px, 5vw, 32px)', color:'var(--color-dark)'}}>
+                    {youtubeHeading}
+                  </h3>
+                )}
+                <p style={{margin:'0', color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(15px, 2.5vw, 17px)', lineHeight:1.8}}>
+                  {youtubeText}
+                </p>
+                {youtubeButtonUrl && (
+                  <a href={youtubeButtonUrl} target="_blank" rel="noopener noreferrer" className="youtube-card-button">
+                    {youtubeButtonText}
+                  </a>
                 )}
               </div>
+              {youtubeImage && (
+                <img src={youtubeImage} alt="YouTube" className="youtube-card-image" />
+              )}
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
       </div>
     </div>
