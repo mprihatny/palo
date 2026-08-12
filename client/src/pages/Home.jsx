@@ -163,7 +163,7 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{display:'grid', gridTemplateColumns:'1fr auto 1fr', alignItems:'stretch', justifyContent:'center', gap:'clamp(40px, 7vw, 72px)', padding:'clamp(120px, 15vw, 160px) 0 clamp(40px, 8vw, 80px)'}}>
+        <section className="reveal section-two-col" style={{display:'grid', gridTemplateColumns:'1fr auto 1fr', alignItems:'stretch', justifyContent:'center', gap:'clamp(40px, 7vw, 72px)', padding:'clamp(80px, 10vw, 120px) 0 clamp(20px, 5vw, 50px)'}}>
           {/* Left: O mne */}
           <div className="reveal delay-1 col-left" style={{flex:1, paddingRight:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>
@@ -246,7 +246,7 @@ export default function Home({navigate}){
           </div>
         </section>
 
-        <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(40px, 6vw, 60px)', marginBottom:'clamp(60px, 10vw, 120px)'}}>
+        <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(80px, 10vw, 120px)', marginBottom:'clamp(60px, 10vw, 120px)'}}>
           <div className="youtube-card" style={{backgroundImage: youtubeBackgroundStyle, backgroundSize:'cover', backgroundPosition:'center center', backgroundRepeat:'no-repeat', minHeight:'420px', display:'flex', alignItems:'center', justifyContent:'center', backgroundColor:'#111'}}>
             <div className="youtube-card-inner">
               <div className="youtube-card-text">
