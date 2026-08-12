@@ -717,9 +717,16 @@ export default function Admin({navigate}){
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Autorské texty</label>
               <input 
+                type="file" 
+                accept="image/*"
+                onChange={(e) => handleImageFileUpload(e, 'autorskeImage')}
+                style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer', marginBottom:8}}
+              />
+              <input 
+                type="text"
                 value={categoryHeroes.autorske?.image||''} 
                 onChange={e => setCategoryHeroes({...categoryHeroes, autorske: {...categoryHeroes.autorske, image: e.target.value}})} 
-                placeholder="https://..." 
+                placeholder="alebo vlož URL..." 
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>
@@ -728,9 +735,16 @@ export default function Admin({navigate}){
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Preklady</label>
               <input 
+                type="file" 
+                accept="image/*"
+                onChange={(e) => handleImageFileUpload(e, 'prekladskyImage')}
+                style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer', marginBottom:8}}
+              />
+              <input 
+                type="text"
                 value={categoryHeroes.preklady?.image||''} 
                 onChange={e => setCategoryHeroes({...categoryHeroes, preklady: {...categoryHeroes.preklady, image: e.target.value}})} 
-                placeholder="https://..." 
+                placeholder="alebo vlož URL..." 
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>
@@ -739,9 +753,16 @@ export default function Admin({navigate}){
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Pripravované</label>
               <input 
+                type="file" 
+                accept="image/*"
+                onChange={(e) => handleImageFileUpload(e, 'pripravovaneImage')}
+                style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer', marginBottom:8}}
+              />
+              <input 
+                type="text"
                 value={categoryHeroes.pripravovane?.image||''} 
                 onChange={e => setCategoryHeroes({...categoryHeroes, pripravovane: {...categoryHeroes.pripravovane, image: e.target.value}})} 
-                placeholder="https://..." 
+                placeholder="alebo vlož URL..." 
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>
@@ -975,6 +996,12 @@ function AddPageForm({onSuccess}){
           setHero({...hero, heroImage: data.url})
         } else if (field === 'youtubeImage') {
           setHero({...hero, youtubeImage: data.url})
+        } else if (field === 'autorskeImage') {
+          setCategoryHeroes({...categoryHeroes, autorske: {...categoryHeroes.autorske, image: data.url}})
+        } else if (field === 'prekladskyImage') {
+          setCategoryHeroes({...categoryHeroes, preklady: {...categoryHeroes.preklady, image: data.url}})
+        } else if (field === 'pripravovaneImage') {
+          setCategoryHeroes({...categoryHeroes, pripravovane: {...categoryHeroes.pripravovane, image: data.url}})
         }
         setModal({show:true, type:'success', message:'✓ Obrázok nahraný!', success:true})
         setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 2000)
