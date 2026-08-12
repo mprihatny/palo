@@ -18,14 +18,14 @@ export default function Navbar({navigate, currentRoute}){
   return (
     <nav style={{
       background: 'var(--bg)',
-      padding: '16px clamp(12px, 3vw, 24px)',
+      padding: '20px clamp(12px, 3vw, 24px)',
       borderBottom: 'none',
       position: 'sticky',
       top: 0,
       zIndex: 100,
       boxShadow: 'none'
     }}>
-      <div style={{maxWidth:'1200px', margin:'0 auto', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+      <div style={{maxWidth:'1200px', margin:'0 auto', display:'flex', justifyContent:'space-between', alignItems:'center', minHeight:'48px'}}>
         {/* Logo */}
         <div 
           onClick={()=>handleNavClick('/')}
