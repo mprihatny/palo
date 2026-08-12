@@ -9,7 +9,7 @@ export default function Admin({navigate}){
   const [passwordInput, setPasswordInput] = useState('')
   const [loginError, setLoginError] = useState('')
   
-  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', quoteWeight:'400', quoteStyle:'italic', aboutText:'Vitajte na mojej stránke...', omneText:'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.', heroImage:'' })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', quoteWeight:'400', quoteStyle:'italic', aboutText:'Vitajte na mojej stránke...', omneText:'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.', heroImage:'', youtubeImage:'https://i.postimg.cc/Y9k89gf5/web-thumbnail.png' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)

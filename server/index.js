@@ -130,9 +130,9 @@ app.get('/api/category-heroes', async (req, res) => {
   let heroes = await CategoryHeroes.findOne();
   if (!heroes) {
     heroes = new CategoryHeroes({
-      autorske: { image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg', title: 'Autorské texty' },
-      preklady: { image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg', title: 'Preklady' },
-      pripravovane: { image: 'https://i.postimg.cc/MKPT0CXw/pripravovane1.jpg', title: 'Pripravované' }
+      autorske: { image: 'https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg', title: 'Autorské texty' },
+      preklady: { image: 'https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg', title: 'Preklady' },
+      pripravovane: { image: 'https://i.postimg.cc/DZg6bZBx/pripravovane-foto.jpg', title: 'Pripravované' }
     });
     await heroes.save();
   }

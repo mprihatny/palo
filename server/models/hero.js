@@ -16,7 +16,7 @@ const HeroSchema = new mongoose.Schema({
   aboutText: { type: String, default: 'Vitajte na mojej stránke. Tu nájdete moje diela, preklady francúzskych kapucínskych autorov a ďalší obsah, ktorý som pripravil pre duchovné povzbudenie a rast.' },
   omneText: { type: String, default: 'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.' },
   heroImage: { type: String, default: '' },
-  youtubeImage: { type: String, default: '' },
+  youtubeImage: { type: String, default: 'https://i.postimg.cc/Y9k89gf5/web-thumbnail.png' },
   youtubeUrl: { type: String, default: '' },
   youtubeHeading: { type: String, default: 'Sleduj nás na YouTube' },
   youtubeText: { type: String, default: 'Nové videá, autorské texty a preklady sú pravidelne zdieľané na kanáli thepavolp. Klikni na link nižšie a pozri si posledné príspevky.' },
