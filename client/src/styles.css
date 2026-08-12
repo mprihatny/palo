@@ -374,18 +374,18 @@ hr {
 @media (max-width: 768px) {
 	.hero-container { 
 		height: 420px; 
-		padding: 16px;
+		padding: 0;
 		border-radius: 0;
 	}
 	.hero-image {
-		border-radius: 12px;
+		border-radius: 0;
 	}
 	.hero-container::after {
-		left: 16px;
-		right: 16px;
-		top: 16px;
-		bottom: 16px;
-		border-radius: 12px;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		border-radius: 0;
 	}
 	h1 { font-size: 28px; }
 	h2 { font-size: 24px; }
@@ -416,18 +416,18 @@ hr {
 @media (max-width: 480px) {
 	.hero-container {
 		height: 300px;
-		padding: 12px;
+		padding: 0;
 		border-radius: 0;
 	}
 	.hero-image {
-		border-radius: 8px;
+		border-radius: 0;
 	}
 	.hero-container::after {
-		left: 12px;
-		right: 12px;
-		top: 12px;
-		bottom: 12px;
-		border-radius: 8px;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		border-radius: 0;
 	}
 	h1 { font-size: 24px; }
 	h2 { font-size: 20px; }
