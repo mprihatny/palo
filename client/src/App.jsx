@@ -56,6 +56,7 @@ function App(){
       {route === '/omne' && <Omne />}
       {route.startsWith('/projects') && <Projects navigate={navigate} category={getCategoryFromRoute(route)} />}
       {route === '/padmin' && <Admin navigate={navigate} />}
+      {/* Admin panel on /padmin route */}
       <Footer navigate={navigate} />
     </div>
   )
