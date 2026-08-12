@@ -5,7 +5,6 @@ export default function Navbar({navigate, currentRoute}){
   
   const navItems = [
     { label: 'Domov', path: '/' },
-    { label: 'O mne', path: '/omne' },
     { label: 'Autorské texty', path: '/projects?cat=Autorské texty' },
     { label: 'Preklady', path: '/projects?cat=Preklady' },
     { label: 'Pripravované', path: '/projects?cat=Pripravované' }
