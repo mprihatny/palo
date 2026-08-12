@@ -13,6 +13,10 @@ export default function Omne(){
   const [blur, setBlur] = useState(0)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
     let isMounted = true
     const loadContent = async () => {
       try {
