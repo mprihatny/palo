@@ -246,7 +246,7 @@ export default function Home({navigate}){
           </div>
         </section>
 
-        <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(60px, 8vw, 100px)', marginBottom:'clamp(60px, 10vw, 120px)'}}>
+        <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(40px, 6vw, 60px)', marginBottom:'clamp(60px, 10vw, 120px)'}}>
           <div className="youtube-card" style={{backgroundImage: youtubeBackgroundStyle, backgroundSize:'cover', backgroundPosition:'center center', backgroundRepeat:'no-repeat', minHeight:'420px', display:'flex', alignItems:'center', justifyContent:'center', backgroundColor:'#111'}}>
             <div className="youtube-card-inner">
               <div className="youtube-card-text">
