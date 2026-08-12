@@ -45,7 +45,7 @@ export default function Omne(){
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
-      const heroImage = document.querySelector('.omne-hero-image')
+      const heroImage = document.querySelector('.hero-image')
       if (heroImage) {
         const blurAmount = Math.min(scrollY / 30, 8)
         setBlur(blurAmount)
@@ -73,7 +73,7 @@ export default function Omne(){
       <div style={{paddingTop:0, paddingBottom:0}}>
         <div className="hero-container">
           <img 
-            className="omne-hero-image"
+            className="hero-image"
             src={heroImage} 
             alt="O mne"
           />
