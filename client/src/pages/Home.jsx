@@ -67,7 +67,7 @@ export default function Home({navigate}){
     fontSize: hero?.style?.fontSize || '52px',
     lineHeight: 1.2,
     transition: 'opacity 300ms ease',
-    fontFamily: "'Hahmlet', 'Times New Roman', serif"
+    fontFamily: "'Lora', 'Times New Roman', serif"
   }
 
   const categories = [
@@ -224,7 +224,7 @@ export default function Home({navigate}){
                 />
                 
                 {/* Title */}
-                <h3 style={{color:'var(--color-dark)', fontWeight:500, fontFamily:"'Hahmlet', serif", margin:'0', fontSize:'clamp(16px, 4vw, 22px)', textAlign:'center'}}>
+                <h3 style={{color:'var(--color-dark)', fontWeight:300, fontFamily:"'Lora', serif", margin:'0', fontSize:'clamp(16px, 4vw, 22px)', textAlign:'center'}}>
                   {cat.name}
                 </h3>
                 

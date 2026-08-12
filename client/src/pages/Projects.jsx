@@ -127,7 +127,7 @@ export default function Projects({navigate, category}){
             opacity:1
           }} className="hero-overlay">
             <div style={{maxWidth:'600px'}}>
-              <h1 className="hero-headline" style={{color:'#ffffff', fontSize:'clamp(32px, 8vw, 56px)', fontWeight:700, fontFamily:"'Hahmlet', serif", margin:'0 0 16px 0', textShadow:'0 2px 8px rgba(0,0,0,0.3)', animation:'heroFadeIn 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards'}}>
+              <h1 className="hero-headline" style={{color:'#ffffff', fontSize:'clamp(32px, 8vw, 56px)', fontWeight:700, fontFamily:"'Lora', serif", margin:'0 0 16px 0', textShadow:'0 2px 8px rgba(0,0,0,0.3)', animation:'heroFadeIn 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards'}}>
                 {category || 'Všetok obsah'}
               </h1>
             </div>
@@ -146,12 +146,12 @@ export default function Projects({navigate, category}){
           <div style={{display:'grid', gap:'clamp(40px, 8vw, 100px)'}} className="projects-two-col">
             {/* Left column - Books */}
             <div>
-              <h2 className="reveal delay-1" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(12px, 2vw, 18px)', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Knihy</h2>
+              <h2 className="reveal delay-1" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(12px, 2vw, 18px)', fontFamily:"'Lora', serif", color:'var(--color-dark)', fontWeight:700}}>Knihy</h2>
               {books.length > 0 ? (
                 <div style={{display:'flex', flexDirection:'column', gap:'clamp(30px, 5vw, 60px)'}}>
                   {books.map((p, idx) => (
                     <article key={p._id} className={`reveal delay-${idx % 3 + 1}`}>
-                      <h3 style={{fontSize:'clamp(20px, 4vw, 26px)', fontWeight:700, marginBottom:'clamp(12px, 3vw, 20px)', color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
+                      <h3 style={{fontSize:'clamp(20px, 4vw, 26px)', fontWeight:700, marginBottom:'clamp(12px, 3vw, 20px)', color:'var(--color-dark)', fontFamily:"'Lora', serif", lineHeight:1.3}}>
                         {p.title}
                       </h3>
                       <div style={{fontSize:16, lineHeight:'1.8', color:'var(--text)', fontFamily:"'Radio Canada', sans-serif", letterSpacing:'0.3px'}} dangerouslySetInnerHTML={{__html: p.content}} />
@@ -165,12 +165,12 @@ export default function Projects({navigate, category}){
 
             {/* Right column - Studies */}
             <div>
-              <h2 className="reveal delay-2" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(12px, 2vw, 18px)', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Štúdie</h2>
+              <h2 className="reveal delay-2" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(12px, 2vw, 18px)', fontFamily:"'Lora', serif", color:'var(--color-dark)', fontWeight:700}}>Štúdie</h2>
               {studies.length > 0 ? (
                 <div style={{display:'flex', flexDirection:'column', gap:'clamp(30px, 5vw, 60px)'}}>
                   {studies.map((p, idx) => (
                     <article key={p._id} className={`reveal delay-${idx % 3 + 2}`}>
-                      <h3 style={{fontSize:'clamp(20px, 4vw, 26px)', fontWeight:700, marginBottom:'clamp(12px, 3vw, 20px)', color:'var(--color-dark)', fontFamily:"'Hahmlet', serif", lineHeight:1.3}}>
+                      <h3 style={{fontSize:'clamp(20px, 4vw, 26px)', fontWeight:700, marginBottom:'clamp(12px, 3vw, 20px)', color:'var(--color-dark)', fontFamily:"'Lora', serif", lineHeight:1.3}}>
                         {p.title}
                       </h3>
                       <div style={{fontSize:16, lineHeight:'1.8', color:'var(--text)', fontFamily:"'Radio Canada', sans-serif", letterSpacing:'0.3px'}} dangerouslySetInnerHTML={{__html: p.content}} />

@@ -9,7 +9,7 @@ export default function Footer({navigate}){
       <div style={{maxWidth:'1200px', margin:'0 auto'}}>
         {/* Útočné odkazy */}
         <div style={{marginBottom:'32px'}}>
-          <h3 style={{fontSize:'14px', fontWeight:600, marginBottom:'12px', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Užitočné odkazy</h3>
+          <h3 style={{fontSize:'14px', fontWeight:600, marginBottom:'12px', fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Užitočné odkazy</h3>
           <div style={{display:'flex', flexDirection:'column', gap:'8px'}}>
             <a href="https://www.kapucini.sk" target="_blank" rel="noopener noreferrer" style={{fontSize:'13px', color:'var(--text-light)', textDecoration:'none', fontFamily:"'Radio Canada', sans-serif", transition:'color 200ms ease'}} onMouseEnter={(e)=>e.currentTarget.style.color='var(--color-honey)'} onMouseLeave={(e)=>e.currentTarget.style.color='var(--text-light)'}>
               www.kapucini.sk

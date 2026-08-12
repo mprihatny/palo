@@ -171,7 +171,7 @@ export default function Admin({navigate}){
               fontSize:'32px',
               fontWeight:'700',
               color:'var(--color-dark)',
-              fontFamily:"'Hahmlet', serif"
+              fontFamily:"'Lora', serif"
             }}>
               Admin Prístup
             </h1>
@@ -372,7 +372,7 @@ export default function Admin({navigate}){
   return (
     <div className="admin-container">
       <div className="admin-header">
-        <h1 style={{fontFamily:"'Hahmlet', serif"}}>Admin Panel</h1>
+        <h1 style={{fontFamily:"'Lora', serif"}}>Admin Panel</h1>
         <p style={{color:'var(--text-light)', fontSize:'16px', margin:0}}>Spravujte obsah a nastavenia stránky</p>
       </div>
       
@@ -667,7 +667,7 @@ export default function Admin({navigate}){
               {filteredPages.map(page => (
                 <div key={page._id} style={{padding:16, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px', display:'flex', justifyContent:'space-between', alignItems:'flex-start'}}>
                   <div style={{flex:1}}>
-                    <h3 style={{margin:'0 0 8px 0', color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif"}}>{page.title}</h3>
+                    <h3 style={{margin:'0 0 8px 0', color:'var(--color-dark)', fontWeight:600, fontFamily:"'Lora', serif"}}>{page.title}</h3>
                     <p style={{margin:0, fontSize:12, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>{page.category} • {page.type}</p>
                   </div>
                   <div style={{display:'flex', gap:8}}>
@@ -710,7 +710,7 @@ export default function Admin({navigate}){
         </section>
 
         <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)'}}>
-          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Pridať príspevok</h2>
+          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Pridať príspevok</h2>
           <AddPageForm onSuccess={() => {
             setPages([...pages])
             setModal({show:true, type:'success', message:'✓ Príspevok pridaný!', success:true})
@@ -720,11 +720,11 @@ export default function Admin({navigate}){
 
         {/* Category Heroes Section */}
         <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)', marginTop:32}}>
-          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Obrázky podstránok</h2>
+          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Obrázky podstránok</h2>
           <div style={{display:'grid', gap:32, maxWidth:900}}>
             {/* Autorské texty */}
             <div style={{padding:20, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
-              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Autorské texty</h3>
+              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Autorské texty</h3>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Obrázok URL</label>
               <input 
                 value={categoryHeroes.autorske?.image||''} 
@@ -736,7 +736,7 @@ export default function Admin({navigate}){
 
             {/* Preklady */}
             <div style={{padding:20, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
-              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Preklady</h3>
+              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Preklady</h3>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Obrázok URL</label>
               <input 
                 value={categoryHeroes.preklady?.image||''} 
@@ -748,7 +748,7 @@ export default function Admin({navigate}){
 
             {/* Pripravované */}
             <div style={{padding:20, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
-              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Pripravované</h3>
+              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Pripravované</h3>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Obrázok URL</label>
               <input 
                 value={categoryHeroes.pripravovane?.image||''} 
@@ -828,7 +828,7 @@ export default function Admin({navigate}){
               maxHeight:'80vh',
               overflow:'auto'
             }} onClick={(e) => e.stopPropagation()}>
-              <h3 style={{margin:'0 0 20px 0', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Edit: {editingPage.title}</h3>
+              <h3 style={{margin:'0 0 20px 0', fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Edit: {editingPage.title}</h3>
               <textarea 
                 value={editingPage.title} 
                 onChange={e => setEditingPage({...editingPage, title: e.target.value})}
@@ -887,7 +887,7 @@ export default function Admin({navigate}){
           <div style={{position:'fixed', inset:0, background:'rgba(0,0,0,0.45)', zIndex:1100, display:'flex', alignItems:'center', justifyContent:'center', padding:24}} onClick={() => setOmnePreviewOpen(false)}>
             <div style={{background:'white', borderRadius:12, maxWidth:'900px', width:'100%', maxHeight:'85vh', overflowY:'auto', padding:28, boxShadow:'0 30px 80px rgba(0,0,0,0.25)'}} onClick={(e) => e.stopPropagation()}>
               <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', gap:16, flexWrap:'wrap', marginBottom:20}}>
-                <h2 style={{margin:0, fontFamily:"'Hahmlet', serif", color:'var(--color-dark)'}}>Náhľad O mne</h2>
+                <h2 style={{margin:0, fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Náhľad O mne</h2>
                 <button
                   onClick={() => setOmnePreviewOpen(false)}
                   style={{padding:'10px 18px', background:'var(--border)', color:'var(--text)', border:'none', borderRadius:6, cursor:'pointer', fontWeight:600, fontFamily:"'Radio Canada', sans-serif"}}
