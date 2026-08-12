@@ -991,19 +991,65 @@ function AddPageForm({onSuccess}){
       body: form
     })
       .then(r => r.json())
-      .then(data => {
+      .then(async (data) => {
+        let updatedCategoryHeroes = categoryHeroes
+        
         if (field === 'heroImage') {
           setHero({...hero, heroImage: data.url})
+          setModal({show:true, type:'success', message:'✓ Hero obrázok nahraný!', success:true})
         } else if (field === 'youtubeImage') {
           setHero({...hero, youtubeImage: data.url})
+          setModal({show:true, type:'success', message:'✓ YouTube thumbnail nahraný!', success:true})
         } else if (field === 'autorskeImage') {
-          setCategoryHeroes({...categoryHeroes, autorske: {...categoryHeroes.autorske, image: data.url}})
+          updatedCategoryHeroes = {...categoryHeroes, autorske: {...categoryHeroes.autorske, image: data.url}}
+          setCategoryHeroes(updatedCategoryHeroes)
+          // Auto-save category image
+          try {
+            const response = await fetch(`${API_BASE_URL}/api/category-heroes`, {
+              method: 'PUT',
+              headers: getAuthHeaders(),
+              body: JSON.stringify(updatedCategoryHeroes)
+            })
+            if (response.ok) {
+              setModal({show:true, type:'success', message:'✓ Autorské texty uložené!', success:true})
+            }
+          } catch(err) {
+            setModal({show:true, type:'error', message:'❌ Chyba pri ukladaní', success:false})
+          }
         } else if (field === 'prekladskyImage') {
-          setCategoryHeroes({...categoryHeroes, preklady: {...categoryHeroes.preklady, image: data.url}})
+          updatedCategoryHeroes = {...categoryHeroes, preklady: {...categoryHeroes.preklady, image: data.url}}
+          setCategoryHeroes(updatedCategoryHeroes)
+          // Auto-save category image
+          try {
+            const response = await fetch(`${API_BASE_URL}/api/category-heroes`, {
+              method: 'PUT',
+              headers: getAuthHeaders(),
+              body: JSON.stringify(updatedCategoryHeroes)
+            })
+            if (response.ok) {
+              setModal({show:true, type:'success', message:'✓ Preklady uložené!', success:true})
+            }
+          } catch(err) {
+            setModal({show:true, type:'error', message:'❌ Chyba pri ukladaní', success:false})
+          }
         } else if (field === 'pripravovaneImage') {
-          setCategoryHeroes({...categoryHeroes, pripravovane: {...categoryHeroes.pripravovane, image: data.url}})
+          updatedCategoryHeroes = {...categoryHeroes, pripravovane: {...categoryHeroes.pripravovane, image: data.url}}
+          setCategoryHeroes(updatedCategoryHeroes)
+          // Auto-save category image
+          try {
+            const response = await fetch(`${API_BASE_URL}/api/category-heroes`, {
+              method: 'PUT',
+              headers: getAuthHeaders(),
+              body: JSON.stringify(updatedCategoryHeroes)
+            })
+            if (response.ok) {
+              setModal({show:true, type:'success', message:'✓ Pripravované uložené!', success:true})
+            }
+          } catch(err) {
+            setModal({show:true, type:'error', message:'❌ Chyba pri ukladaní', success:false})
+          }
         }
-        setModal({show:true, type:'success', message:'✓ Obrázok nahraný!', success:true})
+        
         setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 2000)
       })
       .catch(err => {
