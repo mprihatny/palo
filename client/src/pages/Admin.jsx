@@ -672,6 +672,80 @@ export default function Admin({navigate}){
           }} />
         </section>
 
+        {/* Main Images Section */}
+        <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)', marginTop:32}}>
+          <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>📸 Hlavné obrázky</h2>
+          <div style={{display:'grid', gap:32, maxWidth:900}}>
+            {/* Hero Image */}
+            <div style={{padding:20, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
+              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Hero obrázok (horný)</h3>
+              
+              {hero.heroImage && (
+                <div style={{marginBottom:16, borderRadius:'4px', overflow:'hidden', maxHeight:250}}>
+                  <img src={hero.heroImage} alt="Hero" style={{width:'100%', height:'auto', display:'block'}} />
+                </div>
+              )}
+              
+              <div style={{display:'flex', gap:12, marginBottom:12, flexDirection:'column'}}>
+                <div>
+                  <label style={{display:'block', marginBottom:6, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Nahrať z PC</label>
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={(e) => handleImageFileUpload(e, 'heroImage')}
+                    style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer'}}
+                  />
+                </div>
+                <div style={{textAlign:'center', color:'var(--text-light)', fontSize:12}}>alebo</div>
+                <div>
+                  <label style={{display:'block', marginBottom:6, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>URL obrázka</label>
+                  <input 
+                    type="text"
+                    value={hero.heroImage||''} 
+                    onChange={(e) => setHero({...hero, heroImage: e.target.value})}
+                    placeholder="https://i.postimg.cc/..."
+                    style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* YouTube Image */}
+            <div style={{padding:20, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px'}}>
+              <h3 style={{margin:'0 0 16px 0', fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>YouTube thumbnail</h3>
+              
+              {hero.youtubeImage && (
+                <div style={{marginBottom:16, borderRadius:'4px', overflow:'hidden', maxHeight:250}}>
+                  <img src={hero.youtubeImage} alt="YouTube" style={{width:'100%', height:'auto', display:'block'}} />
+                </div>
+              )}
+              
+              <div style={{display:'flex', gap:12, marginBottom:12, flexDirection:'column'}}>
+                <div>
+                  <label style={{display:'block', marginBottom:6, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Nahrať z PC</label>
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={(e) => handleImageFileUpload(e, 'youtubeImage')}
+                    style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer'}}
+                  />
+                </div>
+                <div style={{textAlign:'center', color:'var(--text-light)', fontSize:12}}>alebo</div>
+                <div>
+                  <label style={{display:'block', marginBottom:6, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>URL obrázka</label>
+                  <input 
+                    type="text"
+                    value={hero.youtubeImage||''}
+                    onChange={(e) => setHero({...hero, youtubeImage: e.target.value})}
+                    placeholder="https://..."
+                    style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Category Heroes Section */}
         <section style={{background:'white', padding:32, borderRadius:8, boxShadow:'var(--shadow-md)', border:'1px solid var(--border)', marginTop:32}}>
           <h2 style={{fontSize:24, marginBottom:28, fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Obrázky podstránok</h2>
@@ -912,6 +986,34 @@ function AddPageForm({onSuccess}){
       .then(data => {
         success(data.url)
       }).catch(err=>failure('Upload failed'))
+  }
+
+  const handleImageFileUpload = (e, field) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    
+    const form = new FormData()
+    form.append('file', file)
+    
+    fetch(`${API_BASE_URL}/api/upload`, {
+      method: 'POST',
+      headers: {'x-admin-token': sessionStorage.getItem('padmin_token') || ''},
+      body: form
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (field === 'heroImage') {
+          setHero({...hero, heroImage: data.url})
+        } else if (field === 'youtubeImage') {
+          setHero({...hero, youtubeImage: data.url})
+        }
+        setModal({show:true, type:'success', message:'✓ Obrázok nahraný!', success:true})
+        setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 2000)
+      })
+      .catch(err => {
+        setModal({show:true, type:'error', message:'❌ Chyba pri nahrávání', success:false})
+        setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
+      })
   }
 
   return (
