@@ -351,6 +351,36 @@ export default function Admin({navigate}){
     }
   }
 
+  const saveAllImages = async () => {
+    try {
+      // Save hero images
+      const heroResponse = await fetch(`${API_BASE_URL}/api/hero`, {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(hero)
+      })
+      if (!heroResponse.ok) throw new Error(`Hero save failed: ${heroResponse.status}`)
+      const heroData = await heroResponse.json()
+      setHero(heroData)
+
+      // Save category images
+      const categoryResponse = await fetch(`${API_BASE_URL}/api/category-heroes`, {
+        method: 'PUT',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(categoryHeroes)
+      })
+      if (!categoryResponse.ok) throw new Error(`Category save failed: ${categoryResponse.status}`)
+      const categoryData = await categoryResponse.json()
+      setCategoryHeroes(categoryData)
+
+      setModal({show:true, type:'success', message:'✓ Všetky obrázky uložené!', success:true})
+      setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
+    } catch (err) {
+      setModal({show:true, type:'error', message:`Chyba: ${err.message}`, success:false})
+      setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
+    }
+  }
+
   const filteredPages = pages
     .filter(page => pageFilters.category === 'Všetky' || page.category === pageFilters.category)
     .filter(page => pageFilters.type === 'Všetky' || page.type === pageFilters.type)
@@ -681,16 +711,10 @@ export default function Admin({navigate}){
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Hero obrázok (horný)</label>
               <input 
-                type="file" 
-                accept="image/*"
-                onChange={(e) => handleImageFileUpload(e, 'heroImage')}
-                style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer', marginBottom:8}}
-              />
-              <input 
                 type="text"
                 value={hero.heroImage||''} 
                 onChange={(e) => setHero({...hero, heroImage: e.target.value})}
-                placeholder="alebo vlož URL..."
+                placeholder="https://..."
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>
@@ -699,16 +723,10 @@ export default function Admin({navigate}){
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>YouTube thumbnail</label>
               <input 
-                type="file" 
-                accept="image/*"
-                onChange={(e) => handleImageFileUpload(e, 'youtubeImage')}
-                style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer', marginBottom:8}}
-              />
-              <input 
                 type="text"
                 value={hero.youtubeImage||''}
                 onChange={(e) => setHero({...hero, youtubeImage: e.target.value})}
-                placeholder="alebo vlož URL..."
+                placeholder="https://..."
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>
@@ -717,16 +735,10 @@ export default function Admin({navigate}){
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Autorské texty</label>
               <input 
-                type="file" 
-                accept="image/*"
-                onChange={(e) => handleImageFileUpload(e, 'autorskeImage')}
-                style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer', marginBottom:8}}
-              />
-              <input 
                 type="text"
                 value={categoryHeroes.autorske?.image||''} 
                 onChange={e => setCategoryHeroes({...categoryHeroes, autorske: {...categoryHeroes.autorske, image: e.target.value}})} 
-                placeholder="alebo vlož URL..." 
+                placeholder="https://..." 
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>
@@ -735,16 +747,10 @@ export default function Admin({navigate}){
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Preklady</label>
               <input 
-                type="file" 
-                accept="image/*"
-                onChange={(e) => handleImageFileUpload(e, 'prekladskyImage')}
-                style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer', marginBottom:8}}
-              />
-              <input 
                 type="text"
                 value={categoryHeroes.preklady?.image||''} 
                 onChange={e => setCategoryHeroes({...categoryHeroes, preklady: {...categoryHeroes.preklady, image: e.target.value}})} 
-                placeholder="alebo vlož URL..." 
+                placeholder="https://..." 
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>
@@ -753,16 +759,10 @@ export default function Admin({navigate}){
             <div>
               <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Pripravované</label>
               <input 
-                type="file" 
-                accept="image/*"
-                onChange={(e) => handleImageFileUpload(e, 'pripravovaneImage')}
-                style={{display:'block', width:'100%', padding:'8px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:12, cursor:'pointer', marginBottom:8}}
-              />
-              <input 
                 type="text"
                 value={categoryHeroes.pripravovane?.image||''} 
                 onChange={e => setCategoryHeroes({...categoryHeroes, pripravovane: {...categoryHeroes.pripravovane, image: e.target.value}})} 
-                placeholder="alebo vlož URL..." 
+                placeholder="https://..." 
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>
@@ -770,16 +770,10 @@ export default function Admin({navigate}){
           
           <div style={{display:'flex', gap:12, marginTop:24}}>
             <button 
-              onClick={save}
+              onClick={saveAllImages}
               style={{padding:'12px 28px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:'4px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif"}}
             >
-              Uložiť hlavné obrázky
-            </button>
-            <button 
-              onClick={saveCategoryHeroes}
-              style={{padding:'12px 28px', background:'var(--color-red)', color:'white', border:'none', borderRadius:'4px', fontSize:14, fontWeight:600, cursor:'pointer', fontFamily:"'Radio Canada', sans-serif"}}
-            >
-              Uložiť obrázky kategórií
+              Uložiť všetky obrázky
             </button>
           </div>
         </section>
@@ -976,86 +970,6 @@ function AddPageForm({onSuccess}){
       .then(data => {
         success(data.url)
       }).catch(err=>failure('Upload failed'))
-  }
-
-  const handleImageFileUpload = (e, field) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    
-    const form = new FormData()
-    form.append('file', file)
-    
-    fetch(`${API_BASE_URL}/api/upload`, {
-      method: 'POST',
-      headers: {'x-admin-token': sessionStorage.getItem('padmin_token') || ''},
-      body: form
-    })
-      .then(r => r.json())
-      .then(async (data) => {
-        let updatedCategoryHeroes = categoryHeroes
-        
-        if (field === 'heroImage') {
-          setHero({...hero, heroImage: data.url})
-          setModal({show:true, type:'success', message:'✓ Hero obrázok nahraný!', success:true})
-        } else if (field === 'youtubeImage') {
-          setHero({...hero, youtubeImage: data.url})
-          setModal({show:true, type:'success', message:'✓ YouTube thumbnail nahraný!', success:true})
-        } else if (field === 'autorskeImage') {
-          updatedCategoryHeroes = {...categoryHeroes, autorske: {...categoryHeroes.autorske, image: data.url}}
-          setCategoryHeroes(updatedCategoryHeroes)
-          // Auto-save category image
-          try {
-            const response = await fetch(`${API_BASE_URL}/api/category-heroes`, {
-              method: 'PUT',
-              headers: getAuthHeaders(),
-              body: JSON.stringify(updatedCategoryHeroes)
-            })
-            if (response.ok) {
-              setModal({show:true, type:'success', message:'✓ Autorské texty uložené!', success:true})
-            }
-          } catch(err) {
-            setModal({show:true, type:'error', message:'❌ Chyba pri ukladaní', success:false})
-          }
-        } else if (field === 'prekladskyImage') {
-          updatedCategoryHeroes = {...categoryHeroes, preklady: {...categoryHeroes.preklady, image: data.url}}
-          setCategoryHeroes(updatedCategoryHeroes)
-          // Auto-save category image
-          try {
-            const response = await fetch(`${API_BASE_URL}/api/category-heroes`, {
-              method: 'PUT',
-              headers: getAuthHeaders(),
-              body: JSON.stringify(updatedCategoryHeroes)
-            })
-            if (response.ok) {
-              setModal({show:true, type:'success', message:'✓ Preklady uložené!', success:true})
-            }
-          } catch(err) {
-            setModal({show:true, type:'error', message:'❌ Chyba pri ukladaní', success:false})
-          }
-        } else if (field === 'pripravovaneImage') {
-          updatedCategoryHeroes = {...categoryHeroes, pripravovane: {...categoryHeroes.pripravovane, image: data.url}}
-          setCategoryHeroes(updatedCategoryHeroes)
-          // Auto-save category image
-          try {
-            const response = await fetch(`${API_BASE_URL}/api/category-heroes`, {
-              method: 'PUT',
-              headers: getAuthHeaders(),
-              body: JSON.stringify(updatedCategoryHeroes)
-            })
-            if (response.ok) {
-              setModal({show:true, type:'success', message:'✓ Pripravované uložené!', success:true})
-            }
-          } catch(err) {
-            setModal({show:true, type:'error', message:'❌ Chyba pri ukladaní', success:false})
-          }
-        }
-        
-        setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 2000)
-      })
-      .catch(err => {
-        setModal({show:true, type:'error', message:'❌ Chyba pri nahrávání', success:false})
-        setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
-      })
   }
 
   return (
