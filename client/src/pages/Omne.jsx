@@ -4,6 +4,7 @@ import API_BASE_URL from '../api'
 const DEFAULT_HERO_IMAGE = 'https://i.postimg.cc/BbzXmb3C/ja-web-cb.jpg'
 
 export default function Omne(){
+  // v2 - force redeploy
   const [hero, setHero] = useState({})
   const [heroImage, setHeroImage] = useState(DEFAULT_HERO_IMAGE)
   const [aboutText, setAboutText] = useState('')
