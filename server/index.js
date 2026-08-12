@@ -12,6 +12,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ===== AUTHENTICATION SETUP =====
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'kapucin2024admin';
+
+const verifyAdminToken = (req, res, next) => {
+  const token = req.headers['x-admin-token'];
+  if (!token || token !== `admin_${ADMIN_PASSWORD}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  next();
+};
+
 // serve uploaded files
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
@@ -146,17 +157,6 @@ app.put('/api/category-heroes', verifyAdminToken, async (req, res) => {
   await heroes.save();
   res.json(heroes);
 });
-
-// ===== AUTHENTICATION MIDDLEWARE & ENDPOINTS =====
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'kapucin2024admin';
-
-const verifyAdminToken = (req, res, next) => {
-  const token = req.headers['x-admin-token'];
-  if (!token || token !== `admin_${ADMIN_PASSWORD}`) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-  next();
-};
 
 // Admin login endpoint
 app.post('/api/admin-login', (req, res) => {
