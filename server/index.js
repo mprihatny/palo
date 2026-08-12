@@ -146,6 +146,12 @@ app.get('/api/category-heroes', async (req, res) => {
       pripravovane: { image: 'https://i.postimg.cc/DZg6bZBx/pripravovane-foto.jpg', title: 'Pripravované' }
     });
     await heroes.save();
+  } else {
+    // Ensure images are always up-to-date
+    heroes.autorske.image = 'https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg';
+    heroes.preklady.image = 'https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg';
+    heroes.pripravovane.image = 'https://i.postimg.cc/DZg6bZBx/pripravovane-foto.jpg';
+    await heroes.save();
   }
   res.json(heroes);
 });
