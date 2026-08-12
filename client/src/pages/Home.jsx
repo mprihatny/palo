@@ -163,7 +163,7 @@ export default function Home({navigate}){
 
       <div style={{maxWidth:'1200px', margin:'0 auto', padding:'0 24px'}}>
         {/* Two columns: O mne | Myšlienka - RESPONSIVE */}
-        <section className="reveal section-two-col" style={{display:'grid', gridTemplateColumns:'1fr auto 1fr', alignItems:'stretch', justifyContent:'center', gap:'clamp(40px, 7vw, 72px)', padding:'clamp(80px, 10vw, 120px) 0 clamp(40px, 8vw, 80px)'}}>
+        <section className="reveal section-two-col" style={{display:'grid', gridTemplateColumns:'1fr auto 1fr', alignItems:'stretch', justifyContent:'center', gap:'clamp(40px, 7vw, 72px)', padding:'clamp(120px, 15vw, 160px) 0 clamp(40px, 8vw, 80px)'}}>
           {/* Left: O mne */}
           <div className="reveal delay-1 col-left" style={{flex:1, paddingRight:'clamp(20px, 8vw, 60px)'}}>
             <h2 style={{color:'var(--color-dark)', fontSize:'clamp(24px, 6vw, 36px)'}}>O mne</h2>

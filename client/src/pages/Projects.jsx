@@ -146,7 +146,7 @@ export default function Projects({navigate, category}){
           <div style={{display:'grid', gap:'clamp(40px, 8vw, 100px)'}} className="projects-two-col">
             {/* Left column - Books */}
             <div>
-              <h2 className="reveal delay-1" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(20px, 3vw, 30px)', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Knihy</h2>
+              <h2 className="reveal delay-1" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(12px, 2vw, 18px)', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Knihy</h2>
               {books.length > 0 ? (
                 <div style={{display:'flex', flexDirection:'column', gap:'clamp(30px, 5vw, 60px)'}}>
                   {books.map((p, idx) => (
@@ -165,7 +165,7 @@ export default function Projects({navigate, category}){
 
             {/* Right column - Studies */}
             <div>
-              <h2 className="reveal delay-2" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(20px, 3vw, 30px)', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Štúdie</h2>
+              <h2 className="reveal delay-2" style={{fontSize:'clamp(24px, 5vw, 32px)', marginBottom:'clamp(12px, 2vw, 18px)', fontFamily:"'Hahmlet', serif", color:'var(--color-dark)', fontWeight:700}}>Štúdie</h2>
               {studies.length > 0 ? (
                 <div style={{display:'flex', flexDirection:'column', gap:'clamp(30px, 5vw, 60px)'}}>
                   {studies.map((p, idx) => (
