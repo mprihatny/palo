@@ -58,9 +58,9 @@ export default function Omne(){
 
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)'}}>
-      {/* Hero Image with Text Overlay */}
+      {/* Hero Image - NO TEXT OVERLAY */}
       <div style={{paddingTop:0, paddingBottom:0}}>
-        <div style={{position:'relative', height:'60vh', minHeight:400, overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center'}}>
+        <div style={{position:'relative', height:'50vh', minHeight:350, overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center'}}>
           <img 
             className="omne-hero-image"
             src={heroImage} 
@@ -76,40 +76,22 @@ export default function Omne(){
               transition:'filter 100ms ease-out'
             }}
           />
-          
-          {/* Text Overlay */}
-          <div style={{
-            position:'relative',
-            zIndex:10,
-            textAlign:'center',
-            maxWidth:600,
-            padding:'40px 24px',
-            background:'rgba(44, 37, 32, 0.4)',
-            borderRadius:'8px',
-            backdropFilter:'blur(8px)'
-          }}>
-            <h1 style={{
-              margin:'0 0 20px 0',
-              fontFamily:"'Hahmlet', serif",
-              fontSize:'clamp(36px, 8vw, 64px)',
-              color:'#ffffff',
-              fontWeight:700,
-              lineHeight:1.2,
-              textShadow:'0 2px 12px rgba(0,0,0,0.4)'
-            }}>
-              O mne
-            </h1>
-            {loading && (
-              <p style={{color:'#ffffff', fontSize:'16px', fontFamily:"'Radio Canada', sans-serif"}}>
-                Načítavam obsah...
-              </p>
-            )}
-          </div>
         </div>
       </div>
 
       {/* Content Section */}
       <div style={{maxWidth:800, width:'100%', margin:'0 auto', padding:'clamp(60px, 12vw, 100px) 24px', textAlign:'center'}}>
+        <h1 style={{
+          margin:'0 0 32px 0',
+          fontFamily:"'Hahmlet', serif",
+          fontSize:'clamp(36px, 8vw, 64px)',
+          color:'var(--color-dark)',
+          fontWeight:700,
+          lineHeight:1.2
+        }}>
+          O mne
+        </h1>
+        
         <div style={{
           fontFamily:"'Radio Canada', sans-serif",
           fontSize:'clamp(16px, 2.2vw, 18px)',
