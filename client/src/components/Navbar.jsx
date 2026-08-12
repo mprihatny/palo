@@ -18,7 +18,7 @@ export default function Navbar({navigate, currentRoute}){
   return (
     <nav style={{
       background: 'var(--bg)',
-      padding: '12px clamp(12px, 3vw, 24px)',
+      padding: '16px clamp(12px, 3vw, 24px)',
       borderBottom: 'none',
       position: 'sticky',
       top: 0,

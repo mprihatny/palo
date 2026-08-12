@@ -652,7 +652,7 @@ hr {
 	align-items: center;
 	justify-content: center;
 	padding: 14px 26px;
-	margin-top: clamp(20px, 3vw, 30px);
+	margin-top: clamp(40px, 5vw, 60px);
 	background: transparent;
 	color: var(--color-honey);
 	border: 2px solid var(--color-honey);
