@@ -388,8 +388,8 @@ export default function Admin({navigate}){
                 init={{
                   height: 250,
                   menubar: false,
-                  plugins: 'link code',
-                  toolbar: 'bold italic underline | link code',
+                  plugins: 'link code textcolor',
+                  toolbar: 'bold italic underline | forecolor backcolor | link code',
                   relative_urls: false,
                   remove_script_host: false,
                   content_css: false
@@ -464,8 +464,8 @@ export default function Admin({navigate}){
                 init={{
                   height: 180,
                   menubar: false,
-                  plugins: 'link code',
-                  toolbar: 'bold italic underline | link code',
+                  plugins: 'link code textcolor',
+                  toolbar: 'bold italic underline | forecolor backcolor | link code',
                   relative_urls: false,
                   remove_script_host: false,
                   content_css: false
@@ -501,8 +501,8 @@ export default function Admin({navigate}){
                 init={{
                   height: 240,
                   menubar: false,
-                  plugins: 'link code',
-                  toolbar: 'bold italic underline | alignleft aligncenter alignright | link code',
+                  plugins: 'link code textcolor',
+                  toolbar: 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright | link code',
                   relative_urls: false,
                   remove_script_host: false,
                   content_css: false
@@ -519,8 +519,8 @@ export default function Admin({navigate}){
                 init={{
                   height: 240,
                   menubar: false,
-                  plugins: 'link code',
-                  toolbar: 'bold italic underline | alignleft aligncenter alignright | link code',
+                  plugins: 'link code textcolor',
+                  toolbar: 'bold italic underline | forecolor backcolor | alignleft aligncenter alignright | link code',
                   relative_urls: false,
                   remove_script_host: false,
                   content_css: false
@@ -841,8 +841,8 @@ export default function Admin({navigate}){
                 init={{
                   height: 250,
                   menubar: false,
-                  plugins: 'link code',
-                  toolbar: 'bold italic underline | link code',
+                  plugins: 'link code textcolor',
+                  toolbar: 'bold italic underline | forecolor backcolor | link code',
                   relative_urls: false,
                   remove_script_host: false,
                   content_css: false
@@ -1002,8 +1002,8 @@ function AddPageForm({onSuccess}){
           init={{
             height: 400,
             menubar: true,
-            plugins: 'link image media table code lists',
-            toolbar: 'undo redo | bold italic underline strikethrough | alignleft aligncenter alignright | bullist numlist | link image media | code removeformat',
+            plugins: 'link image media table code lists textcolor',
+            toolbar: 'undo redo | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | link image media | code removeformat',
             images_upload_handler: imageUploadHandler,
             relative_urls: false,
             remove_script_host: false,

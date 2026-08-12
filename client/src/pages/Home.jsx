@@ -224,7 +224,7 @@ export default function Home({navigate}){
                 />
                 
                 {/* Title */}
-                <h3 style={{color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif", margin:'0', fontSize:'clamp(16px, 4vw, 22px)', textAlign:'center'}}>
+                <h3 style={{color:'var(--color-dark)', fontWeight:400, fontFamily:"'Hahmlet', serif", margin:'0', fontSize:'clamp(16px, 4vw, 22px)', textAlign:'center'}}>
                   {cat.name}
                 </h3>
                 
@@ -246,7 +246,7 @@ export default function Home({navigate}){
           </div>
         </section>
 
-        <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(80px, 10vw, 120px)', marginBottom:'clamp(60px, 10vw, 120px)'}}>
+        <section className="reveal delay-8 youtube-card-section" style={{marginTop:'clamp(16px, 4vw, 32px)', marginBottom:'clamp(60px, 10vw, 120px)'}}>
           <div className="youtube-card" style={{backgroundImage: youtubeBackgroundStyle, backgroundSize:'cover', backgroundPosition:'center center', backgroundRepeat:'no-repeat', minHeight:'420px', display:'flex', alignItems:'center', justifyContent:'center', backgroundColor:'#111'}}>
             <div className="youtube-card-inner">
               <div className="youtube-card-text">
