@@ -56,42 +56,49 @@ export default function Omne(){
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const revealed = document.querySelectorAll('.reveal')
+    setTimeout(() => {
+      revealed.forEach(el => {
+        el.classList.add('visible')
+      })
+    }, 50)
+  }, [])
+
   return (
     <div style={{minHeight:'100vh', background:'var(--bg)'}}>
-      {/* Hero Image - NO TEXT OVERLAY */}
+      {/* Hero section with text overlay - like category pages */}
+      {heroImage && (
       <div style={{paddingTop:0, paddingBottom:0}}>
-        <div style={{position:'relative', height:'50vh', minHeight:350, overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center'}}>
+        <div className="hero-container">
           <img 
             className="omne-hero-image"
             src={heroImage} 
             alt="O mne"
-            style={{
-              position:'absolute',
-              top:0,
-              left:0,
-              width:'100%',
-              height:'100%',
-              objectFit:'cover',
-              filter:'brightness(0.92) contrast(1.05) saturate(0.95)',
-              transition:'filter 100ms ease-out'
-            }}
           />
+          <div style={{
+            position:'absolute',
+            inset:0,
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'center',
+            textAlign:'center',
+            padding:'48px 24px',
+            zIndex:2,
+            opacity:1
+          }} className="hero-overlay">
+            <div style={{maxWidth:'600px'}}>
+              <h1 className="hero-headline" style={{color:'#ffffff', fontSize:'clamp(32px, 8vw, 56px)', fontWeight:700, fontFamily:"'Hahmlet', serif", margin:'0', textShadow:'0 2px 8px rgba(0,0,0,0.3)', animation:'heroFadeIn 800ms cubic-bezier(0.22, 1, 0.36, 1) forwards'}}>
+                O mne
+              </h1>
+            </div>
+          </div>
         </div>
       </div>
+      )}
 
       {/* Content Section */}
-      <div style={{maxWidth:800, width:'100%', margin:'0 auto', padding:'clamp(60px, 12vw, 100px) 24px', textAlign:'center'}}>
-        <h1 style={{
-          margin:'0 0 32px 0',
-          fontFamily:"'Hahmlet', serif",
-          fontSize:'clamp(36px, 8vw, 64px)',
-          color:'var(--color-dark)',
-          fontWeight:700,
-          lineHeight:1.2
-        }}>
-          O mne
-        </h1>
-        
+      <div style={{maxWidth:900, width:'100%', margin:'0 auto', padding:'clamp(60px, 12vw, 100px) 24px clamp(80px, 15vw, 120px)', textAlign:'center'}}>
         <div style={{
           fontFamily:"'Radio Canada', sans-serif",
           fontSize:'clamp(16px, 2.2vw, 18px)',
@@ -108,4 +115,5 @@ export default function Omne(){
       </div>
     </div>
   )
+}
 }
