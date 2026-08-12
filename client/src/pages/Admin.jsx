@@ -15,7 +15,6 @@ export default function Admin({navigate}){
   const [refreshTrigger, setRefreshTrigger] = useState(0)
   const [pages, setPages] = useState([])
   const [modal, setModal] = useState({show:false, type:'', message:'', success:false})
-  const [omnePreviewOpen, setOmnePreviewOpen] = useState(false)
   const [editingPage, setEditingPage] = useState(null)
   const [pageFilters, setPageFilters] = useState({ category: 'Všetky', type: 'Všetky' })
   const [links, setLinks] = useState({ 
@@ -530,26 +529,6 @@ export default function Admin({navigate}){
                 }}
                 onEditorChange={(content) => setHero({...hero, omneText: content})}
               />
-              <div style={{marginTop:16, padding:16, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:8}}>
-                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', gap:12, flexWrap:'wrap'}}>
-                  <p style={{margin:0, fontWeight:600, color:'var(--color-dark)'}}>Náhľad stránky /omne</p>
-                  <div style={{display:'flex', gap:10, flexWrap:'wrap'}}>
-                    <button
-                      onClick={() => setOmnePreviewOpen(true)}
-                      style={{padding:'10px 18px', background:'var(--color-honey)', color:'white', border:'none', borderRadius:6, cursor:'pointer', fontWeight:600, fontFamily:"'Radio Canada', sans-serif"}}
-                    >
-                      Náhľad v modale
-                    </button>
-                    <button
-                      onClick={()=>navigate('/omne')}
-                      style={{padding:'10px 18px', background:'transparent', color:'var(--color-dark)', border:'1px solid var(--border)', borderRadius:6, cursor:'pointer', fontWeight:600, fontFamily:"'Radio Canada', sans-serif"}}
-                    >
-                      Otvoriť /omne
-                    </button>
-                  </div>
-                </div>
-                <div style={{marginTop:16, color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:14, lineHeight:1.8}} dangerouslySetInnerHTML={{__html: hero.omneText || '<em>Žiaden text nie je nastavený.</em>'}} />
-              </div>
             </div>
 
             <div className="admin-form-group">
@@ -895,22 +874,7 @@ export default function Admin({navigate}){
           </div>
         )}
 
-        {omnePreviewOpen && (
-          <div style={{position:'fixed', inset:0, background:'rgba(0,0,0,0.45)', zIndex:1100, display:'flex', alignItems:'center', justifyContent:'center', padding:24}} onClick={() => setOmnePreviewOpen(false)}>
-            <div style={{background:'white', borderRadius:12, maxWidth:'900px', width:'100%', maxHeight:'85vh', overflowY:'auto', padding:28, boxShadow:'0 30px 80px rgba(0,0,0,0.25)'}} onClick={(e) => e.stopPropagation()}>
-              <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', gap:16, flexWrap:'wrap', marginBottom:20}}>
-                <h2 style={{margin:0, fontFamily:"'Lora', serif", color:'var(--color-dark)'}}>Náhľad O mne</h2>
-                <button
-                  onClick={() => setOmnePreviewOpen(false)}
-                  style={{padding:'10px 18px', background:'var(--border)', color:'var(--text)', border:'none', borderRadius:6, cursor:'pointer', fontWeight:600, fontFamily:"'Radio Canada', sans-serif"}}
-                >
-                  Zavrieť
-                </button>
-              </div>
-              <div style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif", fontSize:16, lineHeight:1.8}} dangerouslySetInnerHTML={{__html: hero.omneText || '<p>Žiaden text nie je nastavený.</p>'}} />
-            </div>
-          </div>
-        )}
+
       </div>
     </div>
   )
