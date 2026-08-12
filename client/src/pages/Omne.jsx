@@ -6,9 +6,10 @@ const DEFAULT_HERO_IMAGE = 'https://i.postimg.cc/BbzXmb3C/ja-web-cb.jpg'
 export default function Omne(){
   const [hero, setHero] = useState({})
   const [heroImage, setHeroImage] = useState(DEFAULT_HERO_IMAGE)
-  const [aboutText, setAboutText] = useState('Načítavam obsah...')
+  const [aboutText, setAboutText] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [blur, setBlur] = useState(0)
 
   useEffect(() => {
     let isMounted = true
@@ -39,27 +40,87 @@ export default function Omne(){
     return () => { isMounted = false }
   }, [])
 
+  // Parallax blur effect on hero image
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      const heroImage = document.querySelector('.omne-hero-image')
+      if (heroImage) {
+        const blurAmount = Math.min(scrollY / 30, 8)
+        setBlur(blurAmount)
+        heroImage.style.filter = `brightness(0.92) contrast(1.05) saturate(0.95) blur(${blurAmount}px)`
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
-    <div style={{background:'var(--bg)'}}>
+    <div style={{minHeight:'100vh', background:'var(--bg)'}}>
+      {/* Hero Image with Text Overlay */}
       <div style={{paddingTop:0, paddingBottom:0}}>
-        <div className="hero-container" style={{marginBottom:0}}>
+        <div style={{position:'relative', height:'60vh', minHeight:400, overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center'}}>
           <img 
-            className="hero-image"
+            className="omne-hero-image"
             src={heroImage} 
-            alt="hero"
+            alt="O mne"
+            style={{
+              position:'absolute',
+              top:0,
+              left:0,
+              width:'100%',
+              height:'100%',
+              objectFit:'cover',
+              filter:'brightness(0.92) contrast(1.05) saturate(0.95)',
+              transition:'filter 100ms ease-out'
+            }}
           />
+          
+          {/* Text Overlay */}
+          <div style={{
+            position:'relative',
+            zIndex:10,
+            textAlign:'center',
+            maxWidth:600,
+            padding:'40px 24px',
+            background:'rgba(44, 37, 32, 0.4)',
+            borderRadius:'8px',
+            backdropFilter:'blur(8px)'
+          }}>
+            <h1 style={{
+              margin:'0 0 20px 0',
+              fontFamily:"'Hahmlet', serif",
+              fontSize:'clamp(36px, 8vw, 64px)',
+              color:'#ffffff',
+              fontWeight:700,
+              lineHeight:1.2,
+              textShadow:'0 2px 12px rgba(0,0,0,0.4)'
+            }}>
+              O mne
+            </h1>
+            {loading && (
+              <p style={{color:'#ffffff', fontSize:'16px', fontFamily:"'Radio Canada', sans-serif"}}>
+                Načítavam obsah...
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
-      <div style={{maxWidth:760, width:'100%', margin:'0 auto', padding:'44px 24px 72px', textAlign:'center'}}>
-        <h1 style={{margin:'0 0 26px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(36px, 6vw, 64px)', color:'var(--color-dark)', lineHeight:1.05}}>
-          O mne
-        </h1>
-        <div style={{fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(16px, 2.2vw, 18px)', color:'var(--text-light)', lineHeight:1.9, margin:'0 auto', textAlign:'center'}}>
+      {/* Content Section */}
+      <div style={{maxWidth:800, width:'100%', margin:'0 auto', padding:'clamp(60px, 12vw, 100px) 24px', textAlign:'center'}}>
+        <div style={{
+          fontFamily:"'Radio Canada', sans-serif",
+          fontSize:'clamp(16px, 2.2vw, 18px)',
+          color:'var(--text-light)',
+          lineHeight:1.9,
+          margin:'0 auto'
+        }}>
           {error ? (
             <p style={{color:'var(--color-red)'}}>{error}</p>
           ) : (
-            <div dangerouslySetInnerHTML={{ __html: loading ? '<p>Načítavam obsah...</p>' : aboutText }} />
+            !loading && <div dangerouslySetInnerHTML={{ __html: aboutText }} />
           )}
         </div>
       </div>

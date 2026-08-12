@@ -135,7 +135,7 @@ export default function Admin({navigate}){
     return (
       <div style={{
         minHeight:'100vh',
-        background:'linear-gradient(135deg, var(--color-dark) 0%, #2c2420 100%)',
+        background:'linear-gradient(135deg, #E1DED2 0%, #D4C4B0 100%)',
         display:'flex',
         alignItems:'center',
         justifyContent:'center',
@@ -144,34 +144,64 @@ export default function Admin({navigate}){
       }}>
         <div style={{
           background:'white',
-          padding:'48px',
-          borderRadius:'12px',
-          boxShadow:'0 20px 60px rgba(0,0,0,0.3)',
-          maxWidth:'400px',
-          width:'100%'
+          padding:'clamp(40px, 8vw, 60px)',
+          borderRadius:'16px',
+          boxShadow:'0 30px 80px rgba(44, 37, 32, 0.15)',
+          maxWidth:'420px',
+          width:'100%',
+          border:'1px solid rgba(212, 148, 95, 0.2)'
         }}>
-          <h1 style={{
-            margin:'0 0 8px 0',
-            fontSize:'28px',
-            fontWeight:'700',
-            color:'var(--color-dark)',
-            fontFamily:"'Hahmlet', serif"
-          }}>
-            Admin Panel
-          </h1>
-          <p style={{
-            margin:'0 0 32px 0',
-            color:'var(--text-light)',
-            fontSize:'14px'
-          }}>
-            Zadaj heslo na prístup
-          </p>
+          {/* Header */}
+          <div style={{textAlign:'center', marginBottom:'clamp(30px, 6vw, 48px)'}}>
+            <div style={{
+              width:60,
+              height:60,
+              background:'var(--color-honey)',
+              borderRadius:'12px',
+              display:'flex',
+              alignItems:'center',
+              justifyContent:'center',
+              margin:'0 auto 20px',
+              fontSize:'32px'
+            }}>
+              🔐
+            </div>
+            <h1 style={{
+              margin:'0 0 12px 0',
+              fontSize:'32px',
+              fontWeight:'700',
+              color:'var(--color-dark)',
+              fontFamily:"'Hahmlet', serif"
+            }}>
+              Admin Prístup
+            </h1>
+            <p style={{
+              margin:'0',
+              color:'var(--text-light)',
+              fontSize:'15px',
+              fontWeight:500
+            }}>
+              Zadaj heslo na sprístupnenie panela
+            </p>
+          </div>
           
-          <form onSubmit={handleLogin} style={{display:'flex', flexDirection:'column', gap:'16px'}}>
+          {/* Form */}
+          <form onSubmit={handleLogin} style={{display:'flex', flexDirection:'column', gap:'20px'}}>
             <div>
+              <label style={{
+                display:'block',
+                marginBottom:'8px',
+                color:'var(--color-dark)',
+                fontSize:'13px',
+                fontWeight:600,
+                textTransform:'uppercase',
+                letterSpacing:'0.5px'
+              }}>
+                Bezpečnostné Heslo
+              </label>
               <input
                 type="password"
-                placeholder="Heslo..."
+                placeholder="••••••••••"
                 value={passwordInput}
                 onChange={(e) => {
                   setPasswordInput(e.target.value)
@@ -180,54 +210,86 @@ export default function Admin({navigate}){
                 autoFocus
                 style={{
                   width:'100%',
-                  padding:'12px 14px',
-                  border:'1px solid var(--border)',
-                  borderRadius:'6px',
-                  fontSize:'14px',
+                  padding:'14px 16px',
+                  border:'2px solid var(--border)',
+                  borderRadius:'8px',
+                  fontSize:'15px',
                   fontFamily:"'Radio Canada', sans-serif",
                   boxSizing:'border-box',
                   outline:'none',
-                  transition:'border-color 200ms ease'
+                  transition:'all 200ms ease',
+                  background:'var(--bg)'
                 }}
-                onFocus={(e) => e.target.style.borderColor='var(--color-honey)'}
-                onBlur={(e) => e.target.style.borderColor='var(--border)'}
+                onFocus={(e) => {
+                  e.target.style.borderColor='var(--color-honey)'
+                  e.target.style.boxShadow='0 0 0 3px rgba(212, 148, 95, 0.1)'
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor='var(--border)'
+                  e.target.style.boxShadow='none'
+                }}
               />
             </div>
             
             {loginError && (
-              <p style={{
+              <div style={{
                 margin:'0',
-                padding:'10px 12px',
-                background:'#fee',
-                border:'1px solid #fcc',
-                borderRadius:'4px',
-                fontSize:'12px',
-                color:'#c33'
+                padding:'12px 16px',
+                background:'linear-gradient(135deg, #fee 0%, #fed 100%)',
+                border:'2px solid var(--color-red)',
+                borderRadius:'8px',
+                fontSize:'13px',
+                color:'var(--color-red)',
+                fontWeight:600,
+                display:'flex',
+                alignItems:'center',
+                gap:'8px'
               }}>
-                {loginError}
-              </p>
+                <span>⚠️</span>
+                <span>{loginError}</span>
+              </div>
             )}
             
             <button
               type="submit"
               style={{
-                padding:'12px 18px',
-                background:'var(--color-honey)',
+                padding:'14px 20px',
+                background:'linear-gradient(135deg, var(--color-honey) 0%, #D99B5C 100%)',
                 color:'white',
                 border:'none',
-                borderRadius:'6px',
-                fontSize:'14px',
-                fontWeight:'600',
+                borderRadius:'8px',
+                fontSize:'15px',
+                fontWeight:'700',
                 cursor:'pointer',
                 fontFamily:"'Radio Canada', sans-serif",
-                transition:'background 200ms ease'
+                transition:'all 200ms ease',
+                textTransform:'uppercase',
+                letterSpacing:'0.5px',
+                boxShadow:'0 6px 20px rgba(212, 148, 95, 0.25)'
               }}
-              onMouseEnter={(e) => e.target.style.background='var(--color-red)'}
-              onMouseLeave={(e) => e.target.style.background='var(--color-honey)'}
+              onMouseEnter={(e) => {
+                e.target.style.transform='translateY(-2px)'
+                e.target.style.boxShadow='0 10px 30px rgba(212, 148, 95, 0.35)'
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform='translateY(0)'
+                e.target.style.boxShadow='0 6px 20px rgba(212, 148, 95, 0.25)'
+              }}
             >
-              Vstúpiť
+              Vstúpiť do Panela
             </button>
           </form>
+
+          {/* Footer info */}
+          <p style={{
+            margin:'24px 0 0 0',
+            textAlign:'center',
+            color:'var(--text-light)',
+            fontSize:'12px',
+            opacity:0.7
+          }}>
+            🔒 Pripojenie je bezpečné a zašifrované
+          </p>
         </div>
       </div>
     )
