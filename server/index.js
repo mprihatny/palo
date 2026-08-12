@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // ===== AUTHENTICATION SETUP =====
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'kapucin2024admin';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'pavelp137';
 
 const verifyAdminToken = (req, res, next) => {
   const token = req.headers['x-admin-token'];
