@@ -35,6 +35,75 @@ export default function Admin({navigate}){
     }
   }, [])
 
+  // Load data when authenticated
+  useEffect(() => {
+    if (!authenticated) return
+    
+    let retries = 0
+    const maxRetries = 3
+
+    const loadHero = async () => {
+      try {
+        setError(null)
+        const response = await fetch(`${API_BASE_URL}/api/hero`, { signal: AbortSignal.timeout(5000) })
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        const data = await response.json()
+        setHero(prev=>({ ...prev, ...data }))
+        setLoading(false)
+        retries = 0
+      } catch (err) {
+        setError(err.message)
+        if (retries < maxRetries) {
+          retries++
+          setTimeout(loadHero, 2000)
+        } else {
+          setLoading(false)
+        }
+      }
+    }
+    
+    loadHero()
+
+    // Load all pages
+    const loadPages = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/pages`)
+        if (res.ok) {
+          const data = await res.json()
+          setPages(data)
+        }
+      } catch (err) {
+      }
+    }
+    loadPages()
+
+    // Load links
+    const loadLinks = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/links`)
+        if (res.ok) {
+          const data = await res.json()
+          setLinks(data)
+        }
+      } catch (err) {
+      }
+    }
+    loadLinks()
+
+    // Load category heroes
+    const loadCategoryHeroes = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/category-heroes`)
+        if (res.ok) {
+          const data = await res.json()
+          setCategoryHeroes(data)
+        }
+      } catch (err) {
+      }
+    }
+    loadCategoryHeroes()
+  }, [authenticated])
+
   const handleLogin = async (e) => {
     e.preventDefault()
     setLoginError('')
@@ -163,72 +232,6 @@ export default function Admin({navigate}){
       </div>
     )
   }
-
-  useEffect(()=>{
-    let retries = 0
-    const maxRetries = 3
-
-    const loadHero = async () => {
-      try {
-        setError(null)
-        const response = await fetch(`${API_BASE_URL}/api/hero`, { signal: AbortSignal.timeout(5000) })
-        if (!response.ok) throw new Error(`HTTP ${response.status}`)
-        const data = await response.json()
-        setHero(prev=>({ ...prev, ...data }))
-        setLoading(false)
-        retries = 0
-      } catch (err) {
-        setError(err.message)
-        if (retries < maxRetries) {
-          retries++
-          setTimeout(loadHero, 2000)
-        } else {
-          setLoading(false)
-        }
-      }
-    }
-    
-    loadHero()
-
-    // Load all pages
-    const loadPages = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/pages`)
-        if (res.ok) {
-          const data = await res.json()
-          setPages(data)
-        }
-      } catch (err) {
-      }
-    }
-    loadPages()
-
-    // Load links
-    const loadLinks = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/links`)
-        if (res.ok) {
-          const data = await res.json()
-          setLinks(data)
-        }
-      } catch (err) {
-      }
-    }
-    loadLinks()
-
-    // Load category heroes
-    const loadCategoryHeroes = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/category-heroes`)
-        if (res.ok) {
-          const data = await res.json()
-          setCategoryHeroes(data)
-        }
-      } catch (err) {
-      }
-    }
-    loadCategoryHeroes()
-  },[])
 
   const getAuthHeaders = () => ({
     'Content-Type': 'application/json',
