@@ -224,7 +224,7 @@ export default function Home({navigate}){
                 />
                 
                 {/* Title */}
-                <h3 style={{color:'var(--color-dark)', fontFamily:"'Lora', serif", margin:'0', fontSize:'clamp(16px, 4vw, 22px)', textAlign:'center'}}>
+                <h3 style={{color:'var(--color-dark)', fontWeight:200, fontFamily:"'Lora', serif", margin:'0', fontSize:'clamp(16px, 4vw, 22px)', textAlign:'center'}}>
                   {cat.name}
                 </h3>
                 
