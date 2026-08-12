@@ -73,8 +73,8 @@ export default function Projects({navigate, category}){
   }, [category, hero.heroImage])
 
   const filtered = category ? pages.filter(p => p.category === category) : pages
-  const books = filtered.filter(p => p.type === 'Knihy')
-  const studies = filtered.filter(p => p.type === 'Štúdie')
+  const books = [...filtered.filter(p => p.type === 'Knihy')].sort((a, b) => (a.title || '').localeCompare(b.title || ''))
+  const studies = [...filtered.filter(p => p.type === 'Štúdie')].sort((a, b) => (a.title || '').localeCompare(b.title || ''))
 
   useEffect(() => {
     const revealed = document.querySelectorAll('.reveal')

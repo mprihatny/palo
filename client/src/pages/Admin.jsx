@@ -13,6 +13,7 @@ export default function Admin({navigate}){
   const [modal, setModal] = useState({show:false, type:'', message:'', success:false})
   const [omnePreviewOpen, setOmnePreviewOpen] = useState(false)
   const [editingPage, setEditingPage] = useState(null)
+  const [pageFilters, setPageFilters] = useState({ category: 'Všetky', type: 'Všetky' })
   const [links, setLinks] = useState({ 
     links: [
       { title: 'Kapucín Slovensko', url: 'https://kapucini.sk', description: 'Webová stránka Kapucínskej komunity na Slovensku', icon: '' },
@@ -145,6 +146,11 @@ export default function Admin({navigate}){
       setModal({show:true, type:'error', message:`Chyba: ${err.message}`, success:false})
     }
   }
+
+  const filteredPages = pages
+    .filter(page => pageFilters.category === 'Všetky' || page.category === pageFilters.category)
+    .filter(page => pageFilters.type === 'Všetky' || page.type === pageFilters.type)
+    .sort((a, b) => (a.category || '').localeCompare(b.category || '') || (a.type || '').localeCompare(b.type || '') || (a.title || '').localeCompare(b.title || ''))
 
   if(loading) return (
     <div style={{padding:'40px 24px', textAlign:'center', fontFamily:"'Radio Canada', sans-serif"}}>
@@ -423,11 +429,38 @@ export default function Admin({navigate}){
 
         <section className="admin-section">
           <h2>📝 Príspevky</h2>
-          {pages.length === 0 ? (
-            <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>Žiadne príspevky</p>
+          <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(180px, 1fr))', gap:12, marginBottom:18}}>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Kategória</label>
+              <select
+                value={pageFilters.category}
+                onChange={e => setPageFilters(prev => ({ ...prev, category: e.target.value }))}
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              >
+                <option>Všetky</option>
+                <option>Autorské texty</option>
+                <option>Preklady</option>
+                <option>Pripravované</option>
+              </select>
+            </div>
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Typ</label>
+              <select
+                value={pageFilters.type}
+                onChange={e => setPageFilters(prev => ({ ...prev, type: e.target.value }))}
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              >
+                <option>Všetky</option>
+                <option>Knihy</option>
+                <option>Štúdie</option>
+              </select>
+            </div>
+          </div>
+          {filteredPages.length === 0 ? (
+            <p style={{color:'var(--text-light)', fontFamily:"'Radio Canada', sans-serif"}}>Žiadne príspevky pre zvolený filter.</p>
           ) : (
             <div style={{display:'grid', gap:16}}>
-              {pages.map(page => (
+              {filteredPages.map(page => (
                 <div key={page._id} style={{padding:16, background:'rgba(212, 148, 95, 0.05)', border:'1px solid var(--border)', borderRadius:'4px', display:'flex', justifyContent:'space-between', alignItems:'flex-start'}}>
                   <div style={{flex:1}}>
                     <h3 style={{margin:'0 0 8px 0', color:'var(--color-dark)', fontWeight:600, fontFamily:"'Hahmlet', serif"}}>{page.title}</h3>

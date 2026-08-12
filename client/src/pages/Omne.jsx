@@ -42,21 +42,19 @@ export default function Omne(){
   return (
     <div style={{background:'var(--bg)'}}>
       <div style={{paddingTop:0, paddingBottom:0}}>
-        <div className="hero-container">
+        <div className="hero-container" style={{marginBottom:0}}>
           <img 
             className="hero-image"
             src={heroImage} 
             alt="hero"
           />
-          <div className="hero-overlay" style={{display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', padding:'36px 24px'}}>
-            <div style={{maxWidth:'700px', width:'100%'}}>
-              <h1 style={{margin:'0 0 16px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(36px, 6vw, 64px)', color:'#ffffff', textShadow:'0 2px 8px rgba(0,0,0,0.3)'}}>O mne</h1>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div style={{maxWidth:760, width:'100%', margin:'0 auto', padding:'48px 24px 80px', textAlign:'center'}}>
+      <div style={{maxWidth:760, width:'100%', margin:'0 auto', padding:'44px 24px 72px', textAlign:'center'}}>
+        <h1 style={{margin:'0 0 26px 0', fontFamily:"'Hahmlet', serif", fontSize:'clamp(36px, 6vw, 64px)', color:'var(--color-dark)', lineHeight:1.05}}>
+          O mne
+        </h1>
         <div style={{fontFamily:"'Radio Canada', sans-serif", fontSize:'clamp(16px, 2.2vw, 18px)', color:'var(--text-light)', lineHeight:1.9, margin:'0 auto', textAlign:'center'}}>
           {error ? (
             <p style={{color:'var(--color-red)'}}>{error}</p>
