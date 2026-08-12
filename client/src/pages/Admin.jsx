@@ -406,24 +406,6 @@ export default function Admin({navigate}){
               />
             </div>
             <div className="admin-form-group">
-              <label>Farba textu</label>
-              <div style={{display:'flex', gap:12, alignItems:'center'}}>
-                <input 
-                  type="color" 
-                  value={hero.style?.color||'#E1DED2'} 
-                  onChange={e=>setHero({...hero, style:{...hero.style, color:e.target.value}})} 
-                  style={{width:60, height:40, cursor:'pointer'}} 
-                />
-                <input 
-                  type="text" 
-                  value={hero.style?.color||''} 
-                  onChange={e=>setHero({...hero, style:{...hero.style, color:e.target.value}})} 
-                  placeholder="#E1DED2"
-                  style={{flex:1}}
-                />
-              </div>
-            </div>
-            <div className="admin-form-group">
               <label>Váha fontu</label>
               <select 
                 value={hero.style?.fontWeight||'700'} 
@@ -446,15 +428,6 @@ export default function Admin({navigate}){
                 />
                 <span style={{fontSize:12, color:'var(--text-light)'}}>pixelov</span>
               </div>
-            </div>
-            <div className="admin-form-group">
-              <label>Nadpis sekcie Myšlienka</label>
-              <input
-                type="text"
-                value={hero.quoteHeading||''}
-                onChange={e=>setHero({...hero, quoteHeading:e.target.value})}
-                placeholder="Myšlienka"
-              />
             </div>
             <div className="admin-form-group">
               <label>Text/Citácia</label>
@@ -583,25 +556,6 @@ export default function Admin({navigate}){
                 value={hero.youtubeButtonUrl||''}
                 onChange={e=>setHero({...hero, youtubeButtonUrl:e.target.value})}
                 placeholder="https://www.youtube.com/@thepavolp"
-              />
-            </div>
-            <div className="admin-form-group">
-              <label>Obrázok sekcie YouTube (voliteľný)</label>
-              <input
-                type="text"
-                value={hero.youtubeImage||''}
-                onChange={e=>setHero({...hero, youtubeImage:e.target.value})}
-                placeholder="https://..."
-              />
-            </div>
-
-            <div className="admin-form-group">
-              <label>Hero obrázok URL</label>
-              <input 
-                type="text"
-                value={hero.heroImage||''} 
-                onChange={e=>setHero({...hero, heroImage:e.target.value})} 
-                placeholder="https://i.postimg.cc/..."
               />
             </div>
 
