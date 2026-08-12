@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-app.post('/api/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', verifyAdminToken, upload.single('file'), (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file' });
   const url = `/uploads/${req.file.filename}`;
   res.json({ url });
@@ -35,15 +35,11 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 
 const MONGO_URI = (process.env.MONGO_URI || process.env.MONGODB_URI || '').trim();
 if (!MONGO_URI) {
-  console.warn('Warning: MONGO_URI / MONGODB_URI not set, server will try to start but DB will not be connected. Set MONGO_URI or MONGODB_URI in .env / Render environment variables.');
 } else {
-  console.log('MongoDB connection string prefix:', MONGO_URI.slice(0, 16));
 }
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-  console.log('Connected to MongoDB');
 }).catch(err => {
-  console.warn('MongoDB connection error:', err.message);
 });
 
 // Health check
@@ -57,12 +53,11 @@ app.get('/api/hero', async (req, res) => {
     const hero = await Hero.findOne();
     res.json(hero || {});
   } catch (err) {
-    console.error('Hero fetch error:', err.message);
     res.status(500).json({ error: 'Failed to load hero data' });
   }
 });
 
-app.put('/api/hero', async (req, res) => {
+app.put('/api/hero', verifyAdminToken, async (req, res) => {
   try {
     const data = req.body;
     let hero = await Hero.findOne();
@@ -71,7 +66,6 @@ app.put('/api/hero', async (req, res) => {
     await hero.save();
     res.json(hero);
   } catch (err) {
-    console.error('Hero save error:', err.message);
     res.status(500).json({ error: 'Failed to save hero data' });
   }
 });
@@ -82,7 +76,7 @@ app.get('/api/pages', async (req, res) => {
   res.json(pages);
 });
 
-app.post('/api/pages', async (req, res) => {
+app.post('/api/pages', verifyAdminToken, async (req, res) => {
   const page = new Page(req.body);
   await page.save();
   res.json(page);
@@ -94,13 +88,13 @@ app.get('/api/pages/:id', async (req, res) => {
   res.json(page);
 });
 
-app.put('/api/pages/:id', async (req, res) => {
+app.put('/api/pages/:id', verifyAdminToken, async (req, res) => {
   const page = await Page.findByIdAndUpdate(req.params.id, req.body, { new: true });
   if (!page) return res.status(404).json({ message: 'Not found' });
   res.json(page);
 });
 
-app.delete('/api/pages/:id', async (req, res) => {
+app.delete('/api/pages/:id', verifyAdminToken, async (req, res) => {
   const page = await Page.findByIdAndDelete(req.params.id);
   if (!page) return res.status(404).json({ message: 'Not found' });
   res.json({ message: 'Deleted' });
@@ -123,7 +117,7 @@ app.get('/api/links', async (req, res) => {
   res.json(links);
 });
 
-app.put('/api/links', async (req, res) => {
+app.put('/api/links', verifyAdminToken, async (req, res) => {
   let links = await Links.findOne();
   if (!links) links = new Links(req.body);
   else Object.assign(links, req.body);
@@ -145,12 +139,32 @@ app.get('/api/category-heroes', async (req, res) => {
   res.json(heroes);
 });
 
-app.put('/api/category-heroes', async (req, res) => {
+app.put('/api/category-heroes', verifyAdminToken, async (req, res) => {
   let heroes = await CategoryHeroes.findOne();
   if (!heroes) heroes = new CategoryHeroes(req.body);
   else Object.assign(heroes, req.body);
   await heroes.save();
   res.json(heroes);
+});
+
+// ===== AUTHENTICATION MIDDLEWARE & ENDPOINTS =====
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'kapucin2024admin';
+
+const verifyAdminToken = (req, res, next) => {
+  const token = req.headers['x-admin-token'];
+  if (!token || token !== `admin_${ADMIN_PASSWORD}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  next();
+};
+
+// Admin login endpoint
+app.post('/api/admin-login', (req, res) => {
+  const { password } = req.body;
+  if (!password || password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ error: 'Incorrect password' });
+  }
+  res.json({ token: `admin_${ADMIN_PASSWORD}`, message: 'Authenticated' });
 });
 
 // Cleanup endpoint - clear old upload-based heroImages from database
@@ -170,4 +184,4 @@ app.post('/api/cleanup-hero-images', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => {});

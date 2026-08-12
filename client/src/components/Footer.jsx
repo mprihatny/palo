@@ -23,7 +23,7 @@ export default function Footer({navigate}){
           </div>
         </div>
 
-        {/* Bottom bar with Admin button */}
+        {/* Bottom bar */}
         <div style={{
           borderTop: '1px solid var(--border)',
           paddingTop: '20px',
@@ -36,27 +36,6 @@ export default function Footer({navigate}){
           <p style={{fontSize:'12px', color:'var(--text-light)', margin:0, fontFamily:"'Radio Canada', sans-serif"}}>
             © 2026 Pavel Prihatný. Všetky práva vyhradené.
           </p>
-          <div style={{display:'flex', gap:'12px', alignItems:'center'}}>
-            <button 
-              onClick={()=>navigate('/admin')}
-              style={{
-                fontSize:'12px',
-                padding:'8px 16px',
-                background:'var(--color-honey)',
-                color:'white',
-                border:'none',
-                borderRadius:'4px',
-                cursor:'pointer',
-                fontWeight:600,
-                fontFamily:"'Radio Canada', sans-serif",
-                transition:'all 200ms ease'
-              }}
-              onMouseEnter={(e)=>e.currentTarget.style.background='var(--color-red)'}
-              onMouseLeave={(e)=>e.currentTarget.style.background='var(--color-honey)'}
-            >
-              Admin
-            </button>
-          </div>
         </div>
       </div>
     </footer>

@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Editor } from '@tinymce/tinymce-react'
 import API_BASE_URL from '../api'
 
-const TINYMCE_API_KEY = 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
+const TINYMCE_API_KEY = process.env.REACT_APP_TINYMCE_KEY || 'q76bkheben6immtc4gb0hkd8dudge6dahhc1x3lzrbfjt350'
 
 export default function Admin({navigate}){
+  const [authenticated, setAuthenticated] = useState(false)
+  const [passwordInput, setPasswordInput] = useState('')
+  const [loginError, setLoginError] = useState('')
+  
   const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', quoteWeight:'400', quoteStyle:'italic', aboutText:'Vitajte na mojej stránke...', omneText:'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.', heroImage:'' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -23,6 +27,143 @@ export default function Admin({navigate}){
   })
   const [categoryHeroes, setCategoryHeroes] = useState({ autorske: {}, preklady: {}, pripravovane: {} })
 
+  // Check authentication on mount
+  useEffect(() => {
+    const token = sessionStorage.getItem('padmin_token')
+    if (token) {
+      setAuthenticated(true)
+    }
+  }, [])
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    setLoginError('')
+    if (!passwordInput.trim()) {
+      setLoginError('Zadaj heslo')
+      return
+    }
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/admin-login`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({password: passwordInput})
+      })
+      if (res.ok) {
+        const data = await res.json()
+        sessionStorage.setItem('padmin_token', data.token)
+        setAuthenticated(true)
+        setPasswordInput('')
+      } else {
+        setLoginError('❌ Nesprávne heslo')
+      }
+    } catch (err) {
+      setLoginError('Chyba pripojenia')
+    }
+  }
+
+  // LOGIN SCREEN - shown if not authenticated
+  if (!authenticated) {
+    return (
+      <div style={{
+        minHeight:'100vh',
+        background:'linear-gradient(135deg, var(--color-dark) 0%, #2c2420 100%)',
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        padding:'24px',
+        fontFamily:"'Radio Canada', sans-serif"
+      }}>
+        <div style={{
+          background:'white',
+          padding:'48px',
+          borderRadius:'12px',
+          boxShadow:'0 20px 60px rgba(0,0,0,0.3)',
+          maxWidth:'400px',
+          width:'100%'
+        }}>
+          <h1 style={{
+            margin:'0 0 8px 0',
+            fontSize:'28px',
+            fontWeight:'700',
+            color:'var(--color-dark)',
+            fontFamily:"'Hahmlet', serif"
+          }}>
+            Admin Panel
+          </h1>
+          <p style={{
+            margin:'0 0 32px 0',
+            color:'var(--text-light)',
+            fontSize:'14px'
+          }}>
+            Zadaj heslo na prístup
+          </p>
+          
+          <form onSubmit={handleLogin} style={{display:'flex', flexDirection:'column', gap:'16px'}}>
+            <div>
+              <input
+                type="password"
+                placeholder="Heslo..."
+                value={passwordInput}
+                onChange={(e) => {
+                  setPasswordInput(e.target.value)
+                  setLoginError('')
+                }}
+                autoFocus
+                style={{
+                  width:'100%',
+                  padding:'12px 14px',
+                  border:'1px solid var(--border)',
+                  borderRadius:'6px',
+                  fontSize:'14px',
+                  fontFamily:"'Radio Canada', sans-serif",
+                  boxSizing:'border-box',
+                  outline:'none',
+                  transition:'border-color 200ms ease'
+                }}
+                onFocus={(e) => e.target.style.borderColor='var(--color-honey)'}
+                onBlur={(e) => e.target.style.borderColor='var(--border)'}
+              />
+            </div>
+            
+            {loginError && (
+              <p style={{
+                margin:'0',
+                padding:'10px 12px',
+                background:'#fee',
+                border:'1px solid #fcc',
+                borderRadius:'4px',
+                fontSize:'12px',
+                color:'#c33'
+              }}>
+                {loginError}
+              </p>
+            )}
+            
+            <button
+              type="submit"
+              style={{
+                padding:'12px 18px',
+                background:'var(--color-honey)',
+                color:'white',
+                border:'none',
+                borderRadius:'6px',
+                fontSize:'14px',
+                fontWeight:'600',
+                cursor:'pointer',
+                fontFamily:"'Radio Canada', sans-serif",
+                transition:'background 200ms ease'
+              }}
+              onMouseEnter={(e) => e.target.style.background='var(--color-red)'}
+              onMouseLeave={(e) => e.target.style.background='var(--color-honey)'}
+            >
+              Vstúpiť
+            </button>
+          </form>
+        </div>
+      </div>
+    )
+  }
+
   useEffect(()=>{
     let retries = 0
     const maxRetries = 3
@@ -37,7 +178,6 @@ export default function Admin({navigate}){
         setLoading(false)
         retries = 0
       } catch (err) {
-        console.error('Load error:', err)
         setError(err.message)
         if (retries < maxRetries) {
           retries++
@@ -59,7 +199,6 @@ export default function Admin({navigate}){
           setPages(data)
         }
       } catch (err) {
-        console.error('Failed to load pages:', err)
       }
     }
     loadPages()
@@ -73,7 +212,6 @@ export default function Admin({navigate}){
           setLinks(data)
         }
       } catch (err) {
-        console.error('Failed to load links:', err)
       }
     }
     loadLinks()
@@ -87,17 +225,21 @@ export default function Admin({navigate}){
           setCategoryHeroes(data)
         }
       } catch (err) {
-        console.error('Failed to load category heroes:', err)
       }
     }
     loadCategoryHeroes()
   },[])
 
+  const getAuthHeaders = () => ({
+    'Content-Type': 'application/json',
+    'x-admin-token': sessionStorage.getItem('padmin_token') || ''
+  })
+
   const save = async ()=>{
     try {
       const response = await fetch(`${API_BASE_URL}/api/hero`, { 
         method:'PUT', 
-        headers:{'Content-Type':'application/json'}, 
+        headers: getAuthHeaders(), 
         body: JSON.stringify(hero)
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
@@ -106,7 +248,6 @@ export default function Admin({navigate}){
       setModal({show:true, type:'success', message:'✓ Uložené!', success:true})
       setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
     } catch (err) {
-      console.error('Save error:', err)
       setModal({show:true, type:'error', message:`Chyba: ${err.message}`, success:false})
     }
   }
@@ -115,7 +256,7 @@ export default function Admin({navigate}){
     try {
       const response = await fetch(`${API_BASE_URL}/api/links`, { 
         method:'PUT', 
-        headers:{'Content-Type':'application/json'}, 
+        headers: getAuthHeaders(), 
         body: JSON.stringify(links)
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
@@ -124,7 +265,6 @@ export default function Admin({navigate}){
       setModal({show:true, type:'success', message:'✓ Odkazy uložené!', success:true})
       setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
     } catch (err) {
-      console.error('Save links error:', err)
       setModal({show:true, type:'error', message:`Chyba: ${err.message}`, success:false})
     }
   }
@@ -133,7 +273,7 @@ export default function Admin({navigate}){
     try {
       const response = await fetch(`${API_BASE_URL}/api/category-heroes`, { 
         method:'PUT', 
-        headers:{'Content-Type':'application/json'}, 
+        headers: getAuthHeaders(), 
         body: JSON.stringify(categoryHeroes)
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
@@ -142,7 +282,6 @@ export default function Admin({navigate}){
       setModal({show:true, type:'success', message:'✓ Obrázky kategórií uložené!', success:true})
       setTimeout(() => setModal({show:false, type:'', message:'', success:false}), 3000)
     } catch (err) {
-      console.error('Save category heroes error:', err)
       setModal({show:true, type:'error', message:`Chyba: ${err.message}`, success:false})
     }
   }
@@ -479,7 +618,10 @@ export default function Admin({navigate}){
                       onClick={async () => {
                         if (!window.confirm('Naozaj chceš odstrániť?')) return
                         try {
-                          const res = await fetch(`${API_BASE_URL}/api/pages/${page._id}`, {method:'DELETE'})
+                          const res = await fetch(`${API_BASE_URL}/api/pages/${page._id}`, {
+                            method:'DELETE',
+                            headers: getAuthHeaders()
+                          })
                           if (res.ok) {
                             setPages(pages.filter(p => p._id !== page._id))
                             setModal({show:true, type:'success', message:'✓ Odstránené!', success:true})
@@ -648,7 +790,7 @@ export default function Admin({navigate}){
                     try {
                       const res = await fetch(`${API_BASE_URL}/api/pages/${editingPage._id}`, {
                         method:'PUT',
-                        headers:{'Content-Type':'application/json'},
+                        headers: getAuthHeaders(),
                         body: JSON.stringify({title: editingPage.title, content: editingPage.content})
                       })
                       if (res.ok) {
@@ -704,27 +846,31 @@ function AddPageForm({onSuccess}){
   const [type, setType] = useState('Knihy')
   const [submitting, setSubmitting] = useState(false)
 
+  const getAuthHeaders = () => ({
+    'Content-Type': 'application/json',
+    'x-admin-token': sessionStorage.getItem('padmin_token') || ''
+  })
+
   const submit = async ()=>{
     setSubmitting(true)
     try {
       const res = await fetch(`${API_BASE_URL}/api/pages`, { 
         method:'POST', 
-        headers:{'Content-Type':'application/json'}, 
+        headers: getAuthHeaders(), 
         body: JSON.stringify({ title, content, category, type }) 
       })
       if (res.ok) {
         const data = await res.json()
-        console.log('Príspěvok pridaný:', data)
+
         alert('✓ Príspěvok pridaný!')
         setTitle(''); setContent(''); setCategory('Autorské texty'); setType('Knihy')
         if (onSuccess) onSuccess()
       } else {
         const errorText = await res.text()
-        console.error('API error:', res.status, errorText)
+
         alert('Chyba pri pridávaní príspěvku: ' + res.status)
       }
     } catch (err) {
-      console.error('Submit error:', err)
       alert('Chyba: ' + err.message)
     } finally {
       setSubmitting(false)
@@ -738,7 +884,11 @@ function AddPageForm({onSuccess}){
   const imageUploadHandler = (blobInfo, success, failure) => {
     const form = new FormData()
     form.append('file', blobInfo.blob(), blobInfo.filename())
-    fetch(`${API_BASE_URL}/api/upload`, { method: 'POST', body: form })
+    fetch(`${API_BASE_URL}/api/upload`, { 
+      method: 'POST', 
+      headers: {'x-admin-token': sessionStorage.getItem('padmin_token') || ''},
+      body: form 
+    })
       .then(r=>r.json())
       .then(data => {
         success(data.url)

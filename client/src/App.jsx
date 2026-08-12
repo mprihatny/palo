@@ -55,7 +55,7 @@ function App(){
       {route === '/' && <Home navigate={navigate} />}
       {route === '/omne' && <Omne />}
       {route.startsWith('/projects') && <Projects navigate={navigate} category={getCategoryFromRoute(route)} />}
-      {route === '/admin' && <Admin navigate={navigate} />}
+      {route === '/padmin' && <Admin navigate={navigate} />}
       <Footer navigate={navigate} />
     </div>
   )
