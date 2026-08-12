@@ -71,16 +71,16 @@ export default function Home({navigate}){
   }
 
   const categories = [
-    { name: 'Autorské texty', icon: 'https://i.postimg.cc/50JZ8wkk/autorske-texty-removebg-preview.png', image: 'https://i.postimg.cc/Yqn9N50J/publikovane1.jpg' },
-    { name: 'Preklady', icon: 'https://i.postimg.cc/Jn89jbdp/preklady-removebg-preview.png', image: 'https://i.postimg.cc/BQY65rts/preklady1.jpg' },
-    { name: 'Pripravované', icon: 'https://i.postimg.cc/85GqLhnt/pripravovane-removebg-preview.png', image: 'https://i.postimg.cc/MKPT0fCXw/pripravovane1.jpg' }
+    { name: 'Autorské texty', icon: 'https://i.postimg.cc/50JZ8wkk/autorske-texty-removebg-preview.png', image: 'https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg' },
+    { name: 'Preklady', icon: 'https://i.postimg.cc/Jn89jbdp/preklady-removebg-preview.png', image: 'https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg' },
+    { name: 'Pripravované', icon: 'https://i.postimg.cc/85GqLhnt/pripravovane-removebg-preview.png', image: 'https://i.postimg.cc/DZg6bZBx/pripravovane-foto.jpg' }
   ]
 
   const youtubeHeading = hero.youtubeHeading !== undefined ? hero.youtubeHeading : 'Sleduj nás na YouTube'
   const youtubeText = hero.youtubeText !== undefined ? hero.youtubeText : 'Nové videá, autorské texty a preklady sú pravidelne zdieľané na kanáli thepavolp. Klikni na link nižšie a pozri si posledné príspevky.'
   const youtubeButtonText = hero.youtubeButtonText !== undefined ? hero.youtubeButtonText : 'Pozrieť YouTube kanál'
   const youtubeButtonUrl = hero.youtubeButtonUrl !== undefined ? hero.youtubeButtonUrl : 'https://www.youtube.com/@thepavolp'
-  const defaultYoutubeBackground = 'https://i.postimg.cc/xC28bWn1/thumbnail-ja-web.png'
+  const defaultYoutubeBackground = 'https://i.postimg.cc/Y9k89gf5/web-thumbnail.png'
   const youtubeImage = hero.youtubeImage && hero.youtubeImage.trim() ? hero.youtubeImage.trim() : ''
   const [youtubeBgUrl, setYoutubeBgUrl] = useState(defaultYoutubeBackground)
   const youtubeBackgroundStyle = `url("${youtubeBgUrl}")`
