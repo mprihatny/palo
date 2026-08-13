@@ -190,7 +190,11 @@ app.post('/api/cleanup-hero-images', async (req, res) => {
 });
 
 // Serve React frontend (production build)
-app.use(express.static(path.join(__dirname, '../client/dist')));
+// On WebSupport: __dirname is /home/prihatny.sk/app/, so:
+// - '../client/dist' would be /home/prihatny.sk/client/dist
+// - '../../web' would be /home/prihatny.sk/web (Apache root)
+// Using Apache root path for WebSupport hosting
+app.use(express.static(path.join(__dirname, '../../web')));
 
 // Fallback to index.html for React Router
 app.get('*', (req, res) => {
