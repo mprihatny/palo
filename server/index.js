@@ -189,5 +189,15 @@ app.post('/api/cleanup-hero-images', async (req, res) => {
   }
 });
 
+// Serve React frontend (production build)
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Fallback to index.html for React Router
+app.get('*', (req, res) => {
+  if (!req.url.startsWith('/api/') && !req.url.startsWith('/uploads/')) {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {});
