@@ -10,7 +10,7 @@ const CategoryHeroesSchema = new mongoose.Schema({
     title: { type: String, default: 'Preklady' }
   },
   pripravovane: {
-    image: { type: String, default: 'https://i.postimg.cc/DZg6bZBx/pripravovane-foto.jpg' },
+    image: { type: String, default: 'https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg' },
     title: { type: String, default: 'Pripravované' }
   }
 }, { timestamps: true });

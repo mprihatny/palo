@@ -143,14 +143,14 @@ app.get('/api/category-heroes', async (req, res) => {
     heroes = new CategoryHeroes({
       autorske: { image: 'https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg', title: 'Autorské texty' },
       preklady: { image: 'https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg', title: 'Preklady' },
-      pripravovane: { image: 'https://i.postimg.cc/DZg6bZBx/pripravovane-foto.jpg', title: 'Pripravované' }
+      pripravovane: { image: 'https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg', title: 'Pripravované' }
     });
     await heroes.save();
   } else {
     // Ensure images are always up-to-date
     heroes.autorske.image = 'https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg';
     heroes.preklady.image = 'https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg';
-    heroes.pripravovane.image = 'https://i.postimg.cc/DZg6bZBx/pripravovane-foto.jpg';
+    heroes.pripravovane.image = 'https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg';
     await heroes.save();
   }
   res.json(heroes);
