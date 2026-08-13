@@ -24,7 +24,7 @@ export default function Admin({navigate}){
       { title: 'Bibliacech', url: 'https://bibliacech.sk', description: 'Bibliografia českých a slovenských kapucínov', icon: '' }
     ]
   })
-  const [categoryHeroes, setCategoryHeroes] = useState({ autorske: {}, preklady: {}, pripravovane: {} })
+  const [categoryHeroes, setCategoryHeroes] = useState({ autorske: {}, preklady: {}, pripravovane: { image: 'https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg' } })
 
   // Check authentication on mount
   useEffect(() => {
