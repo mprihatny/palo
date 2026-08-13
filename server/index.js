@@ -190,16 +190,14 @@ app.post('/api/cleanup-hero-images', async (req, res) => {
 });
 
 // Serve React frontend (production build)
-// On WebSupport: __dirname is /home/prihatny.sk/app/, so:
-// - '../client/dist' would be /home/prihatny.sk/client/dist
-// - '../../web' would be /home/prihatny.sk/web (Apache root)
-// Using Apache root path for WebSupport hosting
-app.use(express.static(path.join(__dirname, '../../web')));
+// On WebSupport: /home/prihatny.sk/web/ is Apache root with dist files
+const WEB_DIR = '/home/prihatny.sk/web';
+app.use(express.static(WEB_DIR));
 
 // Fallback to index.html for React Router
 app.get('*', (req, res) => {
   if (!req.url.startsWith('/api/') && !req.url.startsWith('/uploads/')) {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    res.sendFile(path.join(WEB_DIR, 'index.html'));
   }
 });
 
