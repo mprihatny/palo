@@ -20,14 +20,17 @@ export default function Omne(){
     let isMounted = true
     const loadContent = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/hero`, { signal: AbortSignal.timeout(5000) })
+        const res = await fetch(`${API_BASE_URL}/api/heroes`, { signal: AbortSignal.timeout(5000) })
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
-        const data = await res.json()
+        const json = await res.json()
+        const data = json.value?.[0] || json  // Handle array response or direct object
         if (isMounted) {
           setHero(data)
           const resolvedHeroImage = data?.heroImage && data.heroImage.trim() && !data.heroImage.includes('/uploads/')
             ? data.heroImage.trim()
-            : DEFAULT_HERO_IMAGE
+            : data?.youtubeAdsImage && data.youtubeAdsImage.trim()
+              ? data.youtubeAdsImage.trim()
+              : DEFAULT_HERO_IMAGE
           setHeroImage(resolvedHeroImage)
           setAboutText(data?.omneText || data?.aboutText || 'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.')
           setLoading(false)

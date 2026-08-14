@@ -59,6 +59,29 @@ app.get('/', (req, res) => {
 });
 
 // Hero endpoints
+app.get('/api/heroes', async (req, res) => {
+  try {
+    const hero = await Hero.findOne();
+    res.json({ value: [hero || {}], Count: 1 });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load hero data' });
+  }
+});
+
+app.put('/api/heroes', verifyAdminToken, async (req, res) => {
+  try {
+    const data = req.body;
+    let hero = await Hero.findOne();
+    if (!hero) hero = new Hero(data);
+    else Object.assign(hero, data);
+    await hero.save();
+    res.json({ value: [hero], Count: 1 });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to save hero data' });
+  }
+});
+
+// Legacy routes for compatibility
 app.get('/api/hero', async (req, res) => {
   try {
     const hero = await Hero.findOne();
@@ -83,8 +106,12 @@ app.put('/api/hero', verifyAdminToken, async (req, res) => {
 
 // Pages endpoints
 app.get('/api/pages', async (req, res) => {
-  const pages = await Page.find().sort({ createdAt: -1 });
-  res.json(pages);
+  try {
+    const pages = await Page.find().sort({ createdAt: -1 });
+    res.json({ value: pages, Count: pages.length });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load pages' });
+  }
 });
 
 app.post('/api/pages', verifyAdminToken, async (req, res) => {
@@ -113,19 +140,23 @@ app.delete('/api/pages/:id', verifyAdminToken, async (req, res) => {
 
 // Links endpoints
 app.get('/api/links', async (req, res) => {
-  let links = await Links.findOne();
-  if (!links) {
-    // Create with default links if none exist
-    links = new Links({ 
-      links: [
-        { title: 'Kapucín Slovensko', url: 'https://kapucini.sk', description: 'Webová stránka Kapucínskej komunity na Slovensku', icon: '' },
-        { title: 'Vatikán', url: 'https://www.vatican.va', description: 'Oficiálna webová stránka Vatikánu', icon: '' },
-        { title: 'Bibliacech', url: 'https://bibliacech.sk', description: 'Bibliografia českých a slovenských kapucínov', icon: '' }
-      ]
-    });
-    await links.save();
+  try {
+    let links = await Links.findOne();
+    if (!links) {
+      // Create with default links if none exist
+      links = new Links({ 
+        links: [
+          { title: 'Kapucín Slovensko', url: 'https://kapucini.sk', description: 'Webová stránka Kapucínskej komunity na Slovensku', icon: '' },
+          { title: 'Vatikán', url: 'https://www.vatican.va', description: 'Oficiálna webová stránka Vatikánu', icon: '' },
+          { title: 'Bibliacech', url: 'https://bibliacech.sk', description: 'Bibliografia českých a slovenských kapucínov', icon: '' }
+        ]
+      });
+      await links.save();
+    }
+    res.json({ value: [links], Count: 1 });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load links' });
   }
-  res.json(links);
 });
 
 app.put('/api/links', verifyAdminToken, async (req, res) => {
@@ -137,26 +168,30 @@ app.put('/api/links', verifyAdminToken, async (req, res) => {
 });
 
 // Category Heroes endpoints
-app.get('/api/category-heroes', async (req, res) => {
-  let heroes = await CategoryHeroes.findOne();
-  if (!heroes) {
-    heroes = new CategoryHeroes({
-      autorske: { image: 'https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg', title: 'Autorské texty' },
-      preklady: { image: 'https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg', title: 'Preklady' },
-      pripravovane: { image: 'https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg', title: 'Pripravované' }
-    });
-    await heroes.save();
-  } else {
-    // Ensure images are always up-to-date
-    heroes.autorske.image = 'https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg';
-    heroes.preklady.image = 'https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg';
-    heroes.pripravovane.image = 'https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg';
-    await heroes.save();
+app.get('/api/categoryheroes', async (req, res) => {
+  try {
+    let heroes = await CategoryHeroes.findOne();
+    if (!heroes) {
+      heroes = new CategoryHeroes({
+        autorske: { image: 'https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg', title: 'Autorské texty' },
+        preklady: { image: 'https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg', title: 'Preklady' },
+        pripravovane: { image: 'https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg', title: 'Pripravované' }
+      });
+      await heroes.save();
+    } else {
+      // Ensure images are always up-to-date
+      heroes.autorske.image = 'https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg';
+      heroes.preklady.image = 'https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg';
+      heroes.pripravovane.image = 'https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg';
+      await heroes.save();
+    }
+    res.json({ value: [heroes], Count: 1 });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to load category heroes' });
   }
-  res.json(heroes);
 });
 
-app.put('/api/category-heroes', verifyAdminToken, async (req, res) => {
+app.put('/api/categoryheroes', verifyAdminToken, async (req, res) => {
   let heroes = await CategoryHeroes.findOne();
   if (!heroes) heroes = new CategoryHeroes(req.body);
   else Object.assign(heroes, req.body);
@@ -190,16 +225,22 @@ app.post('/api/cleanup-hero-images', async (req, res) => {
 });
 
 // Serve React frontend (production build)
-// On WebSupport: /home/prihatny.sk/web/ is Apache root with dist files
-const WEB_DIR = '/home/prihatny.sk/web';
-app.use(express.static(WEB_DIR));
+// On Railway: ../client/dist
+// On WebSupport: /home/prihatny.sk/web
+const WEB_DIR = process.env.NODE_ENV === 'production' 
+  ? path.join(__dirname, '../client/dist')
+  : '/home/prihatny.sk/web';
 
-// Fallback to index.html for React Router
-app.get('*', (req, res) => {
-  if (!req.url.startsWith('/api/') && !req.url.startsWith('/uploads/')) {
-    res.sendFile(path.join(WEB_DIR, 'index.html'));
-  }
-});
+if (fs.existsSync(WEB_DIR)) {
+  app.use(express.static(WEB_DIR));
+  
+  // Fallback to index.html for React Router
+  app.get('*', (req, res) => {
+    if (!req.url.startsWith('/api/') && !req.url.startsWith('/uploads/')) {
+      res.sendFile(path.join(WEB_DIR, 'index.html'));
+    }
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {});

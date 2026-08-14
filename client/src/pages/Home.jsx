@@ -12,8 +12,8 @@ export default function Home({navigate}){
 
   useEffect(()=>{
     // Clean up old upload-based images from database
-    fetch(`${API_BASE_URL}/api/cleanup-hero-images`, { method: 'POST' })
-      .catch(err => console.log('Cleanup check skipped:', err.message))
+    // fetch(`${API_BASE_URL}/api/cleanup-hero-images`, { method: 'POST' })
+    //   .catch(err => console.log('Cleanup check skipped:', err.message))
   }, [])
 
   useEffect(()=>{
@@ -24,15 +24,19 @@ export default function Home({navigate}){
     const loadHero = async () => {
       try {
         setError(null)
-        const response = await fetch(`${API_BASE_URL}/api/hero`, { signal: AbortSignal.timeout(5000) })
+        const response = await fetch(`${API_BASE_URL}/api/heroes`, { signal: AbortSignal.timeout(5000) })
         if (!response.ok) throw new Error(`HTTP ${response.status}`)
-        const data = await response.json()
+        const json = await response.json()
+        const data = json.value?.[0] || json  // Handle array response or direct object
         if (isMounted) {
           if (data && Object.keys(data).length) {
             setHero(prev => ({ ...prev, ...data }))
             // Only use heroImage if it's a valid external URL (not from uploads folder)
             if (data.heroImage && !data.heroImage.includes('/uploads/')) {
               setHeroImage(data.heroImage)
+            } else if (data.youtubeAdsImage) {
+              // Fallback to youtubeAdsImage if heroImage is empty
+              setHeroImage(data.youtubeAdsImage)
             }
             retries = 0
           }

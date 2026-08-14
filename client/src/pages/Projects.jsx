@@ -15,10 +15,12 @@ export default function Projects({navigate, category}){
     console.log('Fetching pages for category:', category)
     fetch(`${API_BASE_URL}/api/pages`)
       .then(r=>r.json())
-      .then(data=>{
-        console.log('Fetched pages:', data)
-        console.log('Filtered by category:', category, data.filter(p => !category || p.category === category))
-        setPages(data)
+      .then(json=>{
+        const data = json.value || json  // Handle array response or direct object
+        const pagesList = Array.isArray(data) ? data : [data]
+        console.log('Fetched pages:', pagesList)
+        console.log('Filtered by category:', category, pagesList.filter(p => !category || p.category === category))
+        setPages(pagesList)
         setLoading(false)
       })
       .catch(err=>{
@@ -31,19 +33,27 @@ export default function Projects({navigate, category}){
     const interval = setInterval(() => {
       fetch(`${API_BASE_URL}/api/pages`)
         .then(r=>r.json())
-        .then(data=> setPages(data))
+        .then(json=>{
+          const data = json.value || json  // Handle array response or direct object
+          const pagesList = Array.isArray(data) ? data : [data]
+          setPages(pagesList)
+        })
         .catch(err=> console.error('Auto-refresh failed:', err))
     }, 5000)
     return () => clearInterval(interval)
   }, [])
 
   useEffect(()=>{
-    fetch(`${API_BASE_URL}/api/hero`)
+    fetch(`${API_BASE_URL}/api/heroes`)
       .then(r=>r.json())
-      .then(data=>{
+      .then(json=>{
+        const data = json.value?.[0] || json  // Handle array response or direct object
         setHero(data)
         if (data?.heroImage && data.heroImage.trim() && !data.heroImage.includes('/uploads/')) {
           setHeroImage(data.heroImage.trim())
+        } else if (data?.youtubeAdsImage && data.youtubeAdsImage.trim()) {
+          // Fallback to youtubeAdsImage if heroImage is empty
+          setHeroImage(data.youtubeAdsImage.trim())
         }
       })
       .catch(err=>{
@@ -52,9 +62,10 @@ export default function Projects({navigate, category}){
   }, [])
 
   useEffect(()=>{
-    fetch(`${API_BASE_URL}/api/category-heroes`)
+    fetch(`${API_BASE_URL}/api/categoryheroes`)
       .then(r=>r.json())
-      .then(data=>{
+      .then(json=>{
+        const data = json.value?.[0] || json  // Handle array response or direct object
         setCategoryHeroes(data)
         // Use main hero image if present, otherwise fall back to category image
         if (!hero.heroImage) {

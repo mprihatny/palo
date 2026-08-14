@@ -44,9 +44,10 @@ export default function Admin({navigate}){
     const loadHero = async () => {
       try {
         setError(null)
-        const response = await fetch(`${API_BASE_URL}/api/hero`, { signal: AbortSignal.timeout(5000) })
+        const response = await fetch(`${API_BASE_URL}/api/heroes`, { signal: AbortSignal.timeout(5000) })
         if (!response.ok) throw new Error(`HTTP ${response.status}`)
-        const data = await response.json()
+        const json = await response.json()
+        const data = json.value?.[0] || json  // Handle array response or direct object
         setHero(prev=>({ ...prev, ...data }))
         setLoading(false)
         retries = 0
@@ -68,8 +69,9 @@ export default function Admin({navigate}){
       try {
         const res = await fetch(`${API_BASE_URL}/api/pages`)
         if (res.ok) {
-          const data = await res.json()
-          setPages(data)
+          const json = await res.json()
+          const data = json.value || json  // Handle array response or direct object
+          setPages(Array.isArray(data) ? data : [data])
         }
       } catch (err) {
       }
@@ -81,8 +83,9 @@ export default function Admin({navigate}){
       try {
         const res = await fetch(`${API_BASE_URL}/api/links`)
         if (res.ok) {
-          const data = await res.json()
-          setLinks(data)
+          const json = await res.json()
+          const data = json.value || json  // Handle array response or direct object
+          setLinks(Array.isArray(data) ? data : [data])
         }
       } catch (err) {
       }
@@ -92,9 +95,10 @@ export default function Admin({navigate}){
     // Load category heroes
     const loadCategoryHeroes = async () => {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/category-heroes`)
+        const res = await fetch(`${API_BASE_URL}/api/categoryheroes`)
         if (res.ok) {
-          const data = await res.json()
+          const json = await res.json()
+          const data = json.value?.[0] || json  // Handle array response or direct object
           setCategoryHeroes(data)
         }
       } catch (err) {
@@ -301,7 +305,7 @@ export default function Admin({navigate}){
 
   const save = async ()=>{
     try {
-      const response = await fetch(`${API_BASE_URL}/api/hero`, { 
+      const response = await fetch(`${API_BASE_URL}/api/heroes`, { 
         method:'PUT', 
         headers: getAuthHeaders(), 
         body: JSON.stringify(hero)
@@ -335,7 +339,7 @@ export default function Admin({navigate}){
 
   const saveCategoryHeroes = async ()=>{
     try {
-      const response = await fetch(`${API_BASE_URL}/api/category-heroes`, { 
+      const response = await fetch(`${API_BASE_URL}/api/categoryheroes`, { 
         method:'PUT', 
         headers: getAuthHeaders(), 
         body: JSON.stringify(categoryHeroes)
@@ -353,7 +357,7 @@ export default function Admin({navigate}){
   const saveAllImages = async () => {
     try {
       // Save hero images
-      const heroResponse = await fetch(`${API_BASE_URL}/api/hero`, {
+      const heroResponse = await fetch(`${API_BASE_URL}/api/heroes`, {
         method: 'PUT',
         headers: getAuthHeaders(),
         body: JSON.stringify(hero)
@@ -363,7 +367,7 @@ export default function Admin({navigate}){
       setHero(heroData)
 
       // Save category images
-      const categoryResponse = await fetch(`${API_BASE_URL}/api/category-heroes`, {
+      const categoryResponse = await fetch(`${API_BASE_URL}/api/categoryheroes`, {
         method: 'PUT',
         headers: getAuthHeaders(),
         body: JSON.stringify(categoryHeroes)
