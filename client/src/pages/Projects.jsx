@@ -49,19 +49,25 @@ export default function Projects({navigate, category}){
       .then(json=>{
         const data = json.value?.[0] || json  // Handle array response or direct object
         setHero(data)
-        // Priority: projectsHeroImage > heroImage > youtubeAdsImage
-        if (data?.projectsHeroImage && data.projectsHeroImage.trim() && !data.projectsHeroImage.includes('/uploads/')) {
-          setHeroImage(data.projectsHeroImage.trim())
-        } else if (data?.heroImage && data.heroImage.trim() && !data.heroImage.includes('/uploads/')) {
-          setHeroImage(data.heroImage.trim())
-        } else if (data?.youtubeAdsImage && data.youtubeAdsImage.trim()) {
-          setHeroImage(data.youtubeAdsImage.trim())
+        // Set hero image based on category with hardcoded fallbacks
+        switch(category) {
+          case 'Autorské texty':
+            setHeroImage('https://i.postimg.cc/Tw90WwCF/autorske-foto.jpg')
+            break
+          case 'Preklady':
+            setHeroImage('https://i.postimg.cc/DZg6bZBD/preklady-foto.jpg')
+            break
+          case 'Pripravované':
+            setHeroImage('https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg')
+            break
+          default:
+            setHeroImage('https://i.postimg.cc/150Sg2Tx/pripravovane-foto-(1).jpg')
         }
       })
       .catch(err=>{
         console.error('Failed to fetch hero:', err)
       })
-  }, [])
+  }, [category])
 
   useEffect(()=>{
     fetch(`${API_BASE_URL}/api/categoryheroes`)
@@ -69,21 +75,11 @@ export default function Projects({navigate, category}){
       .then(json=>{
         const data = json.value?.[0] || json  // Handle array response or direct object
         setCategoryHeroes(data)
-        // Use main hero image if present, otherwise fall back to category image
-        if (!hero.heroImage) {
-          if (category === 'Autorské texty' && data.autorske?.image) {
-            setHeroImage(data.autorske.image)
-          } else if (category === 'Preklady' && data.preklady?.image) {
-            setHeroImage(data.preklady.image)
-          } else if (category === 'Pripravované' && data.pripravovane?.image) {
-            setHeroImage(data.pripravovane.image)
-          }
-        }
       })
       .catch(err=>{
         console.error('Failed to fetch category heroes:', err)
       })
-  }, [category, hero.heroImage])
+  }, [])
 
   const filtered = category ? pages.filter(p => p.category === category) : pages
   const books = [...filtered.filter(p => p.type === 'Knihy')].sort((a, b) => (a.title || '').localeCompare(b.title || ''))

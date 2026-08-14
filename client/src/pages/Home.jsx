@@ -31,14 +31,8 @@ export default function Home({navigate}){
         if (isMounted) {
           if (data && Object.keys(data).length) {
             setHero(prev => ({ ...prev, ...data }))
-            // Priority: homeHeroImage > heroImage > youtubeAdsImage
-            if (data.homeHeroImage && !data.homeHeroImage.includes('/uploads/')) {
-              setHeroImage(data.homeHeroImage)
-            } else if (data.heroImage && !data.heroImage.includes('/uploads/')) {
-              setHeroImage(data.heroImage)
-            } else if (data.youtubeAdsImage) {
-              setHeroImage(data.youtubeAdsImage)
-            }
+            // Hardcoded hero image for Home page
+            setHeroImage('https://i.postimg.cc/1zYqFXdh/ja-web-cb-(1).jpg')
             retries = 0
           }
           setLoading(false)

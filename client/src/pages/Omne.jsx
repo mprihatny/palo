@@ -26,15 +26,8 @@ export default function Omne(){
         const data = json.value?.[0] || json  // Handle array response or direct object
         if (isMounted) {
           setHero(data)
-          // Priority: omneHeroImage > heroImage > youtubeAdsImage > DEFAULT
-          const resolvedHeroImage = data?.omneHeroImage && data.omneHeroImage.trim() && !data.omneHeroImage.includes('/uploads/')
-            ? data.omneHeroImage.trim()
-            : data?.heroImage && data.heroImage.trim() && !data.heroImage.includes('/uploads/')
-              ? data.heroImage.trim()
-              : data?.youtubeAdsImage && data.youtubeAdsImage.trim()
-                ? data.youtubeAdsImage.trim()
-                : DEFAULT_HERO_IMAGE
-          setHeroImage(resolvedHeroImage)
+          // Hardcoded hero image for Omne (About) page
+          setHeroImage('https://i.postimg.cc/1zYqFXdh/ja-web-cb-(1).jpg')
           setAboutText(data?.omneText || data?.aboutText || 'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.')
           setLoading(false)
         }
