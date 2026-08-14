@@ -49,10 +49,12 @@ export default function Projects({navigate, category}){
       .then(json=>{
         const data = json.value?.[0] || json  // Handle array response or direct object
         setHero(data)
-        if (data?.heroImage && data.heroImage.trim() && !data.heroImage.includes('/uploads/')) {
+        // Priority: projectsHeroImage > heroImage > youtubeAdsImage
+        if (data?.projectsHeroImage && data.projectsHeroImage.trim() && !data.projectsHeroImage.includes('/uploads/')) {
+          setHeroImage(data.projectsHeroImage.trim())
+        } else if (data?.heroImage && data.heroImage.trim() && !data.heroImage.includes('/uploads/')) {
           setHeroImage(data.heroImage.trim())
         } else if (data?.youtubeAdsImage && data.youtubeAdsImage.trim()) {
-          // Fallback to youtubeAdsImage if heroImage is empty
           setHeroImage(data.youtubeAdsImage.trim())
         }
       })

@@ -31,11 +31,12 @@ export default function Home({navigate}){
         if (isMounted) {
           if (data && Object.keys(data).length) {
             setHero(prev => ({ ...prev, ...data }))
-            // Only use heroImage if it's a valid external URL (not from uploads folder)
-            if (data.heroImage && !data.heroImage.includes('/uploads/')) {
+            // Priority: homeHeroImage > heroImage > youtubeAdsImage
+            if (data.homeHeroImage && !data.homeHeroImage.includes('/uploads/')) {
+              setHeroImage(data.homeHeroImage)
+            } else if (data.heroImage && !data.heroImage.includes('/uploads/')) {
               setHeroImage(data.heroImage)
             } else if (data.youtubeAdsImage) {
-              // Fallback to youtubeAdsImage if heroImage is empty
               setHeroImage(data.youtubeAdsImage)
             }
             retries = 0

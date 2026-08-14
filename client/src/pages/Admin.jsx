@@ -9,7 +9,7 @@ export default function Admin({navigate}){
   const [passwordInput, setPasswordInput] = useState('')
   const [loginError, setLoginError] = useState('')
   
-  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', quoteWeight:'400', quoteStyle:'italic', aboutText:'Vitajte na mojej stránke...', omneText:'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.', heroImage:'', youtubeImage:'https://i.postimg.cc/Y9k89gf5/web-thumbnail.png' })
+  const [hero, setHero] = useState({ title:'Moja kníca', subtitle:'', style:{ color:'#E1DED2', fontWeight:'700', fontSize:'52px' }, quote:'Priestor na krátky text/citáciu', quoteColor:'#931413', quoteWeight:'400', quoteStyle:'italic', aboutText:'Vitajte na mojej stránke...', omneText:'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.', heroImage:'', homeHeroImage:'', omneHeroImage:'', projectsHeroImage:'', youtubeImage:'https://i.postimg.cc/Y9k89gf5/web-thumbnail.png' })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
@@ -692,12 +692,48 @@ export default function Admin({navigate}){
             
             {/* Hero Image */}
             <div>
-              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Hero obrázok (horný)</label>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>Hero obrázok (fallback pre všetky stránky)</label>
               <input 
                 type="text"
                 value={hero.heroImage||''} 
                 onChange={(e) => setHero({...hero, heroImage: e.target.value})}
                 placeholder="https://..."
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
+            </div>
+
+            {/* Home Hero Image */}
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>🏠 Home stránka - obrázok</label>
+              <input 
+                type="text"
+                value={hero.homeHeroImage||''} 
+                onChange={(e) => setHero({...hero, homeHeroImage: e.target.value})}
+                placeholder="https://... (iba pre Home stránku)"
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
+            </div>
+
+            {/* Omne Hero Image */}
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>📖 O mne stránka - obrázok</label>
+              <input 
+                type="text"
+                value={hero.omneHeroImage||''} 
+                onChange={(e) => setHero({...hero, omneHeroImage: e.target.value})}
+                placeholder="https://... (iba pre Omne stránku)"
+                style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
+              />
+            </div>
+
+            {/* Projects Hero Image */}
+            <div>
+              <label style={{display:'block', marginBottom:8, fontWeight:600, fontFamily:"'Radio Canada', sans-serif", fontSize:12, color:'var(--color-dark)'}}>📚 Projekty stránka - obrázok</label>
+              <input 
+                type="text"
+                value={hero.projectsHeroImage||''} 
+                onChange={(e) => setHero({...hero, projectsHeroImage: e.target.value})}
+                placeholder="https://... (iba pre Projekty stránku)"
                 style={{width:'100%', padding:'10px 12px', border:'1px solid var(--border)', borderRadius:'4px', fontFamily:"'Radio Canada', sans-serif", fontSize:14}}
               />
             </div>

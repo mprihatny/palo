@@ -26,11 +26,14 @@ export default function Omne(){
         const data = json.value?.[0] || json  // Handle array response or direct object
         if (isMounted) {
           setHero(data)
-          const resolvedHeroImage = data?.heroImage && data.heroImage.trim() && !data.heroImage.includes('/uploads/')
-            ? data.heroImage.trim()
-            : data?.youtubeAdsImage && data.youtubeAdsImage.trim()
-              ? data.youtubeAdsImage.trim()
-              : DEFAULT_HERO_IMAGE
+          // Priority: omneHeroImage > heroImage > youtubeAdsImage > DEFAULT
+          const resolvedHeroImage = data?.omneHeroImage && data.omneHeroImage.trim() && !data.omneHeroImage.includes('/uploads/')
+            ? data.omneHeroImage.trim()
+            : data?.heroImage && data.heroImage.trim() && !data.heroImage.includes('/uploads/')
+              ? data.heroImage.trim()
+              : data?.youtubeAdsImage && data.youtubeAdsImage.trim()
+                ? data.youtubeAdsImage.trim()
+                : DEFAULT_HERO_IMAGE
           setHeroImage(resolvedHeroImage)
           setAboutText(data?.omneText || data?.aboutText || 'O mne obsah ešte nie je nastavený. Použi admin panel na úpravu.')
           setLoading(false)
